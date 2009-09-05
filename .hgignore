@@ -27,3 +27,4 @@ data/global.inc
 content/.*\.rar
 content/.*\.djvu
 soft/.*\.rar
+tmp/.*
