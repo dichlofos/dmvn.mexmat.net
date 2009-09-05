@@ -23,6 +23,7 @@ service/webreg/.*
 # site-dependent
 books/.*\.pdf
 data/.*\.dat
+data/global.inc
 content/.*\.rar
 content/.*\.djvu
 soft/.*\.rar
