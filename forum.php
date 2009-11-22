@@ -575,7 +575,7 @@
   // -------------------------------------------------------------
   function bURLSymbol($strSym)
   {
-    return ereg("[a-zA-Z0-9/\+\&\#\=\%\:\?\.\_\-]", $strSym);
+    return ereg("[a-zA-Z0-9/\!\+\&\#\=\%\:\?\.\_\-]", $strSym);
   }
 
   function TraceURL($strS)
