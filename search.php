@@ -5,7 +5,7 @@
   // понимал, что этот файл на самом деле представляет собой
   // файл в кодировке Windows.
   // -------------------------------------------------------------
-  // Скрипт написан ]DichlofoS[ Systems, 2006
+  // Скрипт написан ]DichlofoS[ Systems, 2006-2010
   // -------------------------------------------------------------
 
   extract($_SERVER);
@@ -45,43 +45,43 @@
 
   // -------------------------------------------
   // Search word by data
-	function FindInData($arrItem, $strNeedle, $nSIndex)
-	{
-		if ($strNeedle == '') { echo 'Assertion failed in FindInData()! '; die(); }
-		// Поиск данного элемента во всей строке базы
-		for ($i = $nSIndex; $i < count($arrItem); $i++)
-			if (strpos(myStrToLower($arrItem[$i]), $strNeedle) !== false)
-				return true;
-		// Искали-искали, ничего так и не нашли
-		return false;
+  function FindInData($arrItem, $strNeedle, $nSIndex)
+  {
+    if ($strNeedle == '') { echo 'Assertion failed in FindInData()! '; die(); }
+    // Поиск данного элемента во всей строке базы
+    for ($i = $nSIndex; $i < count($arrItem); $i++)
+      if (strpos(myStrToLower($arrItem[$i]), $strNeedle) !== false)
+        return true;
+    // Искали-искали, ничего так и не нашли
+    return false;
   }
 
   // -------------------------------------------
   // Total search of words by data
-	function FindIn($arrSearch, $arrItem, $nSIndex)
-	{
-		// Верим, что нашли всё (если что-то не нашли, сбросим)
-		foreach ($arrSearch as $strSearchKey => $arrSearchEl)
-		{
-			// считаем, что нерасширенный элемент найден, если
-			// найдена либо вся его группа расширения, либо расширитель
-			$bGroupFound = false; // либо тут, либо тут (хоть где-то)
+  function FindIn($arrSearch, $arrItem, $nSIndex)
+  {
+    // Верим, что нашли всё (если что-то не нашли, сбросим)
+    foreach ($arrSearch as $strSearchKey => $arrSearchEl)
+    {
+      // считаем, что нерасширенный элемент найден, если
+      // найдена либо вся его группа расширения, либо расширитель
+      $bGroupFound = false; // либо тут, либо тут (хоть где-то)
               
-			$bExpandedFound = true;
-			foreach ($arrSearchEl as $strNeedle)
-				if (!FindInData($arrItem, $strNeedle, $nSIndex))
-				{
-					$bExpandedFound = false;
-					break;
-				}
+      $bExpandedFound = true;
+      foreach ($arrSearchEl as $strNeedle)
+        if (!FindInData($arrItem, $strNeedle, $nSIndex))
+        {
+          $bExpandedFound = false;
+          break;
+        }
 
-			$bGroupFound = $bGroupFound || $bExpandedFound;
-			$bGroupFound = $bGroupFound || FindInData($arrItem, $strSearchKey, $nSIndex);
-             	
-			if (!$bGroupFound) return false;
-		}
-		return true;
-	}
+      $bGroupFound = $bGroupFound || $bExpandedFound;
+      $bGroupFound = $bGroupFound || FindInData($arrItem, $strSearchKey, $nSIndex);
+              
+      if (!$bGroupFound) return false;
+    }
+    return true;
+  }
 
   // -------------------------------------------
   // Search filter
@@ -117,8 +117,8 @@
           // матан,матана|математическ,анализ
           if ($arrRep[1] != '')
           {
-          	$arrRE = explode(',', $arrRep[1]);
-          	foreach ($arrRE as $strRE) $arrOut[] = $strRE;
+            $arrRE = explode(',', $arrRep[1]);
+            foreach ($arrRE as $strRE) $arrOut[] = $strRE;
           }
           $bReplaced = true;
           break;
@@ -194,24 +194,24 @@
       foreach ($arrPreSearch as $strPreSearch)
       {
         $strPreSearch = trim($strPreSearch);
-       	if ($strPreSearch != '')
+        if ($strPreSearch != '')
         {
-        	// SearchFilter return array, maybe empty
-        	$arrSearchEl = SearchFilter($strPreSearch);
-        	if (count($arrSearchEl))
-        		$arrSearch[$strPreSearch] = $arrSearchEl;
-        	// Пример: матан->математическ,анализ
-        	// Пример: в,на,за,о,до,с,из,за,и->[null]
-        	// Такие не вносим в расширители, тем самым игнорируем
-        }	
+          // SearchFilter return array, maybe empty
+          $arrSearchEl = SearchFilter($strPreSearch);
+          if (count($arrSearchEl))
+            $arrSearch[$strPreSearch] = $arrSearchEl;
+          // Пример: матан->математическ,анализ
+          // Пример: в,на,за,о,до,с,из,за,и->[null]
+          // Такие не вносим в расширители, тем самым игнорируем
+        } 
       }
       $strSS = '';
       foreach ($arrSearch as $strSearchKey => $arrSearchEl)
       {
-      	$strSSEl = '';
-      	foreach ($arrSearchEl as $strSearchEl)
-      		$strSSEl .= "$strSearchEl ";
-      	$strSS .= $strSearchKey.'=['.trim($strSSEl).'] ';
+        $strSSEl = '';
+        foreach ($arrSearchEl as $strSearchEl)
+          $strSSEl .= "$strSearchEl ";
+        $strSS .= $strSearchKey.'=['.trim($strSSEl).'] ';
       }
 
       echol(hRow(hCell('Обработанный запрос (с использованием DCIPM): '.hBold(out($strSS)), 'PlainTextInfo')));

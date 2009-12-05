@@ -55,11 +55,12 @@
       }
       $strSize = $strS.$strSize;
 
-      if ($this->nSize < 1024) return "1  б";
+      if ($this->nSize < 1024) return "1K";
 
-      return $strSize."  б";
+      return $strSize."K";
     }
 
+/* 
     function strGetDispTime()
     {
       $nMonth = date("n", $this->nTime);
@@ -77,6 +78,11 @@
       $arrMonths[11] = ' но€бр€ ';
       $arrMonths[12] = ' декабр€ ';
       return date('j', $this->nTime).$arrMonths[$nMonth].date('Y', $this->nTime).' года';
+    }
+*/
+		// web-optimizing date-time display
+		function strGetDispTime() {
+			return date('d.m.Y', $this->nTime);
     }
 
   }

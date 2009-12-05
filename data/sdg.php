@@ -273,7 +273,7 @@
       if (!$itemOut->strTitle) Death("TITLE specification is missing in ITEM!");
       $strSearchID = RandomString(32);
       $strOut = $strCategory.'|'.$itemOut->strSection.'|'.$itemOut->strTitle.'|'.$itemOut->strDesc.'|'.$strSearchID;
-      RepMsg($strOut);
+      //RepMsg($strOut);
       if (!ArrEmpty($itemOut->arrRes))
         foreach ($itemOut->arrRes as $resOut)
         {
@@ -308,5 +308,5 @@
   </body>
 </html>
 <?php
-//  echo('<HTML><SCRIPT language="javascript">open("../'.$ref.'", "_self");</SCRIPT></HTML>');
+  echo("<HTML><SCRIPT language=\"javascript\">open('../$ref', '_self');</SCRIPT></HTML>");
 ?>

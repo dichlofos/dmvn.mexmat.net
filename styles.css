@@ -34,6 +34,9 @@ P.PlainTextInfo
   text-align: justify;
 }
 /* ----------------------------- */
+a {
+  text-decoration: none;
+}
 A:link   {color: #e3af7c}   
 A:visited{color: #e3af7c}
 A:hover  {color: #ff5050}  
@@ -261,4 +264,10 @@ SELECT.Menu
 SELECT.Codepage
 {
   width: 120;
+}
+img.icon {
+  border: 0px;
+  padding: 0px;
+  margin: 0px;
+  margin-bottom: -3px;
 }

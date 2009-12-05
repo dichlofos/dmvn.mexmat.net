@@ -202,7 +202,7 @@
     <CENTER><TABLE border="0" width="100%">
         <TR>
           <TD align="middle" width="50%"><P><BR>
-              Copyright © 2003&#8211;2009, '.llink('mailto:'.$strMail, 'DMVN').'. All rights reserved.</P>
+              Copyright © 2003&#8211;2010, '.llink('mailto:'.$strMail, 'DMVN').'. All rights reserved.</P>
           </TD>
         </TR>
       </TABLE>
@@ -211,34 +211,57 @@
 </HTML>';
   }
   // -------------------------------------------------------------
-  function PutItem($strCategory, $strSection, $strItemSectionID, $strTitle, $strDesc, $strSearchID, $arrResData)
-  {
-    $bDisp = false;
-    if ($strSection == $strItemSectionID || $strSection == '0' || $strSection == '') $bDisp = true;
-    
-    $arrTargetSections = explode(",", $strItemSectionID);
-    $arrRequestedSections = explode(",", $strSection);
-    for ($i = 0; $i < count($arrTargetSections); $i++)
-      for ($j = 0; $j < count($arrRequestedSections); $j++)
-        if ($arrTargetSections[$i] == $arrRequestedSections[$j]) $bDisp = true;
-            
-    if ($strDesc != '.section.' && $strDesc != '.newsblock.' && $bDisp)
-    {
-      echo '<TR><TD class="PlainTitle" vAlign = "center" style="width: 0cm">';
-      echo '<A NAME="'.$strSearchID.'"></A>';
-      if ($strItemSectionID != '') echo '['.$strItemSectionID.']';
-      echo '</TD><TD class="PlainTitle" vAlign = "center">';
-      echo $strTitle.'</TD></TR>';
-      if ($strDesc) echo '<TR><TD style ="width: 0cm"></TD><TD class="PlainText">'.$strDesc.'</TD></TR>';
-      if (!ArrEmpty($arrResData))
-      {
-        echo '<TR><TD style ="width: 0cm"></TD><TD class="LUpd">';
-        for ($i = 0; $i < count($arrResData); $i+=4)
-          echo llink('/content/'.$strCategory.'/'.$arrResData[$i+0], $arrResData[$i+3].' ('.$arrResData[$i+1].')'). ' &#8212; '.$arrResData[$i+2].'. ';
-        echo '</TD></TR>';
-      }
-    }
-  }
+	function PutItem($strCategory, $strSection, $strItemSectionID, $strTitle, $strDesc, $strSearchID, $arrResData)
+	{
+		$bDisp = false;
+		if ($strSection == $strItemSectionID || $strSection == '0' || $strSection == '') $bDisp = true;
+		
+		$arrTargetSections = explode(",", $strItemSectionID);
+		$arrRequestedSections = explode(",", $strSection);
+		for ($i = 0; $i < count($arrTargetSections); $i++) {
+			for ($j = 0; $j < count($arrRequestedSections); $j++) {
+				if ($arrTargetSections[$i] == $arrRequestedSections[$j]) $bDisp = true;
+			}
+		}
+		if ($strDesc != '.section.' && $strDesc != '.newsblock.' && $bDisp) {
+			echo '<TR><TD class="PlainTitle" vAlign = "center" style="width: 0cm">';
+			echo '<A NAME="'.$strSearchID.'"></A>';
+			if ($strItemSectionID != '') echo '['.$strItemSectionID.']';
+			echo '</TD><TD class="PlainTitle" vAlign = "center">';
+			echo $strTitle.'</TD></TR>';
+			if ($strDesc) echo '<TR><TD style ="width: 0cm"></TD><TD class="PlainText">'.$strDesc.'</TD></TR>';
+			if (!ArrEmpty($arrResData)) {
+				echo '<TR><TD style ="width: 0cm"></TD><TD class="LUpd">';
+				for ($i = 0; $i < count($arrResData); $i+=4) {
+					$sFN = $arrResData[$i+0];
+					$sSize = $arrResData[$i+1];
+					$sDate = $arrResData[$i+2];
+					$sFmt = $arrResData[$i+3];
+					if ($sFmt == 'PostScript') {
+						$sPFmt = '<img class="icon" src="/images/icons/ps.gif" alt="PostScript" />';
+					} elseif ($sFmt == 'PDF') {
+						$sPFmt = '<img class="icon" src="/images/icons/pdf.gif" alt="PDF" />';
+					} elseif ($sFmt == 'MSWord') {
+						$sPFmt = '<img class="icon" src="/images/icons/msword.gif" alt="Microsoft Word" />';
+					} elseif ($sFmt == 'DjVu') {
+						$sPFmt = '<img class="icon" src="/images/icons/djvu.gif" alt="DjVu" />';
+					} elseif ($sFmt == 'RAR') {
+						$sPFmt = '<img class="icon" src="/images/icons/rar.gif" alt="RAR" />';
+					} elseif ($sFmt == 'TeX') {
+						$sPFmt = '<img class="icon" src="/images/icons/tex.gif" alt="TeX Source" />';
+					} elseif ($sFmt == 'C++') {
+						$sPFmt = '<img class="icon" src="/images/icons/cpp.gif" alt="C++ Source" />';
+					} else {
+						/*echo "Unknown format: $sFmt";
+						die();*/
+						$sPFmt = $sFmt;
+					}
+					echo llink("/content/$strCategory/$sFN", "$sPFmt $sSize")." &#8212; $sDate&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+				}
+				echo '</TD></TR>';
+			}
+		}
+	}
 
   function PutTextBlock($strCaption, $strText, $strCaptionColor, $strTextColor)
   {
