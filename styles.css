@@ -13,21 +13,21 @@
   text-align: justify;
 } 
 /* ----------------------------- */
-P
-{
+
+p {
   font-family: Verdana, Arial;
   font-size: 9pt;
 }
-P.Subtitle
-{
+
+p.Subtitle {
   font-weight: bold;
   font-size: 12pt;
   color: #ff9933;
   font-family: Tahoma, Arial;
   text-align: center;
 }
-P.PlainTextInfo
-{
+
+P.PlainTextInfo {
   font-size: 9pt;
   color: #00ff00;
   font-family: Verdana, Arial;
@@ -46,7 +46,8 @@ A.left
 {
   font-size: 9pt;
   font-family: Verdana, Arial;
-  height: 16px;
+  height: 12pt;
+	line-height: 12pt;
   text-decoration: none;
   display: block;
   color: #000000;

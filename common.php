@@ -241,6 +241,8 @@
 						$sPFmt = '<img class="icon" src="/images/icons/ps.gif" alt="PostScript" />';
 					} elseif ($sFmt == 'PDF') {
 						$sPFmt = '<img class="icon" src="/images/icons/pdf.gif" alt="PDF" />';
+					} elseif ($sFmt == 'PDF(RAR)') {
+						$sPFmt = '<img class="icon" src="/images/icons/pdf.gif" alt="PDF (RAR)" />';
 					} elseif ($sFmt == 'MSWord') {
 						$sPFmt = '<img class="icon" src="/images/icons/msword.gif" alt="Microsoft Word" />';
 					} elseif ($sFmt == 'DjVu') {
