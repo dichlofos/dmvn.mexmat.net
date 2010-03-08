@@ -2,8 +2,12 @@
 
 * заголовки сайта должны отличаться в зависимости от страницы
 * meta-тэги -- тоже.
-* проверить, что поисковый мусор исключился в гугле
-* проверить crawl errors с новыми robots.txt
 * Для yandex заюзать тэги <noindex/> для всякого стаффа, который не нужно индексить
 * выложить документы в формате pdf как есть, без архивации
 
+Прочие фиксы:
+
+* Please fix the following bug in the left menu (see attachment): overlapping
+menu items on windows large mode, Fx 3.6rus, Ctrl+0 mode (ctrl+[minus] twce
+gets even worse) -- письмо на gmail-овском ящике
+  Там нужен nowrap и возможно правильное указание размера
