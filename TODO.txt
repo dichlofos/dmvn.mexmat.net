@@ -4,8 +4,12 @@
 * meta-тэги -- тоже.
 * Для yandex заюзать тэги <noindex/> для всякого стаффа, который не нужно индексить
 * выложить документы в формате pdf как есть, без архивации
+  (начало положено, см теорвер)
+* для элементов меню прикрутить адекватные title-ы и возможно alt-ы
 
 Прочие фиксы:
+
+* оптимизировать css, выкинуть повторяющиеся определения фонтов и пр.
 
 * Please fix the following bug in the left menu (see attachment): overlapping
 menu items on windows large mode, Fx 3.6rus, Ctrl+0 mode (ctrl+[minus] twce
