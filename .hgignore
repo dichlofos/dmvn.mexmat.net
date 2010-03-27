@@ -24,6 +24,7 @@ service/webreg/.*
 books/.*\.pdf
 data/.*\.dat
 data/global.inc
+content/.*\.pdf
 content/.*\.rar
 content/.*\.djvu
 soft/.*\.rar
