@@ -128,17 +128,43 @@
     else return $strText;
   }
   // -------------------------------------------------------------
+	function PutMetaInfo($CurrentMenuItem) {
+		$fMeta=fopen('meta.dat', 'r');
+		if (!$fMeta) {
+			echo "Cannot open metadata description file. ";
+			die();
+		}
+		while (!feof($fMeta)) {
+			$sMeta=trim(fgets($fMeta));
+			$aMeta=explode('|', $sMeta);
+			if (count($aMeta) < 4) {
+				echo "Invalid meta data format at line $sMeta.";
+				die();
+			}
+			global ${'mnu'.$aMeta[0]};
+			if ($CurrentMenuItem != ${'mnu'.$aMeta[0]}) continue;
+			$sTitle=htmlspecialchars($aMeta[1]);
+			$sKeywords=$aMeta[2];
+			$sDesc=$aMeta[3];
+			echo "\r\n";
+			echo "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=windows-1251\">\r\n";
+			echo "<meta name=\"author\" content=\"DMVN\">\r\n";
+			echo "<meta name=\"keywords\" content=\"$sKeywords\">\r\n";
+			echo "<meta name=\"description\" content=\"$sDesc\">\r\n";
+			echo "<title>Учебные материалы DMVN :: $sTitle</title>\r\n";
+			break;
+		}
+		fclose($fMeta);
+	}
+  // -------------------------------------------------------------
+	// TODO: remove strSiteLastUpdate (make global)
   function PutPageHeader($arrMFiles, $arrMTitles, $arrMColors, $CurrentMenuItem, $arrCat, $strSiteLastUpdate, $section)
   {
     echo '
 <HTML>
-  <HEAD>
-    <TITLE>DMVN WebSite &#8212; Учебные материалы &#8212; Обновлён: '.$strSiteLastUpdate.'</TITLE>
-    <META http-equiv="Content-Type" content="text/html; charset=windows-1251">
-    <meta name="author" content="DMVN">
-    <meta name="keywords" content="образование, учебные материалы, мехмат, МГУ, учеба, лекции, семинары">
-    <meta name="description" content="Сайт DMVN">
-    <LINK rel="stylesheet" type="text/css" href="styles.css">
+  <HEAD>';
+		PutMetaInfo($CurrentMenuItem);
+		echo '<LINK rel="stylesheet" type="text/css" href="styles.css">
   </HEAD>
   <BODY bgColor="#000000" text="#cccccc">
     <script language="javascript" src="script.js"></SCRIPT>
