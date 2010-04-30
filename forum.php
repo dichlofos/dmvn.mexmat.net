@@ -138,7 +138,7 @@
       echol(
         hoForm('frmLogin', "$PHP_SELF?strAction=login").
         hTable(hRow(
-          hCell($lblPassword, 'InFormB').
+          hCell($lblPassword, 'InForm Bold').
           hCell(hInput('txtPass', 'password')).
           hCell(hInput('subLogin', 'submit', 'subSubmit', $lblLogin))
         )).
@@ -273,45 +273,45 @@
           echol('</tr></table>');
           echol(hoForm('frmPost', $strFormSubmitAction));
           echol('<table border=0 cellspacing=0>');
-/*        echol(hRow(hCell('PostID:', 'InFormBB').
-                hCell(":|".out($strPostID)."|:", 'InFormB')));
-          echol(hRow(hCell('Action:', 'InFormBB').
-                hCell(out($strFormSubmitAction), 'InFormB'))); */
+/*        echol(hRow(hCell('PostID:', 'InForm Labels').
+                hCell(":|".out($strPostID)."|:", 'InForm Bold')));
+          echol(hRow(hCell('Action:', 'InForm Labels').
+                hCell(out($strFormSubmitAction), 'InForm Bold'))); */
           if ($bAdmin && $strPostID != '')
           {
             // Date
-            echol(hRow(hCell($lblDate, 'InFormBB').
+            echol(hRow(hCell($lblDate, 'InForm Labels').
                   hCell(hInput('txtDate', 'text', 'txtForum', $valDate))));
             // Time
-            echol(hRow(hCell($lblTime, 'InFormBB').
+            echol(hRow(hCell($lblTime, 'InForm Labels').
                   hCell(hInput('txtTime', 'text', 'txtForum', $valTime))));
           }
           // Name
-          echol(hRow(hCell($lblName, 'InFormBB').
+          echol(hRow(hCell($lblName, 'InForm Labels').
                 hCell(hInput('txtName', 'text', 'txtForum', $valName))));
           // Theme
-          echol(hRow(hCell($lblTheme, 'InFormBB').
+          echol(hRow(hCell($lblTheme, 'InForm Labels').
                 hCell(hInput('txtTheme', 'text', 'txtForum', $valTheme))));
           // HomePage
-          echol(hRow(hCell($lblHomePage, 'InFormBB').
+          echol(hRow(hCell($lblHomePage, 'InForm Labels').
                 hCell(hInput('txtHomePage', 'text', 'txtForum', $valHomePage))));
           // EMail
-          echol(hRow(hCell($lblEMail, 'InFormBB').
+          echol(hRow(hCell($lblEMail, 'InForm Labels').
                 hCell(hInput('txtEMail', 'text', 'txtForum', $valEMail))));
           if ($bAdmin && $strPostID != '')
           {
             // IP
-            echol(hRow(hCell($lblIP, 'InFormBB').
+            echol(hRow(hCell($lblIP, 'InForm Labels').
                   hCell(hInput('txtIP', 'text', 'txtForum', $valIP))));
             // UserAgent
-            echol(hRow(hCell($lblUserAgent, 'InFormBB').
+            echol(hRow(hCell($lblUserAgent, 'InForm Labels').
                   hCell(hInput('txtUserAgent', 'text', 'txtForum', $valUserAgent))));
             // Flag
-            echol(hRow(hCell($lblFlag, 'InFormBB').
+            echol(hRow(hCell($lblFlag, 'InForm Labels').
                   hCell(hInput('txtFlag', 'text', 'txtForum', $valFlag))));
           }
           // Comment
-          echol(hRow(hCell($lblComment, 'InFormBB').hCell('')));
+          echol(hRow(hCell($lblComment, 'InForm Labels').hCell('')));
           echol(hRow(hCell(hTextarea('txtComment', '', out($valComment),
                             attr('onselect', "StoreCaret(this);").
                             attr('onclick', "StoreCaret(this);").
@@ -319,11 +319,11 @@
           if ($bAdmin && $strPostID != '')
           {
             // AdminComment
-            echol(hRow(hCell($lblAdminComment, 'InFormBB').hCell('')));
+            echol(hRow(hCell($lblAdminComment, 'InForm Labels').hCell('')));
             echol(hRow(hCell(hTextarea('txtAdminComment', '', out($valAdminComment)), '', '', '', attr('colspan', '3'))));
           }
           if ($strError != '')
-            echol(hRow(hCell($strError, 'InFormBR', '', '', attr('colspan', '3'))));
+            echol(hRow(hCell($strError, 'InForm Bold Red', '', '', attr('colspan', '3'))));
           // --- SUBMIT
           echol(hRow(hCell(hInput('subUserPost', 'submit', 'subSubmit', $lblAddComment), '', '', '', attr('colspan', '3'))));
           echol('</table>');
@@ -509,10 +509,10 @@
 
         // Display post
         $strForumOut .= hRow(hCell(
-          hHref('mailto:'.FilterDQuotes($dispEMail), hImg('/images/icons/em.gif', '', '', '16', '16')).
-          hHref(FilterDQuotes($valHomePage), hImg('/images/icons/hm.gif', '', '', '16', '16')).
-          hImg('/images/icons/ip.gif', '', '', '16', '16', attr('title', out($dispIP))).
-          hImg('/images/icons/br.gif', '', '', '16', '16', attr('title', out($dispUserAgent))).
+          hHref('mailto:'.FilterDQuotes($dispEMail), hImg('/images/icons/em.gif', '', 'MessageIcon', '', '', attr('title', out($dispEMail)))).
+          hHref(FilterDQuotes($valHomePage), hImg('/images/icons/hm.gif', '', 'MessageIcon')).
+          hImg('/images/icons/ip.gif', '', 'MessageIcon', '', '', attr('title', out($dispIP))).
+          hImg('/images/icons/br.gif', '', 'MessageIcon', '', '', attr('title', out($dispUserAgent))).
           "$strUserFunctions $strAdminFunctions ".out($valDate).' '.out($valTime).'  <b>'.out($valName).'</b>: '.out($valTheme), 'ForumF'));
         
         $strCommentStyle = ($valFlag == 'admin') ? 'PlainText Admin' : 'PlainText';

@@ -67,7 +67,7 @@
   {
     echol(hoForm('frmLogin', "$PHP_SELF?strAction=login"));
     echol(hTable(hRow(
-     hCell($lblPassword, 'InFormB').
+     hCell($lblPassword, 'InForm Bold').
      hCell(hInput('txtPass', 'password')).
      hCell(hInput('subAdminLogin', 'submit', 'subSubmit', $lblLoginAsAdmin))
     )));
@@ -80,7 +80,7 @@
     // Add subscribe
     echol(hoForm('frmAdd', "$PHP_SELF?strAction=addsubscribe"));
     echol(hRow(
-      hCell('E-Mail:', 'InFormB').
+      hCell('E-Mail:', 'InForm Bold').
       hCell(hInput('txtAddMail', 'text')).
       hCell(hSelect('selAddMailCP',
         "document.frmAdd.action='$PHP_SELF?strAction=addsubscribe&strCodepage='+this.options[this.selectedIndex].value",
@@ -92,7 +92,7 @@
     // Remove subscribe
     echol(hoForm('frmRemove', "$PHP_SELF?strAction=removesubscribe"));
     echol(hRow(
-      hCell('E-Mail:', 'InFormB').
+      hCell('E-Mail:', 'InForm Bold').
       hCell(hInput('txtRemovedMail', 'text')).
       hCell(hSelect('selRemoveMailCP',
         "document.frmRemove.action='$PHP_SELF?strAction=removesubscribe&strCodepage='+this.options[this.selectedIndex].value",
@@ -104,7 +104,7 @@
     // View subscribe
     echol(hoForm('frmViewSubscribe', "$PHP_SELF?strAction=viewsubscribe"));
     echol(hRow(
-      hCell('Filter:', 'InFormB').
+      hCell('Filter:', 'InForm Bold').
       hCell(hInput('txtGrepFilter', 'text'), '', '', '', attr('colspan', '2')).
       hCell(hInput('subViewSubscribe', 'submit', 'subSubmit', 'View Subscriptions'))
      ));
@@ -112,7 +112,7 @@
     // View nc-subscribe
     echol(hoForm('frmViewNCSubscribe', "$PHP_SELF?strAction=viewncsubscribe"));
     echol(hRow(
-      hCell('Filter:', 'InFormB').
+      hCell('Filter:', 'InForm Bold').
       hCell(hInput('txtNCGrepFilter', 'text'), '', '', '', attr('colspan', '2')).
       hCell(hInput('subViewNCSubscribe', 'submit', 'subSubmit', 'View NC-Subscriptions'))
      ));
@@ -127,7 +127,7 @@
     // View log
     echol(hoForm('frmViewLog', "$PHP_SELF?strAction=viewlog"));
     echol(hRow(
-      hCell('Filter:', 'InFormB').
+      hCell('Filter:', 'InForm Bold').
       hCell(hInput('txtLogGrepFilter', 'text'), '', '', '', attr('colspan', '2')).
       hCell(hInput('subViewLog', 'submit', 'subSubmit', 'View Server Log'))
      ));
@@ -135,7 +135,7 @@
     // View search log
     echol(hoForm('frmViewSearchLog', "$PHP_SELF?strAction=viewsearchlog"));
     echol(hRow(
-      hCell('Filter:', 'InFormB').
+      hCell('Filter:', 'InForm Bold').
       hCell(hInput('txtSearchLogGrepFilter', 'text'), '', '', '', attr('colspan', '2')).
       hCell(hInput('subViewSearchLog', 'submit', 'subSubmit', 'View Search Log'))
      ));

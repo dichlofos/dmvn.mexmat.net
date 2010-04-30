@@ -94,73 +94,41 @@ td.Admin {
 td.AdminComment {
 	color: #dddd77;
 }
-
-TD.PlainTextFP
-{
-	font-size: 10pt;
-	color: #a6b7c9;
-	/*font-family: Verdana, Arial;*/
-	text-align: justify;
-}
-
-td.MenuText
-{
+td.MenuText {
 	font-size: 9pt;
 	color: #a6b7c9;
-	/*font-family: Verdana, Arial;*/
-	/*text-align: justify;*/
 }
-
-TD.News
-{
+td.News {
 	font-size: 8pt;
 	color: #a6b7c9;
-	font-family: Verdana;
 	text-align: left;
 }
-TD.LUpd
-{
+td.LUpd {
 	font-size: 9pt;
 	color: #008f8f;
-	font-family: Verdana, Arial;
 	height: 9pt;
-	text-align: justify;
 }
-TD.InForm
-{
-	font-family: Verdana, Arial;
+td.InForm {
 	font-size: 12px;
 	color: #a6b7c9;
 }
-TD.InFormB
+.Bold
 {
-	font-family: Verdana, Arial;
-	font-size: 12px;
-	color: #a6b7c9;
 	font-weight: bold;
 }
-TD.InFormBR
-{
-	font-family: Verdana, Arial;
-	font-size: 12px;
+.Red {
 	color: #ff0000;
-	font-weight: bold;
 }
-TD.InFormBB
-{
-	font-family: Verdana, Arial;
-	font-size: 12px;
-	color: #a6b7c9;
+td.Labels {
 	font-weight: bold;
-	width: 150;
+	width: 150px;
 }
-TD.ForumF
-{
+td.ForumF {
 	font-size: 10pt;
 	color: #a6b7c9;
 	font-family: Verdana, Arial;
 	text-align: justify;
-	background-color:#063562; /* #042c54; */
+	background-color: #063562;
 }
 TD.ForumC
 {
@@ -176,6 +144,19 @@ TD.ForumB
 	font-family: Verdana, Arial;
 	text-align: justify;
 	font-weight: bold;
+}
+
+img {
+	border: 0px;
+	margin: 0px;
+	padding: 0px;
+}
+
+img.MessageIcon {
+	padding-top: 1px;
+	margin-bottom: -3px;
+	width: 16px;
+	height: 16px;
 }
 
 /* Provides the main style for text field */
