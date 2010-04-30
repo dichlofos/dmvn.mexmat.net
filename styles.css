@@ -1,58 +1,61 @@
-.PlainText
-{
-  font-size: 9pt;
-  color: #a6b7c9;
-  font-family: Verdana, Arial;
-  text-align: justify;
+body {
+	font-family: Verdana, Arial, 'Sans Serif';
+	font-size: 9pt;
 }
-.PlainTextFP
-{
-  font-size: 10pt;
-  color: #a6b7c9;
-  font-family: Verdana, Arial;
-  text-align: justify;
-} 
-/* ----------------------------- */
+/* base rules */
+.PlainText {
+	font-size: 9pt;
+	color: #a6b7c9;
+	text-align: justify;
+}
+.PlainTextFP {
+	font-size: 10pt;
+	color: #a6b7c9;
+	text-align: justify;
+}
+
+td.footer {
+	text-align: center;
+	width: 50%;
+	font-size: 9pt;
+}
 
 p {
-  font-family: Verdana, Arial;
-  font-size: 9pt;
+	font-size: 9pt;
+	text-align: justify;
 }
 
 p.Subtitle {
-  font-weight: bold;
-  font-size: 12pt;
-  color: #ff9933;
-  font-family: Tahoma, Arial;
-  text-align: center;
+	font-weight: bold;
+	font-size: 12pt;
+	color: #ff9933;
+	font-family: Tahoma, Arial;
+	text-align: center;
 }
 
-P.PlainTextInfo {
-  font-size: 9pt;
-  color: #00ff00;
-  font-family: Verdana, Arial;
-  text-align: justify;
+.Info {
+	color: #00ff00;
 }
-/* ----------------------------- */
+
 a {
-  text-decoration: none;
+	text-decoration: none;
 }
-A:link   {color: #e3af7c}   
+A:link	 {color: #e3af7c}   
 A:visited{color: #e3af7c}
-A:hover  {color: #ff5050}  
+A:hover	{color: #ff5050}  
 A:active {color: #ff5050} 
 
 A.left
 {
-  font-size: 9pt;
-  font-family: Verdana, Arial;
-  height: 12pt;
+	font-size: 9pt;
+	font-family: Verdana, Arial;
+	height: 12pt;
 	line-height: 12pt;
-  text-decoration: none;
-  display: block;
-  color: #000000;
-  text-indent: 2px;
-  margin: 1px 1px 0px 1px;
+	text-decoration: none;
+	display: block;
+	color: #000000;
+	text-indent: 2px;
+	margin: 1px 1px 0px 1px;
 }
 
 a.left:link{color: #000000}
@@ -69,206 +72,185 @@ a.mcolors3:hover {background-color: #c6d7e9}
 a.mselected {background-color: #8b7796}
 a.mselected:hover {background-color: #c6d7e9}
 
-/* ----------------------------- */
-TD.TopTbl
-{
-  font-weight: bold;
-  font-size: 12pt;
-  color: #ff9933;
-  font-family: Tahoma, Verdana;
-  text-align: center;
+td.TopTbl {
+	font-weight: bold;
+	font-size: 12pt;
+	color: #ff9933;
+	font-family: Tahoma, Verdana;
+	text-align: center;
 }
-TD.PlainTitle
-{
-  font-weight: bold;
-  font-size: 11pt;
-  color: #e3af7c;
-  font-family: Tahoma, Verdana;
-  height: 25pt;
-  vertical-align: bottom;
+
+td.PlainTitle {
+	font-weight: bold;
+	font-size: 11pt;
+	color: #e3af7c;
+	font-family: Tahoma, Verdana;
+	height: 25pt;
+	vertical-align: bottom;
 }
-TD.PlainText
-{
-  font-size: 9pt;
-  color: #a6b7c9;
-  font-family: Verdana, Arial;
-  text-align: justify;
+td.Admin {
+	color: #dddddd;
 }
-TD.PlainTextInfo
-{
-  font-size: 9pt;
-  color: #00ff00;
-  font-family: Verdana, Arial;
-  text-align: justify;
+td.AdminComment {
+	color: #dddd77;
 }
-TD.PlainTextAdmin
-{
-  font-size: 9pt;
-  color: #dddddd;
-  font-family: Verdana, Arial;
-  text-align: justify;
-}
-TD.PlainTextAdminComment
-{
-  font-size: 9pt;
-  color: #dddd77;
-  font-family: Verdana, Arial;
-  text-align: justify;
-}
+
 TD.PlainTextFP
 {
-  font-size: 10pt;
-  color: #a6b7c9;
-  font-family: Verdana, Arial;
-  text-align: justify;
+	font-size: 10pt;
+	color: #a6b7c9;
+	/*font-family: Verdana, Arial;*/
+	text-align: justify;
 }
-TD.MenuText
+
+td.MenuText
 {
-  font-size: 9pt;
-  color: #a6b7c9;
-  font-family: Verdana, Arial;
-  text-align: justify;
+	font-size: 9pt;
+	color: #a6b7c9;
+	/*font-family: Verdana, Arial;*/
+	/*text-align: justify;*/
 }
+
 TD.News
 {
-  font-size: 8pt;
-  color: #a6b7c9;
-  font-family: Verdana;
-  text-align: left;
+	font-size: 8pt;
+	color: #a6b7c9;
+	font-family: Verdana;
+	text-align: left;
 }
 TD.LUpd
 {
-  font-size: 9pt;
-  color: #008f8f;
-  font-family: Verdana, Arial;
-  height: 9pt;
-  text-align: justify;
+	font-size: 9pt;
+	color: #008f8f;
+	font-family: Verdana, Arial;
+	height: 9pt;
+	text-align: justify;
 }
 TD.InForm
 {
-  font-family: Verdana, Arial;
-  font-size: 12px;
-  color: #a6b7c9;
+	font-family: Verdana, Arial;
+	font-size: 12px;
+	color: #a6b7c9;
 }
 TD.InFormB
 {
-  font-family: Verdana, Arial;
-  font-size: 12px;
-  color: #a6b7c9;
-  font-weight: bold;
+	font-family: Verdana, Arial;
+	font-size: 12px;
+	color: #a6b7c9;
+	font-weight: bold;
 }
 TD.InFormBR
 {
-  font-family: Verdana, Arial;
-  font-size: 12px;
-  color: #ff0000;
-  font-weight: bold;
+	font-family: Verdana, Arial;
+	font-size: 12px;
+	color: #ff0000;
+	font-weight: bold;
 }
 TD.InFormBB
 {
-  font-family: Verdana, Arial;
-  font-size: 12px;
-  color: #a6b7c9;
-  font-weight: bold;
-  width: 150;
+	font-family: Verdana, Arial;
+	font-size: 12px;
+	color: #a6b7c9;
+	font-weight: bold;
+	width: 150;
 }
 TD.ForumF
 {
-  font-size: 10pt;
-  color: #a6b7c9;
-  font-family: Verdana, Arial;
-  text-align: justify;
-  background-color:#063562; /* #042c54; */
+	font-size: 10pt;
+	color: #a6b7c9;
+	font-family: Verdana, Arial;
+	text-align: justify;
+	background-color:#063562; /* #042c54; */
 }
 TD.ForumC
 {
-  font-size: 10pt;
-  color: #a6b7c9;
-  font-family: Verdana, Arial;
-  text-align: center;
+	font-size: 10pt;
+	color: #a6b7c9;
+	font-family: Verdana, Arial;
+	text-align: center;
 }
 TD.ForumB
 {
-  font-size: 10pt;
-  color: #a6b7c9;
-  font-family: Verdana, Arial;
-  text-align: justify;
-  font-weight: bold;
+	font-size: 10pt;
+	color: #a6b7c9;
+	font-family: Verdana, Arial;
+	text-align: justify;
+	font-weight: bold;
 }
 
 /* Provides the main style for text field */
 INPUT
 {
-  font-size:12px;
-  color:#000000;
-  font-family: Verdana, Arial;
-  background-color:#B0C0D0;
-  border:1px solid #000000;
-  width: 300;
-  height: 20;
+	font-size:12px;
+	color:#000000;
+	font-family: Verdana, Arial;
+	background-color:#B0C0D0;
+	border:1px solid #000000;
+	width: 300;
+	height: 20;
 }
 /* Provides the style for forum text field */
 INPUT.txtForum
 {
-  font-size:12px;
-  color:#000000;
-  font-family: Verdana, Arial;
-  background-color:#B0C0D0;
-  border:1px solid #000000;
-  width: 550;
-  height: 20;
+	font-size:12px;
+	color:#000000;
+	font-family: Verdana, Arial;
+	background-color:#B0C0D0;
+	border:1px solid #000000;
+	width: 550;
+	height: 20;
 }
 /* Style for button (submit) */
 INPUT.subSubmit
 {
-  font-size: 9pt;
-  color: #000000;
-  font-family: Verdana, Arial;
-  background-color: #8b7796;
-  border: 2px solid #000000;
-  width: 210;
-  height: 24;
+	font-size: 9pt;
+	color: #000000;
+	font-family: Verdana, Arial;
+	background-color: #8b7796;
+	border: 2px solid #000000;
+	width: 210;
+	height: 24;
 }
 /* Style for Menu button (submit) */
 INPUT.subMenu
 {
-  font-size: 9pt;
-  color: #000000;
-  font-family: Verdana, Arial;
-  background-color: #8b7796;
-  border: 2px solid #000000;
-  width: 190;
-  height: 24;
-}  
+	font-size: 9pt;
+	color: #000000;
+	font-family: Verdana, Arial;
+	background-color: #8b7796;
+	border: 2px solid #000000;
+	width: 190;
+	height: 24;
+}	
 
 TEXTAREA
 {
-  font-size: 12px;
-  background: #b0c0d0;
-  color: #000000;
-  font-family: Verdana, Arial, Courier New Cyr;
-  width: 700;
-  height: 150;
-  border: 1px solid #000000;
+	font-size: 12px;
+	background: #b0c0d0;
+	color: #000000;
+	font-family: Verdana, Arial, Courier New Cyr;
+	width: 700;
+	height: 150;
+	border: 1px solid #000000;
 }
 
 SELECT
 {
-  background-color: #b0c0d0;
-  border-color: #000000;
-  border-width: 2px;
+	background-color: #b0c0d0;
+	border-color: #000000;
+	border-width: 2px;
 }
 SELECT.Menu
 {
-  width: 190;
+	width: 190;
 }
 SELECT.Codepage
 {
-  width: 120;
+	width: 120;
 }
 img.icon {
-  border: 0px;
-  padding: 0px;
-  margin: 0px;
-  margin-bottom: -3px;
+	border: 0px;
+	padding: 0px;
+	margin: 0px;
+	margin-bottom: -3px;
 }

@@ -42,7 +42,7 @@
       // for debugging -----
       echol(hPar(hBold("Key=$strRandomKey ".
         flink("http://localhost/index.php?strAction=confirmmail&strMailID=$strRandomKey",
-        "Confirm Last Link. TimeStamp: $nTimeStamp")), 'PlainTextInfo'));
+        "Confirm Last Link. TimeStamp: $nTimeStamp")), 'PlainText Info'));
       // -------------------
       $strHashRandomKey = md5($strRandomKey);
 
@@ -66,12 +66,12 @@
         
       echol(hPar(hBold('На указанный адрес выслано письмо '.
            'с просьбой подтвердить регистрацию в течение '.$nTimeShift/(3600).
-           ' часов. '.llink($PHP_SELF, 'Вернуться на главную страничку')), 'PlainTextInfo'));
+           ' часов. '.llink($PHP_SELF, 'Вернуться на главную страничку')), 'PlainText Info'));
     }
     else
     {
       echol(hPar(hBold('Указанный адрес не прошёл проверку! '.
-          llink($PHP_SELF, 'Вернуться на главную страничку')), 'PlainTextInfo'));
+          llink($PHP_SELF, 'Вернуться на главную страничку')), 'PlainText Info'));
     }
   }
   elseif ($strAction == 'confirmmail')
@@ -95,7 +95,7 @@
         fclose($fNCMailsData);
 
         echol(hPar(hBold('Ваш адрес был успешно добавлен в основной список. '.
-             llink($PHP_SELF, 'Вернуться на главную страничку')), 'PlainTextInfo'));
+             llink($PHP_SELF, 'Вернуться на главную страничку')), 'PlainText Info'));
         break;
       }
     }

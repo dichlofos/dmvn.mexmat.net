@@ -167,7 +167,7 @@
     for ($i = 0; $i < strlen($strFilteredChars); $i++)
       $txtSearchString = str_replace($strFilteredChars[$i], ' ', $txtSearchString);
 
-    echol(hRow(hCell('Запрос: '.hBold(out($txtSearchString)), 'PlainTextInfo')));
+    echol(hRow(hCell('Запрос: '.hBold(out($txtSearchString)), 'PlainText Info')));
 
 
     $fSLog = fopen($strSearchLogFileName, 'ab');
@@ -180,9 +180,9 @@
     }
 
     if ($txtSearchString == 'dzen' || $txtSearchString == 'дзен')
-      echol(hRow(hCell('Всё, что Вы ищете, Вы уже нашли...', 'PlainTextInfo')));
+      echol(hRow(hCell('Всё, что Вы ищете, Вы уже нашли...', 'PlainText Info')));
     elseif (bCheckMature($txtSearchString))
-      echol(hRow(hCell('@#$, @ $%^#@!$%*(-%$ @# !%$?', 'PlainTextInfo')));
+      echol(hRow(hCell('@#$, @ $%^#@!$%*(-%$ @# !%$?', 'PlainText Info')));
     else
     {
       $txtSearchString = myStrToLower($txtSearchString);
@@ -214,7 +214,7 @@
         $strSS .= $strSearchKey.'=['.trim($strSSEl).'] ';
       }
 
-      echol(hRow(hCell('Обработанный запрос (с использованием DCIPM): '.hBold(out($strSS)), 'PlainTextInfo')));
+      echol(hRow(hCell('Обработанный запрос (с использованием DCIPM): '.hBold(out($strSS)), 'PlainText Info')));
 
       echo '<tr><td>';
       // ---------------------------------------------
@@ -248,9 +248,9 @@
       }
       echo '</table>';
       if ($nDocCount == 0)
-        echol(hPar(hBold('Поиск не дал результатов'), 'PlainTextInfo'));
+        echol(hPar(hBold('Поиск не дал результатов'), 'PlainText Info'));
       else
-        echol(hPar('Найдено документов: '.hBold($nDocCount), 'PlainTextInfo'));
+        echol(hPar('Найдено документов: '.hBold($nDocCount), 'PlainText Info'));
       // ---------------------------------------------
       // Search by forum
       // ---------------------------------------------
@@ -276,9 +276,9 @@
       fclose($fForumData);
       echo '</table>';
       if ($nDocCount == 0)
-        echol(hPar(hBold('Поиск не дал результатов'), 'PlainTextInfo'));
+        echol(hPar(hBold('Поиск не дал результатов'), 'PlainText Info'));
       else
-        echol(hPar('Найдено записей: '.hBold($nDocCount), 'PlainTextInfo'));
+        echol(hPar('Найдено записей: '.hBold($nDocCount), 'PlainText Info'));
       
       echo '</td></tr>';
     }

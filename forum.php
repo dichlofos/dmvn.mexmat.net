@@ -359,7 +359,7 @@
             if ($bAdmin && $txtName == $strReservedName)
             {
               echol('<table>');
-              echol(hRow(hCell('Sending News&Information to:', 'PlainTextInfo')));
+              echol(hRow(hCell('Sending News&Information to:', 'PlainText Info')));
               $arrEMails = fileCutEOL($strCFileName);
               foreach ($arrEMails as $strEMail)
               {
@@ -515,12 +515,12 @@
           hImg('/images/icons/br.gif', '', '', '16', '16', attr('title', out($dispUserAgent))).
           "$strUserFunctions $strAdminFunctions ".out($valDate).' '.out($valTime).'  <b>'.out($valName).'</b>: '.out($valTheme), 'ForumF'));
         
-        $strCommentStyle = ($valFlag == 'admin') ? 'PlainTextAdmin' : 'PlainText';
+        $strCommentStyle = ($valFlag == 'admin') ? 'PlainText Admin' : 'PlainText';
         $strForumOut .= hRow(hCell(FormatPost(out($valComment)), $strCommentStyle));
         if ($valAdminComment != '')
         {
-          $strForumOut .= hRow(hCell("<b>$lblAdminComment</b>", 'PlainTextAdminComment'));
-          $strForumOut .= hRow(hCell(FormatPost(out($valAdminComment)), 'PlainTextAdminComment'));
+          $strForumOut .= hRow(hCell("<b>$lblAdminComment</b>", 'PlainText AdminComment'));
+          $strForumOut .= hRow(hCell(FormatPost(out($valAdminComment)), 'PlainText AdminComment'));
         }
         $strForumOut .= '<tr height="12px"></tr>';
         $nDisplayedCount++;
@@ -557,7 +557,7 @@
   // Converts string from user input to our internal format for storing data
   function FDeath($strMsg)
   {
-    echol(hPar("DEBUG: $strMsg", 'PlainTextInfo'));
+    echol(hPar("DEBUG: $strMsg", 'PlainText Info'));
     die();
   }
   // -------------------------------------------------------------

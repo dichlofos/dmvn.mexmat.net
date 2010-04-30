@@ -169,7 +169,7 @@
     }
     fclose($fCMails);
 
-    echol(hTable(hRow(hCell("$nRemovedCount record(s) removed successfuly", 'PlainTextInfo'))));
+    echol(hTable(hRow(hCell("$nRemovedCount record(s) removed successfuly", 'PlainText Info'))));
   }
   elseif ($strAction == 'viewsubscribe' && session_is_registered($strSNAdminRights))
   {
@@ -230,7 +230,7 @@
                    hCell(out(round((time()-$arrNCMailData[2])/3600)).' hrs idle', 'PlainText', '150px').
                    hCell(out(str_rot13($arrNCMailData[1])), 'PlainText')));
     }
-    if (!$nCount) echol(hRow(hCell('No records!', 'PlainTextInfo')));
+    if (!$nCount) echol(hRow(hCell('No records!', 'PlainText Info')));
     echol('</table>');
     fclose($fNCMails);
   }
@@ -275,7 +275,7 @@
       if ($strLine == '') continue;
       $arrLine = explode('|', $strLine);
       if (count($arrLine) != 2)
-        echol(hRow(hCell('Bad Line in Search Log: '.out($strLine), 'PlainTextInfo')));
+        echol(hRow(hCell('Bad Line in Search Log: '.out($strLine), 'PlainText Info')));
 
       $strSLine = $arrLine[1];
       $bDisp = true;
@@ -295,7 +295,7 @@
     // TODO: open failure check
     fwrite($fCMails, str_rot13($txtAddMail)."|$strCodepage\r\n");
     fclose($fCMails);
-    echol(hTable(hRow(hCell('Mail address was successfuly added to list', 'PlainTextInfo'))));
+    echol(hTable(hRow(hCell('Mail address was successfuly added to list', 'PlainText Info'))));
   }
   elseif ($strAction == 'checkdupsubscribe' && session_is_registered($strSNAdminRights))
   {
@@ -319,7 +319,7 @@
         $arrMail = explode('|', $strCMCKey);
         echol(hRow(hCell('Mail '.hBold(out(str_rot13($arrMail[0]))).' at codepage '.
          hBold(strDecodeCodepage($arrCodepageNames, $arrMail[1])).' is duplicated '.
-         hBold($strCMCValue).' times!', 'PlainTextInfo')));
+         hBold($strCMCValue).' times!', 'PlainText Info')));
       }
     }
     echol('</table>');

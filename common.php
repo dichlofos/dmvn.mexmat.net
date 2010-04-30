@@ -241,9 +241,8 @@
     </TABLE>
     <CENTER><TABLE border="0" width="100%">
         <TR>
-          <TD align="middle" width="50%"><P><BR>
-              Copyright © 2003&#8211;2010, '.llink('mailto:'.$strMail, 'DMVN').'. All rights reserved.</P>
-          </TD>
+          <td class="footer">Copyright © 2003&#8211;2010, '.
+					llink('mailto:'.$strMail, 'DMVN').'. All rights reserved</td>
         </TR>
       </TABLE>
     </CENTER>
@@ -267,12 +266,12 @@
 			}
 		}
 		if ($strDesc != '.section.' && $strDesc != '.newsblock.' && $bDisp) {
-			echo '<TR><TD class="PlainTitle" vAlign = "center" style="width: 0cm">';
-			echo '<A NAME="'.$strSearchID.'"></A>';
+			echo '<tr><td class="PlainTitle" style="width: 0%">';
+			echo '<a name="'.$strSearchID.'"></a>';
 			if ($strItemSectionID != '') echo '['.$strItemSectionID.']';
-			echo '</TD><TD class="PlainTitle" vAlign = "center">';
-			echo $strTitle.'</TD></TR>';
-			if ($strDesc) echo '<TR><TD style ="width: 0cm"></TD><TD class="PlainText">'.$strDesc.'</TD></TR>';
+			echo '</td><td class="PlainTitle">';
+			echo $strTitle.'</td></tr>';
+			if ($strDesc) echo '<tr><td style="width: 0%"></td><td class="PlainText">'.$strDesc.'</td></tr>';
 			if (!ArrEmpty($arrResData)) {
 				echo '<TR><TD style ="width: 0cm"></TD><TD class="LUpd">';
 				for ($i = 0; $i < count($arrResData); $i+=4) {
