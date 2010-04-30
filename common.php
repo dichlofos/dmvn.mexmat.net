@@ -59,6 +59,19 @@
   $arrCodepageNames[$cpWin] = "windows-1251";
   $arrCodepageNames[$cpKoi] = "koi8-r";
 
+	// read format file
+	$fFormat=fopen('format.dat', 'r');
+	if (!$fFormat) die('Format file is missing. ');
+	$aFormatFiles=array();
+	$aFormatDesc=array();
+	while (!feof($fFormat)) {
+		$sL=trim(fgets($fFormat));
+		if (empty($sL)) continue;
+		$aL=explode('|', $sL);
+		if (count($aL)!=3) die("Bad line in format file: '$sL'. ");
+		$aFormatFiles[$aL[0]]=$aL[1];
+		$aFormatDesc[$aL[0]]=$aL[2];		
+	}
 
   // -------------------------------------------------------------
   function bSymbolValid($strSym)
@@ -171,11 +184,12 @@
     <TABLE bgColor="#00274f" border="0" width="100%" height="25">
       <TR>
         <TD width="200">
-          <CENTER>'.flink('http://www.mexmat.net', '<IMG alt="MexMat.Net" border="0" src="images/mexmatnet.gif">').
-         '</CENTER>
+          <center>'.flink('http://www.mexmat.net',
+					'<img alt="MexMat.Net" border="0" src="images/mexmatnet.png" width="130px" height="126px" />').'<center/>
         </TD>
         <TD>
-          <CENTER><IMG alt="DMVN Logo" border="0" src="images/dmvnlogo.gif"></CENTER>
+          <center>'.llink('/',
+					'<img alt="DMVN Logo" border="0" src="images/dmvnlogo.png" width="309px" height="88px"/>').'</center>
         </TD>
       </TR>
     </TABLE>
@@ -239,6 +253,9 @@
   // -------------------------------------------------------------
 	function PutItem($strCategory, $strSection, $strItemSectionID, $strTitle, $strDesc, $strSearchID, $arrResData)
 	{
+		global $aFormatFiles;
+		global $aFormatDesc;
+		
 		$bDisp = false;
 		if ($strSection == $strItemSectionID || $strSection == '0' || $strSection == '') $bDisp = true;
 		
@@ -263,26 +280,12 @@
 					$sSize = $arrResData[$i+1];
 					$sDate = $arrResData[$i+2];
 					$sFmt = $arrResData[$i+3];
-					if ($sFmt == 'PostScript') {
-						$sPFmt = '<img class="icon" src="/images/icons/ps.gif" alt="PostScript" />';
-					} elseif ($sFmt == 'PDF') {
-						$sPFmt = '<img class="icon" src="/images/icons/pdf.gif" alt="PDF" />';
-					} elseif ($sFmt == 'PDF(RAR)') {
-						$sPFmt = '<img class="icon" src="/images/icons/pdf.gif" alt="PDF (RAR)" />';
-					} elseif ($sFmt == 'MSWord') {
-						$sPFmt = '<img class="icon" src="/images/icons/msword.gif" alt="Microsoft Word" />';
-					} elseif ($sFmt == 'DjVu') {
-						$sPFmt = '<img class="icon" src="/images/icons/djvu.gif" alt="DjVu" />';
-					} elseif ($sFmt == 'RAR') {
-						$sPFmt = '<img class="icon" src="/images/icons/rar.gif" alt="RAR" />';
-					} elseif ($sFmt == 'TeX') {
-						$sPFmt = '<img class="icon" src="/images/icons/tex.gif" alt="TeX Source" />';
-					} elseif ($sFmt == 'C++') {
-						$sPFmt = '<img class="icon" src="/images/icons/cpp.gif" alt="C++ Source" />';
+					if (array_key_exists($sFmt, $aFormatFiles)) {
+						$sIcon=$aFormatFiles[$sFmt];
+						$sDesc=$aFormatDesc[$sFmt];
+						$sPFmt="<img class=\"icon\" width=\"16px\" height=\"16px\" src=\"/images/icons/$sIcon\" alt=\"$sDesc\" />";
 					} else {
-						/*echo "Unknown format: $sFmt";
-						die();*/
-						$sPFmt = $sFmt;
+						$sPFmt=$sFmt; // leave 'as is'
 					}
 					echo llink("/content/$strCategory/$sFN", "$sPFmt $sSize")." &#8212; $sDate&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
 				}
