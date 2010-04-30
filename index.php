@@ -113,9 +113,9 @@
        '<center>'.
        hoForm('frmMail', "$PHP_SELF?strAction=addmail&strCodepage=0").
         hTable(hRow(
-         hCell($lblSubmitEMail, 'InFormB').
+         hCell($lblSubmitEMail, 'InForm Bold').
          hCell(hInput('txtEAddress', 'text')).
-         hCell($lblEMailCP, 'InFormB').
+         hCell($lblEMailCP, 'InForm Bold').
          hCell(hSelect('selMailCP',
           "document.frmMail.action='$PHP_SELF?strAction=addmail&strCodepage='+this.options[this.selectedIndex].value",
           'Codepage',

@@ -149,7 +149,7 @@
   echol(
   hoForm('frmSearch', "$PHP_SELF?strAction=search").
    hTable(hRow(
-    hcell('Слова для поиска:', 'InFormB').
+    hcell('Слова для поиска:', 'InForm Bold').
     hCell(hInput('txtSearchString', 'text', 'txtSearch')).
     hCell(hInput('subSearch', 'submit', 'subSubmit', 'Поиск'))
     )).
