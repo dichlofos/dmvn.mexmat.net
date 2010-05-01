@@ -7,12 +7,7 @@
 
 ѕрочие фиксы:
 
-* оптимизировать css, выкинуть повтор€ющиес€ определени€ фонтов и пр.
-* оптимизировать иконки форума (PageSpeed)
-
 * Please fix the following bug in the left menu (see attachment): overlapping
-menu items on windows large mode, Fx 3.6rus, Ctrl+0 mode (ctrl+[minus] twce
-gets even worse) -- письмо на gmail-овском €щике
+  menu items on windows large mode, Fx 3.6rus, Ctrl+0 mode (ctrl+[minus] twce
+  gets even worse) -- письмо на gmail-овском €щике
   “ам нужен nowrap и возможно правильное указание размера
-
-* —пр€тать Update DB, если нет админской авторизации

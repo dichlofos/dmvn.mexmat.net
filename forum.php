@@ -80,44 +80,28 @@
   $bPostInvalid = false;
 
   srand();
-  session_start();
-  
-  $bAuth = session_is_registered($strSNUserRights) || session_is_registered($strSNAdminRights);
-  $bAdmin = session_is_registered($strSNAdminRights);
-  
-  if ($strAction == 'login')
-  {
-    // Unregister old sessions
-    if (session_is_registered($strSNAdminRights)) session_unregister($strSNAdminRights);
-    if (session_is_registered($strSNUserRights)) session_unregister($strSNUserRights);
-    
-    // Check passwords
-    if ($strAdminPassword == md5($txtPass))
-    {
-      session_register($strSNAdminRights);
-      header("Location: $PHP_SELF");
-      exit();
-    }
-    elseif ($strUserPassword == md5($txtPass))
-    {
-      session_register($strSNUserRights);
-      header("Location: $PHP_SELF");
-      exit();
-    }
-    else
-    {
-      header("Location: $PHP_SELF");
-      exit();
-    }
-  }
-  elseif ($strAction == 'logout')
-  {
-    if (session_is_registered($strSNAdminRights)) session_unregister($strSNAdminRights);
-    if (session_is_registered($strSNUserRights)) session_unregister($strSNUserRights);
-    session_destroy();
-    header("Location: $PHP_SELF");
-    exit();
-  }
+	if ($strAction == 'login') {
+		Unregister($strSNAdminRights);
+		Unregister($strSNUserRights);
+		// Check passwords
+		if ($strAdminPassword==md5($txtPass)) {
+			Register($strSNAdminRights);
+			header("Location: $PHP_SELF");
+			exit();
+		} elseif ($strUserPassword==md5($txtPass)) {
+			Register($strSNUserRights);
+			header("Location: $PHP_SELF");
+			exit();
+		} else {
+			header("Location: $PHP_SELF");
+			exit();
+		}
+	} elseif ($strAction=='logout') {
+		Unregister($strSNAdminRights);
+		Unregister($strSNUserRights);
+		header("Location: $PHP_SELF");
+		exit();
+	}
   PutPageHeader($arrMenuFiles, $arrMenuTitles, $arrMenuColors, $CurrentMenuItem, $arrCat, $strSLU, $section);
 ?>
 <TABLE width="95%" align="center">
@@ -453,11 +437,10 @@
   // ---------------------- display
   if (!$bRedir)
   {
-    echol('<table width="100%">');
-    if ($bAuth)
-      echol(hRow(hCell(llink("$PHP_SELF?strAction=logout", '[Выйти]'), 'ForumC')));
-    echol('</table>');
-
+		if ($bAuth) {
+			echol('<div style="text-align: center; font-weight: bold;">'.llink("$PHP_SELF?strAction=logout", '[Выйти]').'</div>');
+		}
+		
     $fForum = fopen($strForumFileName, 'r');
     if (!$fForum) FDeath('DEBUG: forum.display(): Cannot open forum file!');
 

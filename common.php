@@ -72,7 +72,35 @@
 		$aFormatFiles[$aL[0]]=$aL[1];
 		$aFormatDesc[$aL[0]]=$aL[2];		
 	}
-
+	
+	session_start();
+	$bSessionStarted=true; // set flag to indicate session mechanism is already initialized
+	SetPermissions();
+	// -------------------------------------------------------------
+	function Register($sKey) {
+		global $bSessionStarted;
+		if (!$bSessionStarted) die('Register: Session is not started yet. ');
+		if (!session_is_registered($sKey)) session_register($sKey);
+	}
+	// -------------------------------------------------------------
+	function Unregister($sKey) {
+		global $bSessionStarted;
+		if (!$bSessionStarted) die('Unregister: Session is not started yet. ');
+		if (session_is_registered($sKey)) session_unregister($sKey);
+	}
+	// -------------------------------------------------------------
+	function SetPermissions() {
+		global $bSessionStarted;
+		if (!$bSessionStarted) die('SetPermissions: Session is not started yet. ');
+		
+		global $bAuth;
+		global $bAdmin;
+		global $strSNUserRights;
+		global $strSNAdminRights;
+		$bAuth=$bAuth || session_is_registered($strSNUserRights);
+		$bAuth=$bAuth || session_is_registered($strSNAdminRights);
+		$bAdmin=session_is_registered($strSNAdminRights);
+	}
   // -------------------------------------------------------------
   function bSymbolValid($strSym)
   {
@@ -209,19 +237,17 @@
             <TR>
               <TD class="TopTbl">';
     $arrLIScript = file("li.dat");
-    for ($i = 0; $i < count($arrLIScript); $i++)
-      echo $arrLIScript[$i];
+		for ($i = 0; $i < count($arrLIScript); $i++) {
+			echo $arrLIScript[$i];
+		}
     echo '   </TD>
             </TR>
           </TABLE>';
 
-    echo '<TABLE border="0" width="100%">
-            <TR>
-              <TD class="MenuText"> 
-          <a href="data/sdg.php?ref='.$arrMFiles[$CurrentMenuItem].'">[Admin] Update&nbsp;DB</a>  
-              </TD>
-            </TR>
-          </TABLE>';
+		global $bAdmin;
+		if ($bAdmin) {
+			echo '<div style="text-align: center"><a href="data/sdg.php?ref='.$arrMFiles[$CurrentMenuItem].'"><b>Update&nbsp;DB</b></a></div>';
+		}
     echo '
         </TD>
         <TD bgColor="#00254a" height="326" vAlign="top">

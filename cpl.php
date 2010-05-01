@@ -9,7 +9,6 @@
   if ($bDebugEnabled) error_reporting(E_ALL);
 
   $lblHeader = 'DMVN WebSite Control Panel';
-
   $lblLoginAsAdmin = "Log In as Admin";
 
   $lblPassword = 'Password:';
@@ -17,9 +16,7 @@
   $CurrentMenuItem = $mnuCPL;
 
   // To redir or not to redir, the question is...
-  $bRedir = FALSE;
-
-  session_start();
+  $bRedir = false;
 
   $section = ProcessStringPostVar('section', '0'); 
 
@@ -33,38 +30,32 @@
   $txtNCGrepFilter = ProcessStringPostVar('txtNCGrepFilter');
   $txtLogGrepFilter = ProcessStringPostVar('txtLogGrepFilter');
   $txtSearchLogGrepFilter = ProcessStringPostVar('txtSearchLogGrepFilter');
-    
-  // Registration
-  if ($strAction == 'login')
-  {
-    if ($strAdminPassword == md5($txtPass))
-    {
-      header("Location: $PHP_SELF");
-      if (session_is_registered($strSNUserRights)) session_unregister($strSNUserRights);
-      session_register($strSNAdminRights);
-    }
-    else
-    {
-      header("Location: $PHP_SELF");
-      exit();
-    }
-  }
-  elseif ($strAction == 'logout')
-  {
-    session_destroy();
-    header("Location: $PHP_SELF");
-    exit();
-  }
-    
-  PutPageHeader($arrMenuFiles, $arrMenuTitles, $arrMenuColors, $CurrentMenuItem, $arrCat, $strSLU, $section);
+
+	// Registration
+	if ($strAction == 'login') {
+		if ($strAdminPassword==md5($txtPass)) {
+			Unregister($strSNUserRights);
+			Register($strSNAdminRights);
+			header("Location: $PHP_SELF");
+			exit();
+		} else {
+			header("Location: $PHP_SELF");
+			exit();
+		}
+	} elseif ($strAction == 'logout') {
+		Unregister($strSNAdminRights);
+		Unregister($strSNUserRights);
+		header("Location: $PHP_SELF");
+		exit();
+	}
+	PutPageHeader($arrMenuFiles, $arrMenuTitles, $arrMenuColors, $CurrentMenuItem, $arrCat, $strSLU, $section);
 ?>
 <TABLE width="95%" align="center">
   <TR>
     <TD>
 <?php
-  echol('<center>');
-  if (!session_is_registered($strSNAdminRights))
-  {
+	echol('<center>');
+	if (!$bAdmin) { // show login form
     echol(hoForm('frmLogin', "$PHP_SELF?strAction=login"));
     echol(hTable(hRow(
      hCell($lblPassword, 'InForm Bold').
@@ -73,9 +64,7 @@
     )));
     echol(hcForm());
     echol(hScript("document.frmLogin.txtPass.focus();"));
-  }
-  if (session_is_registered($strSNAdminRights))
-  {
+  } else { // show control panel
     echol('<table>');
     // Add subscribe
     echol(hoForm('frmAdd', "$PHP_SELF?strAction=addsubscribe"));
@@ -153,8 +142,7 @@
   // ----------------------------------------------
   // Handle different actions
   // ----------------------------------------------
-  if ($strAction == 'removesubscribe' && session_is_registered($strSNAdminRights) && $txtRemovedMail != '')
-  {
+	if ($strAction=='removesubscribe' && $bAdmin && $txtRemovedMail != '') {
     $arrCMails = fileCutEOL($strCFileName);
     $fCMails = fopen($strCFileName, "wb");
     // TODO: open failure check
@@ -171,8 +159,7 @@
 
     echol(hTable(hRow(hCell("$nRemovedCount record(s) removed successfuly", 'PlainText Info'))));
   }
-  elseif ($strAction == 'viewsubscribe' && session_is_registered($strSNAdminRights))
-  {
+	elseif ($strAction=='viewsubscribe' && $bAdmin) {
     echol(hPar('DMVN Website Subscription List', 'Subtitle'));
     if ($txtGrepFilter != '')
       echol(hPar('Using filter ['.out($txtGrepFilter).']', 'Subtitle'));
@@ -201,8 +188,7 @@
     echo '</table>';
     fclose($fCMails);
   }
-  elseif ($strAction == 'viewncsubscribe' && session_is_registered($strSNAdminRights))
-  {
+	elseif ($strAction=='viewncsubscribe' && $bAdmin) {
     echol(hPar('DMVN Website NC-Subscription List', 'Subtitle'));
     if ($txtNCGrepFilter != '')
       echol(hPar('Using filter ['.out($txtNCGrepFilter).']', 'Subtitle'));
@@ -234,8 +220,7 @@
     echol('</table>');
     fclose($fNCMails);
   }
-  elseif ($strAction == 'viewlog' && session_is_registered($strSNAdminRights))
-  {
+	elseif ($strAction=='viewlog' && $bAdmin) {
     echol(hPar('DMVN Website Access Log', 'Subtitle'));
     if ($txtLogGrepFilter != '')
       echol(hPar('Using filter ['.out($txtLogGrepFilter).']', 'Subtitle'));
@@ -259,8 +244,7 @@
     echol('</table>');
     fclose($fLog);
   }
-  elseif ($strAction == 'viewsearchlog' && session_is_registered($strSNAdminRights))
-  {
+	elseif ($strAction=='viewsearchlog' && $bAdmin) {
     echol(hPar('DMVN Website Search Log', 'Subtitle'));
     if ($txtSearchLogGrepFilter != '')
       echol(hPar('Using filter ['.out($txtSearchLogGrepFilter).']', 'Subtitle'));
@@ -289,7 +273,7 @@
     echol('</table>');
     fclose($fLog);
   }
-  elseif ($strAction == 'addsubscribe' && session_is_registered($strSNAdminRights) && $txtAddMail != '')
+	elseif ($strAction=='addsubscribe' && $bAdmin && !empty($txtAddMail))
   {
     $fCMails = fopen($strCFileName, "ab");
     // TODO: open failure check
@@ -297,8 +281,7 @@
     fclose($fCMails);
     echol(hTable(hRow(hCell('Mail address was successfuly added to list', 'PlainText Info'))));
   }
-  elseif ($strAction == 'checkdupsubscribe' && session_is_registered($strSNAdminRights))
-  {
+	elseif ($strAction=='checkdupsubscribe' && $bAdmin) {
     echol(hPar('DMVN Website Duplicate Subscriptions', 'Subtitle'));
     $arrCMailsCount = array();
     $fCMails = fopen($strCFileName, 'r');
@@ -325,8 +308,9 @@
     echol('</table>');
   }
 
-  if (session_is_registered($strSNAdminRights))
-    echol(hTable(hRow(hCell(hBold(llink("$PHP_SELF?strAction=logout", '[Logout]')), 'ForumC')), attr('width', '100%')));
+	if ($bAdmin) {
+		echol('<div style="text-align: center; font-weight: bold;">'.llink("$PHP_SELF?strAction=logout", '[Logout]').'</div>');
+	}
 ?>
     </TD>
   </TR>
