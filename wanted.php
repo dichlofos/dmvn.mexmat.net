@@ -10,13 +10,8 @@
 
   if (!isset($section)) $section = "0";
 
-  $CurrentMenuItem = $mnuWanted;
-    
-  PutPageHeader($arrMenuFiles, $arrMenuTitles, $arrMenuColors, $CurrentMenuItem, $arrCat, $strSLU, $section);
-    
-  echo '<TABLE align="center" width="95%"><TR><TD>';
-  DisplayPage($CurrentMenuItem, $arrCat, $section);
-  echo '</TR></TD></TABLE>';
-    
-  PutPageFooter($strDMVNMail);
+	$CurrentMenuItem = $mnuWanted;
+	PutPageHeader($arrMenuFiles, $arrMenuTitles, $arrMenuColors, $CurrentMenuItem, $arrCat, $strSLU, $section);
+	DisplayPage($CurrentMenuItem, $arrCat, $section);
+	PutPageFooter($strDMVNMail);
 ?>

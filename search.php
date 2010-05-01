@@ -136,14 +136,10 @@
   $txtSearchString = ProcessStringPostVar('txtSearchString');
   $section = ProcessStringPostVar('section', '0'); 
     
-  PutPageHeader($arrMenuFiles, $arrMenuTitles, $arrMenuColors, $CurrentMenuItem, $arrCat, $strSLU, $section);
+	PutPageHeader($arrMenuFiles, $arrMenuTitles, $arrMenuColors, $CurrentMenuItem, $arrCat, $strSLU, $section);
+	DisplayPage($CurrentMenuItem, $arrCat, $section);
 ?>
-<TABLE width="95%" align="center">
-  <TR>
-    <TD>
-      <?php DisplayPage($CurrentMenuItem, $arrCat, $section); ?>
-    </TD>
-  </TR>
+<table class="Page">
 <?php
   echol('<tr><td align="center">');
   echol(

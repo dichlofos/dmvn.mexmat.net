@@ -41,7 +41,6 @@ a:active {color: #ff5050}
 
 a.left {
 	font-size: 9pt;
-	/*font-family: Verdana, Arial;*/
 	height: 12pt;
 	line-height: 12pt;
 	text-decoration: none;
@@ -71,6 +70,13 @@ td.TopTbl {
 	color: #ff9933;
 	font-family: Tahoma, Verdana;
 	text-align: center;
+}
+table.Page {
+	width: 100%;
+	padding-top: 0px;
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-bottom: 0px;
 }
 td.PlainTitle {
 	font-weight: bold;

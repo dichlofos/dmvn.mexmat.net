@@ -19,19 +19,13 @@
   $bRedir = false;
 
   PutPageHeader($arrMenuFiles, $arrMenuTitles, $arrMenuColors, $CurrentMenuItem, $arrCat, $strSLU, $section);
+  DisplayPage($CurrentMenuItem, $arrCat, $section);
 
 ?>
-<TABLE width="95%" align="center">
-  <TR>
-    <TD>
-      <?php DisplayPage($CurrentMenuItem, $arrCat, $section); ?>
-    </TD>
-  </TR>
-  <TR>
-    <TD>
-      <P class="Subtitle">
-        Рассылка новостей сайта
-      </P>
+	<table class="Page">
+		<tr>
+			<td>
+				<P class="Subtitle">Рассылка новостей сайта</P>
 <?php          
   if ($strAction == 'addmail')
   {
@@ -101,16 +95,17 @@
     }
   }
   else
-  {
-    echol(
-       hPar('Если Вы хотите получать по почте уведомления об обновлениях нашего сайта, '.
-          'укажите свой e-mail здесь. Вы получите письмо с просьбой подтвердить '.
-          'необходимость рассылки. После подтверждения Ваш e-mail будет добавлен '.
-          'в список рассылки. Для надёжности применяется шифрование mail-адресов, '.
-          'так что будьте уверены, что Ваш e-mail нигде не встретится открытым текстом '.
-          'на нашем сайте.', 'PlainTextFP').
-       hPar('Если Вы хотите убрать свой адрес из списка рассылки, напишите об этом нам.', 'PlainTextFP').
-       '<center>'.
+  {?>
+		<p class="PlainTextFP">
+			Если Вы хотите получать по почте уведомления об обновлениях нашего сайта,
+       укажите свой e-mail здесь. Вы получите письмо с просьбой подтвердить
+       необходимость рассылки. После подтверждения Ваш e-mail будет добавлен
+       в список рассылки. Для надёжности применяется шифрование mail-адресов,
+       так что будьте уверены, что Ваш e-mail нигде не встретится открытым текстом
+       на нашем сайте.</p>
+		<p class="PlainTextFP">Если Вы хотите убрать свой адрес из списка рассылки, напишите об этом нам.</p>
+	<?php
+       echol('<center>'.
        hoForm('frmMail', "$PHP_SELF?strAction=addmail&strCodepage=0").
         hTable(hRow(
          hCell($lblSubmitEMail, 'InForm Bold').
@@ -125,18 +120,19 @@
        hcForm().
        '</center>');
   }
+	
   echol(hPar('Структура сайта', 'Subtitle'));
   echol('<table border="0" width="100%">');
   for ($i = 0; $i < count($arrMenuDesc); $i++)
     echol(hRow(hCell('&#0149; '.llink($arrMenuFiles[$i], $arrMenuTitles[$i]), 'PlainTextFP', '200px', '', attr('valign', 'top')).
                hCell(' ', 'PlainTextFP', '10px').
                hCell($arrMenuDesc[$i], 'PlainTextFP', '', '', attr('valign', 'top'))));
-  echol('</table>');
-?>
-    </TD>
-  </TR>
-</TABLE>
-<?php
-  PutPageFooter($strDMVNMail);
-  if ($bRedir) echol('<html>'.hScript("open('$PHP_SELF', '_self');").'</html>');
+	echol('</table>');
+	?>
+			</td>
+		</tr>
+	</table><!-- page -->
+	<?php
+	PutPageFooter($strDMVNMail);
+	if ($bRedir) echol('<html>'.hScript("open('$PHP_SELF', '_self');").'</html>');
 ?>

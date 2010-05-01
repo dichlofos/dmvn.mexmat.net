@@ -50,9 +50,9 @@
 	}
 	PutPageHeader($arrMenuFiles, $arrMenuTitles, $arrMenuColors, $CurrentMenuItem, $arrCat, $strSLU, $section);
 ?>
-<TABLE width="95%" align="center">
-  <TR>
-    <TD>
+<table class="Page">
+  <tr>
+    <td>
 <?php
 	echol('<center>');
 	if (!$bAdmin) { // show login form
@@ -312,9 +312,9 @@
 		echol('<div style="text-align: center; font-weight: bold;">'.llink("$PHP_SELF?strAction=logout", '[Logout]').'</div>');
 	}
 ?>
-    </TD>
-  </TR>
-</TABLE>
+    </td>
+  </tr>
+</table>
 <?php
   PutPageFooter($strDMVNMail);
   // Auto redir via jscript

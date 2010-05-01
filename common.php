@@ -201,8 +201,7 @@
 	// TODO: remove strSiteLastUpdate (make global)
   function PutPageHeader($arrMFiles, $arrMTitles, $arrMColors, $CurrentMenuItem, $arrCat, $strSiteLastUpdate, $section)
   {
-    echo '
-<HTML>
+echo '<HTML>
   <HEAD>';
 		PutMetaInfo($CurrentMenuItem);
 		echo '<LINK rel="stylesheet" type="text/css" href="styles.css">
@@ -342,9 +341,9 @@
       echo "<p>ERROR: This site section is empty! Data file is missing. Please inform site administration about this, including link to this page.</p>";
       return;
     }
-    echo '<TABLE width="100%">';
+    echo '<table class="Page">';
     $fData = fopen("data/$strCatName.dat", "r");
-    echo '<TR><TD colspan="2">';
+    echo '<tr><td colspan="2">';
     // Searching text blocks
     while (!feof($fData))
     {
@@ -355,7 +354,7 @@
         PutTextBlock($arrItem[1], $arrItem[2], $arrItem[4], $arrItem[5]);
     }
     fclose($fData);
-    echo '</TD></TR>';
+    echo '</td></tr>';
 
     // Displaying file database
     $fData = fopen("data/$strCatName.dat", "r");
@@ -372,7 +371,7 @@
       }
     }
     fclose($fData);
-    echo '</TABLE>';
+    echo '</table>';
   }
   // -------------------------------------------------------------
   function DisplaySectionsMenu($CurrentMenuItem, $arrCat, $arrMFiles, $section)

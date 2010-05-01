@@ -24,9 +24,7 @@
   $lblUserAgent = "User Agent:";
   $lblFlag = 'Flag:';
 
-//  $lblBadName = 'Имя не введено';
   $lblReservedName = 'Имя <i>Admin</i> может использовать только администратор';
-//  $lblBadComment = 'Сообщение не введено';
 
   // Comments per page
   $nCommentsPerPage = 10;
@@ -102,16 +100,12 @@
 		header("Location: $PHP_SELF");
 		exit();
 	}
-  PutPageHeader($arrMenuFiles, $arrMenuTitles, $arrMenuColors, $CurrentMenuItem, $arrCat, $strSLU, $section);
+	PutPageHeader($arrMenuFiles, $arrMenuTitles, $arrMenuColors, $CurrentMenuItem, $arrCat, $strSLU, $section);
+	DisplayPage($CurrentMenuItem, $arrCat, $section);
 ?>
-<TABLE width="95%" align="center">
-  <TR>
-    <TD>
-      <?php DisplayPage($CurrentMenuItem, $arrCat, $section); ?>
-    </TD>
-  </TR>
-  <TR>
-    <TD>
+<table class="Page">
+  <tr>
+    <td>
 <?php
   if ($strAction == 'post')
   {
@@ -524,10 +518,9 @@
     echol(hTable(hRow(hCell($strPageLinks, 'PlainText'))));
   }
 ?>
-
-    </TD>
-  </TR>
-</TABLE>
+		</td>
+	</tr>
+</table>
 <?php
   PutPageFooter($strDMVNMail);
   // Auto redir via jscript
