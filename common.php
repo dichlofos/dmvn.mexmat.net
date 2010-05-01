@@ -199,8 +199,9 @@
 	}
   // -------------------------------------------------------------
 	// TODO: remove strSiteLastUpdate (make global)
-  function PutPageHeader($arrMFiles, $arrMTitles, $arrMColors, $CurrentMenuItem, $arrCat, $strSiteLastUpdate, $section)
-  {
+	function PutPageHeader($arrMFiles, $arrMTitles, $arrMColors, $CurrentMenuItem, $arrCat, $strSiteLastUpdate, $section) {
+		// TODO: fix DOCTYPE! (this DOCTYPE spec heavily breaks forum styles)
+		// echo '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">'."\r\n";
 echo '<HTML>
   <HEAD>';
 		PutMetaInfo($CurrentMenuItem);
@@ -307,7 +308,7 @@ echo '<HTML>
 					if (array_key_exists($sFmt, $aFormatFiles)) {
 						$sIcon=$aFormatFiles[$sFmt];
 						$sDesc=$aFormatDesc[$sFmt];
-						$sPFmt="<img class=\"icon\" width=\"16px\" height=\"16px\" src=\"/images/icons/$sIcon\" alt=\"$sDesc\" />";
+						$sPFmt="<img class=\"Icon\" src=\"/images/icons/$sIcon\" alt=\"$sDesc\" />";
 					} else {
 						$sPFmt=$sFmt; // leave 'as is'
 					}
@@ -341,7 +342,7 @@ echo '<HTML>
       echo "<p>ERROR: This site section is empty! Data file is missing. Please inform site administration about this, including link to this page.</p>";
       return;
     }
-    echo '<table class="Page">';
+    echo '<div class="Page"><table class="Page">';
     $fData = fopen("data/$strCatName.dat", "r");
     echo '<tr><td colspan="2">';
     // Searching text blocks
@@ -371,7 +372,7 @@ echo '<HTML>
       }
     }
     fclose($fData);
-    echo '</table>';
+    echo '</table></div>';
   }
   // -------------------------------------------------------------
   function DisplaySectionsMenu($CurrentMenuItem, $arrCat, $arrMFiles, $section)

@@ -71,12 +71,15 @@ td.TopTbl {
 	font-family: Tahoma, Verdana;
 	text-align: center;
 }
+div.Page {
+	padding: 0px;
+	padding-left: 15px;
+	padding-right: 15px;
+}
 table.Page {
 	width: 100%;
-	padding-top: 0px;
-	padding-left: 10px;
-	padding-right: 10px;
-	padding-bottom: 0px;
+	padding: 0px;
+	margin: 0px;
 }
 td.PlainTitle {
 	font-weight: bold;
@@ -189,11 +192,13 @@ select.Menu {
 select.Codepage {
 	width: 120px;
 }
-img.icon {
+img.Icon {
 	border: 0px;
 	padding: 0px;
 	margin: 0px;
 	margin-bottom: -3px;
+	height: 16px;
+	width: 16px;
 }
 img.Smile {
 	margin-bottom: -2px;
