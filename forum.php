@@ -266,17 +266,16 @@
         if ($bPostInvalid)
         {
           $strFormSubmitAction = "$PHP_SELF?strAction=post&strPostID=$strPostID&strUpdate=$strUpdate&strDPostID=$strDPostID";
-          echol('<table><tr>');
-          foreach ($arrSmiles as $strSmile)
-            echol(hCell(hImg("images/smiles/$strSmile.gif", "\$$strSmile\$", '', '', '',
-                  attr('onclick', "InsertText(document.frmPost.txtComment, '\$$strSmile\$')")), '', '30', '30'));
-          echol('</tr></table>');
+					echol('<div>');
+					foreach ($arrSmiles as $strSmile) {
+						$sExt='png';
+						if ($strSmile=='rolleyes' || $strSmile=='shocked') $sExt='gif';
+						echol(hImg("images/smiles/$strSmile.$sExt", "\$$strSmile\$", 'SmileTop', '', '',
+							attr('onclick', "InsertText(document.frmPost.txtComment, '\$$strSmile\$')")));
+					}
+					echol('</div>');
           echol(hoForm('frmPost', $strFormSubmitAction));
           echol('<table border=0 cellspacing=0>');
-/*        echol(hRow(hCell('PostID:', 'InForm Labels').
-                hCell(":|".out($strPostID)."|:", 'InForm Bold')));
-          echol(hRow(hCell('Action:', 'InForm Labels').
-                hCell(out($strFormSubmitAction), 'InForm Bold'))); */
           if ($bAdmin && $strPostID != '')
           {
             // Date
@@ -511,7 +510,7 @@
         $strForumOut .= hRow(hCell(
           hHref('mailto:'.FilterDQuotes($dispEMail), hImg('/images/icons/em.gif', '', 'MessageIcon', '', '', attr('title', out($dispEMail)))).
           hHref(FilterDQuotes($valHomePage), hImg('/images/icons/hm.gif', '', 'MessageIcon')).
-          hImg('/images/icons/ip.gif', '', 'MessageIcon', '', '', attr('title', out($dispIP))).
+          hImg('/images/icons/ip.png', '', 'MessageIcon', '', '', attr('title', out($dispIP))).
           hImg('/images/icons/br.gif', '', 'MessageIcon', '', '', attr('title', out($dispUserAgent))).
           "$strUserFunctions $strAdminFunctions ".out($valDate).' '.out($valTime).'  <b>'.out($valName).'</b>: '.out($valTheme), 'ForumF'));
         
@@ -562,15 +561,17 @@
   }
   // -------------------------------------------------------------
   // Reverses the actions of the previous function
-  function FormatPost($strPost)
-  {
-    global $arrSmiles;
-    foreach ($arrSmiles as $strSmile)
-      $strPost = str_replace("\$$strSmile\$", hImg("/images/smiles/$strSmile.gif", $strSmile), $strPost);
-    $strPost = str_replace("\r\n", "<br>", $strPost);
-    $strPost = TraceURL($strPost);
-    return $strPost;
-  }
+	function FormatPost($strPost) {
+		global $arrSmiles;
+		foreach ($arrSmiles as $strSmile) {
+			$sExt='png';
+			if ($strSmile=='rolleyes' || $strSmile=='shocked') $sExt='gif';
+			$strPost=str_replace("\$$strSmile\$", hImg("/images/smiles/$strSmile.$sExt", $strSmile, 'Smile'), $strPost);
+		}
+		$strPost=str_replace("\r\n", "<br>", $strPost);
+		$strPost=TraceURL($strPost);
+		return $strPost;
+	}
 
   // -------------------------------------------------------------
   function bURLSymbol($strSym)
