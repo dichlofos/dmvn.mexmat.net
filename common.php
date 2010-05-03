@@ -335,7 +335,7 @@
 			echo "<p>ERROR: This site section is empty! Data file is missing. Please inform site administration about this, including link to this page.</p>";
 			return;
 		}
-		echo '<div class="Page"><!-- <table class="Page"> -->';
+		echo "<div class=\"Page\">\r\n";
 		$fData = fopen("data/$strCatName.dat", "r");
 		//echo '<tr><td colspan="2">';
 		// Searching text blocks
@@ -348,7 +348,6 @@
 			}
 		}
 		fclose($fData);
-		//echo '</td></tr>';
 
 		// Displaying file database
 		$fData = fopen("data/$strCatName.dat", "r");
@@ -364,7 +363,7 @@
 			}
 		}
 		fclose($fData);
-		echo '<!-- </table> --></div>';
+		echo "</div>\r\n";
 	}
 	// -------------------------------------------------------------
 	function DisplaySectionsMenu($CurrentMenuItem, $arrCat, $arrMFiles, $section) {
