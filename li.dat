@@ -1,4 +1,4 @@
-<script type="text/javascript">
+<script type="text/javascript">//<!--
 document.write('<a href="http://www.liveinternet.ru/click" '+
 'target="_blank"><img src="http://counter.yadro.ru/hit?t52.10;r'+
 escape(document.referrer)+((typeof(screen)=='undefined')?'':
@@ -6,7 +6,7 @@ escape(document.referrer)+((typeof(screen)=='undefined')?'':
 screen.colorDepth:screen.pixelDepth))+';u'+escape(document.URL)+
 ';'+Math.random()+
 '" title="liveinternet.ru: показано число просмотров и посетителей за 24 часа" '+
-'border="0" width="88" height="31" /></a>');
+'border="0" width="88" height="31" /></a>');// -->
 </script><a href="http://www.yandex.ru/cy?base=0&amp;host=http://dmvn.mexmat.net">
-<img src="http://www.yandex.ru/cycounter?http://dmvn.mexmat.net" width="88" height="31" alt="Яндекс цитирования" border="0">
+<img src="http://www.yandex.ru/cycounter?http://dmvn.mexmat.net" style="width: 88px; height: 31px; border: 0px;" alt="Яндекс цитирования" />
 </a>

@@ -123,27 +123,23 @@
     return llink($arrMenuFiles[$nIndex], $arrMenuTitles[$nIndex]);
   }
   // -------------------------------------------------------------
-  function GenerateMenu($arrMFiles, $arrMTitles, $arrMColors, $arrCat, $CurrentMenuItem)
-  {
-    $arrCUTime = fileCutEOL("data/cutime.dat");
+	function GenerateMenu($arrMFiles, $arrMTitles, $arrMColors, $arrCat, $CurrentMenuItem) {
+		$arrCUTime = fileCutEOL("data/cutime.dat");
 
-    foreach ($arrCUTime as $strCUTime)
-    {
-      $arrL = explode("|", $strCUTime);
-      $arrCUTCat[] = $arrL[0];
-      $arrCUTTime[] = $arrL[1];
-    }
-    
-    echo '<table width="100%" border="0" cellpadding="0px" cellspacing="1px">'."\r\n";
-    for ($i = 0; $i < count($arrMTitles); $i++)
-    {
-      echo('<tr><td>');
-      $sty = ($i == $CurrentMenuItem) ? 'mselected' : $arrMColors[$i];
-      echo '<a '.attr('class', 'left '.$sty).attr('href', $arrMFiles[$i]).'>'.$arrMTitles[$i].'</a>';
-      echo "</td></tr>\r\n";
-    }
-    echo '</table>';
-  }
+		foreach ($arrCUTime as $strCUTime) {
+			$arrL = explode("|", $strCUTime);
+			$arrCUTCat[] = $arrL[0];
+			$arrCUTTime[] = $arrL[1];
+		}?>
+		<div class="Menu"><?php
+		for ($i = 0; $i < count($arrMTitles); $i++)
+		{
+			$sty=($i==$CurrentMenuItem) ? 'mselected' : $arrMColors[$i];
+			echo "\r\n<a".attr('class',"left $sty").attr('href', $arrMFiles[$i]).'>'.$arrMTitles[$i].'</a>';
+		}?>
+		</div>
+		<?php
+	}
   // -------------------------------------------------------------
   function bCodepageValid($arrCodepageNames, $nCodepage)
   {
@@ -226,8 +222,9 @@
 		GenerateMenu($arrMFiles, $arrMTitles, $arrMColors, $arrCat, $CurrentMenuItem);
 		DisplayNews($CurrentMenuItem, $arrCat, $arrMFiles);
 		DisplaySectionsMenu($CurrentMenuItem, $arrCat, $arrMFiles, $section);
-		// Put counters
-		echo "<div>\r\n".file_get_contents("li.dat")."\r\n</div>\r\n";
+		?>
+					<div class="Counters"><?php echo file_get_contents("li.dat"); ?></div>
+		<?php
 		global $bAdmin;
 		if ($bAdmin) {
 			echo '<div style="text-align: center"><a href="data/sdg.php?ref='.$arrMFiles[$CurrentMenuItem].'"><b>Update&nbsp;DB</b></a></div>';
@@ -250,9 +247,39 @@
 </html>
 	<?php
 	}
-  // -------------------------------------------------------------
-	function PutItem($strCategory, $strSection, $strItemSectionID, $strTitle, $strDesc, $strSearchID, $arrResData)
-	{
+	// -------------------------------------------------------------
+	// 1,2,3,5,6,M,S,10,11,12,13,K -> 1-3,5,6,M,S,10-13,K
+	function MakeRange($sSections) {
+		$sSections=str_replace(' ', '', $sSections);
+		$aS=explode(',', ",$sSections,");
+		$nL=count($aS);
+		$sRes='';
+		$bDash=false;
+		for ($i=1; $i<$nL-1; ++$i) { // we're LR(1,-1)
+			$sC=$aS[$i+0];// current
+			$nC=@intval($sC);
+			$sP=$aS[$i-1];// previous
+			$nP=@intval($sP);
+			$sN=$aS[$i+1];// next
+			$nN=@intval($sN);
+			if ($nC>0 && $nP>0 && $nP+1==$nC && $nN>0 && $nN-1==$nC) {
+				if (!$bDash) {
+					$sRes.='-';
+					$bDash=true;
+				}
+			} else {
+				if ($bDash) {
+					$sRes.="$sC";
+					$bDash=false;
+				} else {
+					$sRes.=" $sC";
+				}
+			}
+		}
+		return trim($sRes);
+	}
+	// -------------------------------------------------------------
+	function PutItem($strCategory, $strSection, $strItemSectionID, $strTitle, $strDesc, $strSearchID, $arrResData) {
 		global $aFormatFiles;
 		global $aFormatDesc;
 		
@@ -266,35 +293,32 @@
 				if ($arrTargetSections[$i] == $arrRequestedSections[$j]) $bDisp = true;
 			}
 		}
-		if ($strDesc != '.section.' && $strDesc != '.newsblock.' && $bDisp) {
-			echo '<div class="PlainTitle"><span class="TitleSection">';
-			//echo '<a name="'.$strSearchID.'"></a>';
-			if ($strItemSectionID) echo '['.$strItemSectionID.'] ';
-			echo '</span><span class="Title">';
-			//echo '<tr><!--<td class="PlainTitle" style="width: 0%">';
-			//echo '</td>--><td class="PlainTitle">';
-			echo $strTitle;//.'</td></tr>';
-			echo "</span></div>\r\n";
-			echo '<div>'.$strDesc.'</div>';
-			//if ($strDesc) echo '<tr><!--<td style="width: 0%"></td>--><td class="PlainText">'.$strDesc.'</td></tr>';
-			if (!ArrEmpty($arrResData)) {
-				/*echo '<TR><!--<TD style ="width: 0cm"></TD>--><TD class="LUpd">';
-				for ($i = 0; $i < count($arrResData); $i+=4) {
-					$sFN = $arrResData[$i+0];
-					$sSize = $arrResData[$i+1];
-					$sDate = $arrResData[$i+2];
-					$sFmt = $arrResData[$i+3];
-					if (array_key_exists($sFmt, $aFormatFiles)) {
-						$sIcon=$aFormatFiles[$sFmt];
-						$sDesc=$aFormatDesc[$sFmt];
-						$sPFmt="<img class=\"Icon\" src=\"/images/icons/$sIcon\" alt=\"$sDesc\" />";
-					} else {
-						$sPFmt=$sFmt; // leave 'as is'
-					}
-					echo llink("/content/$strCategory/$sFN", "$sPFmt $sSize")." &#8212; $sDate&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+		
+		if (!$bDisp || $strDesc=='.section.' || $strDesc=='.newsblock.') return;
+		echo '<div class="PlainTitle"><span class="TitleSection">';
+		echo "<a name=\"$strSearchID\"></a>";
+		if ($strItemSectionID) echo '['.MakeRange($strItemSectionID).']';
+		echo '</span><span class="Title">'.$strTitle."</span>\r\n";
+		echo "</div>\r\n";
+		if ($strDesc) echo '<div class="ItemDesc">'.$strDesc."</div>\r\n";
+		if (!ArrEmpty($arrResData)) {
+			echo '<div class="Files">'."\r\n";
+			for ($i = 0; $i < count($arrResData); $i+=4) {
+				$sFN = $arrResData[$i+0];
+				$sSize = $arrResData[$i+1];
+				$sDate = $arrResData[$i+2];
+				$sFmt = $arrResData[$i+3];
+				if (array_key_exists($sFmt, $aFormatFiles)) {
+					$sIcon=$aFormatFiles[$sFmt];
+					$sDesc=$aFormatDesc[$sFmt];
+					// TODO: title tag for image
+					$sPFmt="<img class=\"Icon\" src=\"/images/icons/$sIcon\" alt=\"$sDesc\" />";
+				} else {
+					$sPFmt=$sFmt; // leave 'as is'
 				}
-				echo '</TD></TR>';*/
+				echo llink("/content/$strCategory/$sFN", "$sPFmt $sSize")."&nbsp;&#8212;&nbsp;$sDate<span class=\"FileSep\"> </span>";
 			}
+			echo "</div>\r\n";
 		}
 	}
 
@@ -405,22 +429,24 @@
 		}
 		$fData = fopen("data/$strCatName.dat", "r");
 		$bAnyNews = false;
-		$strHTMLOut = '<table width="100%">'."\r\n";
+		$strHTMLOut="";// = '<table width="100%">'."\r\n";
 		while (!feof($fData)) {
 			$strItemData = trim(fgets($fData));
 			$arrItem = explode("|", $strItemData);
 			if (count($arrItem) < 4) continue;
 			// Here we analyze only sections
 			if ($arrItem[3] == '.newsblock.') {
-				$strHTMLOut .= '<tr><td class="News"><b>'.$arrItem[1].'</b> &#8211; '.$arrItem[2].'</td></tr><tr><td height="5px"></td></tr>'."\r\n";
+				$strHTMLOut .= '<div class="NewsBlock"><b>'.$arrItem[1].'</b> &#8211; '.$arrItem[2]."</div>\r\n";
 				$bAnyNews = true;
 			}
 		}
-		$strHTMLOut .= '</table>'."\r\n";
+		//$strHTMLOut .= '</table>'."\r\n";
 		if ($bAnyNews) {?>
 			<div class="TopTbl">Новости</div>
+			<div class="News">
+				<?php echo $strHTMLOut; ?>
+			</div><!-- News -->
 			<?php
-			echo $strHTMLOut;
 		}
 		fclose($fData);
 	}
