@@ -1,6 +1,8 @@
 body {
 	font-family: Verdana, Arial, 'Sans Serif';
 	font-size: 9pt;
+	background-color: #000000;
+	color: #cccccc;
 }
 .PlainText {
 	font-size: 9pt;
@@ -12,10 +14,64 @@ body {
 	color: #a6b7c9;
 	text-align: justify;
 }
-td.footer {
+
+table.Top {
+	background-color: #00274f;
+	border-collapse: collapse;
+	border: 0px;
+	padding: 0px;
+	cell-spacing: 0px;
+	width: 100%;
+	margin-bottom: 2px;
+}
+table.Main {
+	border: 0px;
+	border-collapse: collapse;
+	height: 400px;
+	width: 100%;
+}
+td.MainLeft {
+	background-color: #00356a;
+	height: 326px;
+	vertical-align: top;
+	width: 200px;
+	padding: 0px;
+}
+td.MainDiv {
+	width: 2px;
+	padding: 0px;
+}
+td.MainRight {
+	background-color: #00254a;
+	height: 326px;
+	vertical-align: top;
+	padding: 0px;
+}
+div.TopTbl {
+	background-color: #00458a;
+	font-weight: bold;
+	font-size: 12pt;
+	color: #ff9933;
+	font-family: Tahoma, Verdana;
 	text-align: center;
-	width: 50%;
+	height: 25px;
+	line-height: 25px;
+}
+div.Footer {
+	text-align: center;
 	font-size: 9pt;
+	line-height: 25px;
+}
+img {
+	border: 0px;
+}
+img.MexMat {
+	width: 130px;
+	height: 126px;
+}
+img.DMVN {
+	width: 309px;
+	height: 88px;
 }
 p {
 	font-size: 9pt;
@@ -81,14 +137,27 @@ table.Page {
 	padding: 0px;
 	margin: 0px;
 }
-td.PlainTitle {
+
+.PlainTitle {
 	font-weight: bold;
 	font-size: 11pt;
+	line-height: 15pt;
 	color: #e3af7c;
 	font-family: Tahoma, Verdana;
-	height: 25pt;
-	vertical-align: bottom;
+	/*height: 25pt;*/
+	/*vertical-align: bottom;*/
 }
+span.TitleSection {
+	display: inline-block;
+	vertical-align: text-bottom;
+	width: 50px;
+	overflow: hidden;
+	line-height: 15pt;
+}
+span.Title {
+	line-height: 15pt;
+}
+
 td.Admin {
 	color: #dddddd;
 }

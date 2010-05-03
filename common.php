@@ -5,7 +5,7 @@
   include "gcommon.php";
 
   // DEGUGGING
-  $bDebugEnabled = TRUE;
+  $bDebugEnabled = true;
   // ---------
 
   $arrMenuData = fileCutEOL('menu.dat');
@@ -134,15 +134,15 @@
       $arrCUTTime[] = $arrL[1];
     }
     
-    echo '<TABLE width="100%" border="0" cellpadding="0px" cellspacing="1px">';
+    echo '<table width="100%" border="0" cellpadding="0px" cellspacing="1px">'."\r\n";
     for ($i = 0; $i < count($arrMTitles); $i++)
     {
-      echo('<TR><TD>');
+      echo('<tr><td>');
       $sty = ($i == $CurrentMenuItem) ? 'mselected' : $arrMColors[$i];
-      echo '<A '.attr('class', 'left '.$sty).attr('href', $arrMFiles[$i]).'>'.$arrMTitles[$i].'</A>';
-      echo '</TD></TR>';
+      echo '<a '.attr('class', 'left '.$sty).attr('href', $arrMFiles[$i]).'>'.$arrMTitles[$i].'</a>';
+      echo "</td></tr>\r\n";
     }
-    echo '</TABLE>';
+    echo '</table>';
   }
   // -------------------------------------------------------------
   function bCodepageValid($arrCodepageNames, $nCodepage)
@@ -188,10 +188,10 @@
 			$sKeywords=$aMeta[2];
 			$sDesc=$aMeta[3];
 			echo "\r\n";
-			echo "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=windows-1251\">\r\n";
-			echo "<meta name=\"author\" content=\"DMVN\">\r\n";
-			echo "<meta name=\"keywords\" content=\"$sKeywords\">\r\n";
-			echo "<meta name=\"description\" content=\"$sDesc\">\r\n";
+			echo "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=windows-1251\" />\r\n";
+			echo "<meta name=\"author\" content=\"DMVN\" />\r\n";
+			echo "<meta name=\"keywords\" content=\"$sKeywords\" />\r\n";
+			echo "<meta name=\"description\" content=\"$sDesc\" />\r\n";
 			echo "<title>Учебные материалы DMVN :: $sTitle</title>\r\n";
 			break;
 		}
@@ -201,80 +201,55 @@
 	// TODO: remove strSiteLastUpdate (make global)
 	function PutPageHeader($arrMFiles, $arrMTitles, $arrMColors, $CurrentMenuItem, $arrCat, $strSiteLastUpdate, $section) {
 		// TODO: fix DOCTYPE! (this DOCTYPE spec heavily breaks forum styles)
-		// echo '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">'."\r\n";
-echo '<HTML>
-  <HEAD>';
-		PutMetaInfo($CurrentMenuItem);
-		echo '<LINK rel="stylesheet" type="text/css" href="styles.css">
-  </HEAD>
-  <BODY bgColor="#000000" text="#cccccc">
-    <script language="javascript" src="script.js"></SCRIPT>
-    <TABLE bgColor="#00274f" border="0" width="100%" height="25">
-      <TR>
-        <TD width="200">
-          <center>'.flink('http://www.mexmat.net',
-					'<img alt="MexMat.Net" border="0" src="images/mexmatnet.png" width="130px" height="126px" />').'<center/>
-        </TD>
-        <TD>
-          <center>'.llink('/',
-					'<img alt="DMVN Logo" border="0" src="images/dmvnlogo.png" width="309px" height="88px"/>').'</center>
-        </TD>
-      </TR>
-    </TABLE>
-    <TABLE border="0" height="400" width="100%">
-      <TR>
-        <TD bgColor="#00356a" height="326" vAlign="top" width="200">
-          <TABLE bgColor="#00458a" border="0" width="100%">
-            <TR>
-              <TD class="TopTbl">Меню</TD>
-            </TR>
-          </TABLE>';
-    GenerateMenu($arrMFiles, $arrMTitles, $arrMColors, $arrCat, $CurrentMenuItem);
-    DisplayNews($CurrentMenuItem, $arrCat, $arrMFiles);
-    DisplaySectionsMenu($CurrentMenuItem, $arrCat, $arrMFiles, $section);
-    echo '
-          <TABLE bgColor="#00356a" border="0" width="100%">
-            <TR>
-              <TD class="TopTbl">';
-    $arrLIScript = file("li.dat");
-		for ($i = 0; $i < count($arrLIScript); $i++) {
-			echo $arrLIScript[$i];
-		}
-    echo '   </TD>
-            </TR>
-          </TABLE>';
-
+		//echo '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">'."\r\n";
+?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+	<head>
+		<?php PutMetaInfo($CurrentMenuItem);?>
+		<link rel="stylesheet" type="text/css" href="styles.css" />
+	</head>
+	<body>
+		<script type="text/javascript" src="script.js"></script>
+		<table class="Top">
+			<tr>
+				<td style="width: 200px; text-align: center;">
+					<?php echo flink('http://www.mexmat.net', '<img alt="MexMat.Net" src="images/mexmatnet.png" class="MexMat" />');?>
+				</td>
+				<td style="text-align: center;"><?php echo llink('/', '<img alt="DMVN Logo" src="images/dmvnlogo.png" />');?></td>
+			</tr>
+		</table>
+		<table class="Main">
+			<tr>
+				<td class="MainLeft">
+					<div class="TopTbl">Меню</div>
+					<?php
+		GenerateMenu($arrMFiles, $arrMTitles, $arrMColors, $arrCat, $CurrentMenuItem);
+		DisplayNews($CurrentMenuItem, $arrCat, $arrMFiles);
+		DisplaySectionsMenu($CurrentMenuItem, $arrCat, $arrMFiles, $section);
+		// Put counters
+		echo "<div>\r\n".file_get_contents("li.dat")."\r\n</div>\r\n";
 		global $bAdmin;
 		if ($bAdmin) {
 			echo '<div style="text-align: center"><a href="data/sdg.php?ref='.$arrMFiles[$CurrentMenuItem].'"><b>Update&nbsp;DB</b></a></div>';
-		}
-    echo '
-        </TD>
-        <TD bgColor="#00254a" height="326" vAlign="top">
-          <TABLE bgColor="#00458a" border="0" width="100%">
-            <TR>
-              <TD class="TopTbl">'.$arrMTitles[$CurrentMenuItem].'
-              </TD>
-            </TR>
-          </TABLE>';
+		}?>
+				</td>
+				<td class="MainDiv" /><!-- black divider -->
+				<td class="MainRight">
+					<div class="TopTbl"><?php echo $arrMTitles[$CurrentMenuItem];?></div>
+		<?php
   }
   // -------------------------------------------------------------
-  function PutPageFooter($strMail)
-  {    
-    echo '
-        </TD>
-      </TR>
-    </TABLE>
-    <CENTER><TABLE border="0" width="100%">
-        <TR>
-          <td class="footer">Copyright © 2003&#8211;2010, '.
-					llink('mailto:'.$strMail, 'DMVN').'. All rights reserved</td>
-        </TR>
-      </TABLE>
-    </CENTER>
-  </BODY>
-</HTML>';
-  }
+  function PutPageFooter($strMail) {?>
+				</td><!-- MainRight-->
+			</tr>
+		</table>
+		<div class="Footer">Copyright &copy;&nbsp;2003&#8211;2010, <?php echo
+			llink('mailto:'.$strMail, 'DMVN'); ?>. All rights reserved
+		</div>
+	</body>
+</html>
+	<?php
+	}
   // -------------------------------------------------------------
 	function PutItem($strCategory, $strSection, $strItemSectionID, $strTitle, $strDesc, $strSearchID, $arrResData)
 	{
@@ -292,14 +267,18 @@ echo '<HTML>
 			}
 		}
 		if ($strDesc != '.section.' && $strDesc != '.newsblock.' && $bDisp) {
-			echo '<tr><td class="PlainTitle" style="width: 0%">';
-			echo '<a name="'.$strSearchID.'"></a>';
-			if ($strItemSectionID != '') echo '['.$strItemSectionID.']';
-			echo '</td><td class="PlainTitle">';
-			echo $strTitle.'</td></tr>';
-			if ($strDesc) echo '<tr><td style="width: 0%"></td><td class="PlainText">'.$strDesc.'</td></tr>';
+			echo '<div class="PlainTitle"><span class="TitleSection">';
+			//echo '<a name="'.$strSearchID.'"></a>';
+			if ($strItemSectionID) echo '['.$strItemSectionID.'] ';
+			echo '</span><span class="Title">';
+			//echo '<tr><!--<td class="PlainTitle" style="width: 0%">';
+			//echo '</td>--><td class="PlainTitle">';
+			echo $strTitle;//.'</td></tr>';
+			echo "</span></div>\r\n";
+			echo '<div>'.$strDesc.'</div>';
+			//if ($strDesc) echo '<tr><!--<td style="width: 0%"></td>--><td class="PlainText">'.$strDesc.'</td></tr>';
 			if (!ArrEmpty($arrResData)) {
-				echo '<TR><TD style ="width: 0cm"></TD><TD class="LUpd">';
+				/*echo '<TR><!--<TD style ="width: 0cm"></TD>--><TD class="LUpd">';
 				for ($i = 0; $i < count($arrResData); $i+=4) {
 					$sFN = $arrResData[$i+0];
 					$sSize = $arrResData[$i+1];
@@ -314,7 +293,7 @@ echo '<HTML>
 					}
 					echo llink("/content/$strCategory/$sFN", "$sPFmt $sSize")." &#8212; $sDate&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
 				}
-				echo '</TD></TR>';
+				echo '</TD></TR>';*/
 			}
 		}
 	}
@@ -418,43 +397,33 @@ echo '<HTML>
     fclose($fData);
   }
   // -------------------------------------------------------------
-  function DisplayNews($CurrentMenuItem, $arrCat, $arrMFiles)
-  {
-    $strCatName = $arrCat[$CurrentMenuItem];
-    if (!file_exists("data/$strCatName.dat")) {
-      // TODO: warning??
-      return;
-    }
-    $fData = fopen("data/$strCatName.dat", "r");
-
-    $bAnyNews = FALSE;
-    $strHTMLOut = '<TABLE width="100%">';
-
-    while (!feof($fData))
-    {
-      $strItemData = trim(fgets($fData));
-      $arrItem = explode("|", $strItemData);
-      if (count($arrItem) < 4) continue;
-      // Here we analyze only sections
-      if ($arrItem[3] == '.newsblock.')
-      {
-        $strHTMLOut .= '<TR><TD class="News"><b>'.$arrItem[1].'</b> &#8211; '.$arrItem[2].'</TD></TR><TR><TD height="5px"></TD></TR>';
-        $bAnyNews = TRUE;
-      }
-    }
-    $strHTMLOut .= '</TABLE>';
-    if ($bAnyNews)
-    {
-      $strHTMLOut = 
-         '<TABLE bgColor="#00458a" border="0" width="100%">
-            <TR>
-              <TD class="TopTbl">Новости</TD>
-            </TR>
-          </TABLE>'.$strHTMLOut;
-      echo $strHTMLOut;
-    }
-    fclose($fData);
-  }
+  function DisplayNews($CurrentMenuItem, $arrCat, $arrMFiles) {
+		$strCatName = $arrCat[$CurrentMenuItem];
+		if (!file_exists("data/$strCatName.dat")) {
+			// TODO: warning??
+			return;
+		}
+		$fData = fopen("data/$strCatName.dat", "r");
+		$bAnyNews = false;
+		$strHTMLOut = '<table width="100%">'."\r\n";
+		while (!feof($fData)) {
+			$strItemData = trim(fgets($fData));
+			$arrItem = explode("|", $strItemData);
+			if (count($arrItem) < 4) continue;
+			// Here we analyze only sections
+			if ($arrItem[3] == '.newsblock.') {
+				$strHTMLOut .= '<tr><td class="News"><b>'.$arrItem[1].'</b> &#8211; '.$arrItem[2].'</td></tr><tr><td height="5px"></td></tr>'."\r\n";
+				$bAnyNews = true;
+			}
+		}
+		$strHTMLOut .= '</table>'."\r\n";
+		if ($bAnyNews) {?>
+			<div class="TopTbl">Новости</div>
+			<?php
+			echo $strHTMLOut;
+		}
+		fclose($fData);
+	}
   // --------------------------------------------------------------------------------
   // Converts string from user input to our internal format for storing data
   function InputToStore($strInput)

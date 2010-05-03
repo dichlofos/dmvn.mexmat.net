@@ -7,12 +7,14 @@
   
   // -------------------------------------------------------------
   // Returns a far link
+	// TODO: add title attribute (to boost up promotion)
   function flink($strURL, $strTitle = "")
   {
     if (!$strTitle) $strTitle = $strURL;
-    return "<a href=\"$strURL\" target=\"_blank\">$strTitle</a>";
+    return "<a href=\"$strURL\">$strTitle</a>";
   }
   // -------------------------------------------------------------
+	// TODO: add title attribute (to boost up promotion)
   // Returns a local link
   function llink($strURL, $strTitle = "")
   {

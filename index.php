@@ -131,7 +131,7 @@
 	?>
 			</td>
 		</tr>
-	</table><!-- page -->
+	</table>
 	<?php
 	PutPageFooter($strDMVNMail);
 	if ($bRedir) echol('<html>'.hScript("open('$PHP_SELF', '_self');").'</html>');
