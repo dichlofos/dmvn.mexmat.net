@@ -316,111 +316,92 @@
 				} else {
 					$sPFmt=$sFmt; // leave 'as is'
 				}
-				echo llink("/content/$strCategory/$sFN", "$sPFmt $sSize")."&nbsp;&#8212;&nbsp;$sDate<span class=\"FileSep\"> </span>";
+				echo llink("/content/$strCategory/$sFN", "$sPFmt $sSize")."&nbsp;&#8212;&nbsp;$sDate<span class=\"FileSep\">&nbsp;</span>";
 			}
 			echo "</div>\r\n";
 		}
 	}
+	// -------------------------------------------------------------
+	function PutTextBlock($strCaption, $strText, $strCaptionColor, $strTextColor) {
+		$sCaptionStyle=($strCaptionColor) ? attr('style', "color: #$strCaptionColor") : '';
+		$sTextStyle=($strTextColor) ? attr('style', "color: #$strTextColor") : '';
+		echo "<p class=\"Subtitle\" $sCaptionStyle>$strCaption</p>\r\n";
+		echo "<p class=\"PlainTextFP\" $sTextStyle>$strText</p>\r\n";
+	}
+	// -------------------------------------------------------------
+	function DisplayPage($CurrentMenuItem, $arrCat, $strSection) {
+		$strCatName = $arrCat[$CurrentMenuItem];
+		if (!file_exists("data/$strCatName.dat")) {
+			echo "<p>ERROR: This site section is empty! Data file is missing. Please inform site administration about this, including link to this page.</p>";
+			return;
+		}
+		echo '<div class="Page"><!-- <table class="Page"> -->';
+		$fData = fopen("data/$strCatName.dat", "r");
+		//echo '<tr><td colspan="2">';
+		// Searching text blocks
+		while (!feof($fData)) {
+			$strItemData = trim(fgets($fData));
+			$arrItem = explode("|", $strItemData);
+			if (count($arrItem) < 4) continue;
+			if ($arrItem[3] == '.textblock.') {
+				PutTextBlock($arrItem[1], $arrItem[2], $arrItem[4], $arrItem[5]);
+			}
+		}
+		fclose($fData);
+		//echo '</td></tr>';
 
-  function PutTextBlock($strCaption, $strText, $strCaptionColor, $strTextColor)
-  {
-    echo '<P class="Subtitle" ';
-    if ($strCaptionColor) echo attr('style', "color: #$strCaptionColor");
-    echo '>';
-    echo $strCaption;
-    echo '</P>';
+		// Displaying file database
+		$fData = fopen("data/$strCatName.dat", "r");
+		while (!feof($fData)) {
+			$strItemData = trim(fgets($fData));
+			$arrItem = explode("|", $strItemData);
+			if (count($arrItem) < 4) continue;
+			if ($arrItem[3] != '.section.' && $arrItem[3] != '.textblock.' && $arrItem[3] != '.newsblock.')
+			{
+				$arrResData = NULL;
+				for ($i = 5; $i < count($arrItem); $i++) $arrResData[] = $arrItem[$i];
+				PutItem($arrItem[0], $strSection, $arrItem[1], $arrItem[2], $arrItem[3], $arrItem[4], $arrResData);
+			}
+		}
+		fclose($fData);
+		echo '<!-- </table> --></div>';
+	}
+	// -------------------------------------------------------------
+	function DisplaySectionsMenu($CurrentMenuItem, $arrCat, $arrMFiles, $section) {
+		$strCatName = $arrCat[$CurrentMenuItem];
+		if (!file_exists("data/$strCatName.dat")) {
+			// TODO: warning?
+			return;
+		}
+		$fData = fopen("data/$strCatName.dat", "r");
 
-    echo '<P class="PlainTextFP" ';
-    if ($strTextColor) echo attr('style', "color: #$strTextColor");
-    echo '>';
-    echo $strText;
-    echo '</P>';
-  }
+		$bHasMoreThanOneSection = false;
+		$strHTMLOptions='';
 
-  // -------------------------------------------------------------
-  function DisplayPage($CurrentMenuItem, $arrCat, $strSection)
-  {
-    $strCatName = $arrCat[$CurrentMenuItem];
-    if (!file_exists("data/$strCatName.dat")) {
-      echo "<p>ERROR: This site section is empty! Data file is missing. Please inform site administration about this, including link to this page.</p>";
-      return;
-    }
-    echo '<div class="Page"><table class="Page">';
-    $fData = fopen("data/$strCatName.dat", "r");
-    echo '<tr><td colspan="2">';
-    // Searching text blocks
-    while (!feof($fData))
-    {
-      $strItemData = trim(fgets($fData));
-      $arrItem = explode("|", $strItemData);
-      if (count($arrItem) < 4) continue;
-      if ($arrItem[3] == '.textblock.')
-        PutTextBlock($arrItem[1], $arrItem[2], $arrItem[4], $arrItem[5]);
-    }
-    fclose($fData);
-    echo '</td></tr>';
-
-    // Displaying file database
-    $fData = fopen("data/$strCatName.dat", "r");
-    while (!feof($fData))
-    {
-      $strItemData = trim(fgets($fData));
-      $arrItem = explode("|", $strItemData);
-      if (count($arrItem) < 4) continue;
-      if ($arrItem[3] != '.section.' && $arrItem[3] != '.textblock.' && $arrItem[3] != '.newsblock.')
-      {
-        $arrResData = NULL;
-        for ($i = 5; $i < count($arrItem); $i++) $arrResData[] = $arrItem[$i];
-        PutItem($arrItem[0], $strSection, $arrItem[1], $arrItem[2], $arrItem[3], $arrItem[4], $arrResData);
-      }
-    }
-    fclose($fData);
-    echo '</table></div>';
-  }
-  // -------------------------------------------------------------
-  function DisplaySectionsMenu($CurrentMenuItem, $arrCat, $arrMFiles, $section)
-  {
-    $strCatName = $arrCat[$CurrentMenuItem];
-    if (!file_exists("data/$strCatName.dat")) {
-      // TODO: warning?
-      return;
-    }
-    $fData = fopen("data/$strCatName.dat", "r");
-
-    $bHasMoreThanOneSection = false;
-    $strHTMLOptions = '';
-
-    while (!feof($fData))
-    {
-      $strItemData = trim(fgets($fData));
-      $arrItem = explode("|", $strItemData);
-      if (count($arrItem) < 4) continue;
-      // Here we analyze only sections
-      if ($arrItem[3] == '.section.')
-      {
-        if (!$bHasMoreThanOneSection)
-        {
-          $bHasMoreThanOneSection = true;
-          $strHTMLOptions .= '<TABLE border="0"><TR><TD class="MenuText">'.
-                             'Фильтр:</TD></TR><TR><TD><select class="Menu" onchange="document.frmSelect.action=\''.
-                             $arrMFiles[$CurrentMenuItem].'?section=\'+ this.options[this.selectedIndex].value">'.
-                             '<option value="0">Всё</option>';
-        }
-        if ($arrItem[1] == $section)
-          $strHTMLOptions .= '<option selected value="'.$arrItem[1].'">'.$arrItem[2].'</option>';
-        else
-          $strHTMLOptions .= '<option value="'.$arrItem[1].'">'.$arrItem[2].'</option>';
-      }
-    }
-    if ($bHasMoreThanOneSection)
-    {
-      $strHTMLOptions .= '</select></td></tr><tr><td><FORM name="frmSelect" '.attr('action', $arrMFiles[$CurrentMenuItem].'?section=0').
-                         'method="post"><input type="SUBMIT" class="subMenu" value="Вывести"></FORM></td></tr></table>';
-      echo $strHTMLOptions;
-    }
-    fclose($fData);
-  }
-  // -------------------------------------------------------------
+		while (!feof($fData)) {
+			$strItemData = trim(fgets($fData));
+			$arrItem = explode("|", $strItemData);
+			if (count($arrItem) < 4) continue;
+			// Here we analyze only sections
+			if ($arrItem[3] == '.section.') {
+				$bHasMoreThanOneSection=true;
+				$sSel=($arrItem[1]==$section) ? ' selected' : '';
+				$strHTMLOptions .= "<option$sSel value=\"{$arrItem[1]}\">{$arrItem[2]}</option>\r\n";
+			}
+		}
+		if ($bHasMoreThanOneSection) {?>
+			<div class="TopTbl">Фильтр</div>
+			<div class="Filter">
+				<select class="Filter" id="SectionFilter" onchange="SectionFilterOnChange();">
+					<option value="0">Всё</option>
+					<?php echo $strHTMLOptions; ?>
+				</select>
+			</div>
+			<?php
+		}
+		fclose($fData);
+	}
+	// -------------------------------------------------------------
   function DisplayNews($CurrentMenuItem, $arrCat, $arrMFiles) {
 		$strCatName = $arrCat[$CurrentMenuItem];
 		if (!file_exists("data/$strCatName.dat")) {
@@ -429,7 +410,7 @@
 		}
 		$fData = fopen("data/$strCatName.dat", "r");
 		$bAnyNews = false;
-		$strHTMLOut="";// = '<table width="100%">'."\r\n";
+		$strHTMLOut="";
 		while (!feof($fData)) {
 			$strItemData = trim(fgets($fData));
 			$arrItem = explode("|", $strItemData);
@@ -440,7 +421,6 @@
 				$bAnyNews = true;
 			}
 		}
-		//$strHTMLOut .= '</table>'."\r\n";
 		if ($bAnyNews) {?>
 			<div class="TopTbl">Новости</div>
 			<div class="News">

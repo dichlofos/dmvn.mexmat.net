@@ -278,14 +278,14 @@
   // 'cr': carriage return
   function func_int_exec_cr($arrPArgs)
   {
-    return ' <BR><BR> ';
+    return "<br /><br />";
   }
 
   // ------------------------------------------------------------------------------------
   // 'crs': soft carriage return
   function func_int_exec_crs($arrPArgs)
   {
-    return ' <BR> ';
+    return "<br />";
   }
 
   // ------------------------------------------------------------------------------------

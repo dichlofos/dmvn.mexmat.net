@@ -20,7 +20,7 @@ table.Top {
 	border-collapse: collapse;
 	border: 0px;
 	padding: 0px;
-	cell-spacing: 0px;
+	border-spacing: 0px;
 	width: 100%;
 	margin-bottom: 2px;
 }
@@ -168,18 +168,23 @@ span.Title {
 div.ItemDesc {
 	padding-left: 60px;
 	text-align: justify;
-	text-indent: 1em;
 }
 div.Files {
 	font-size: 9pt;
 	color: #008f8f;
 	height: 9pt;
 	padding-left: 60px;
-	margin-bottom: 6px;
+	padding-top: 5px;
+	margin-bottom: 10px;
 }
 span.FileSep {
 	display: inline-block;
 	width: 2em;
+}
+div.Filter {
+	margin-top: 3px;
+	margin-bottom: 6px;
+	text-align: center;
 }
 td.Admin {
 	color: #dddddd;
@@ -261,14 +266,14 @@ textarea {
 	color: #000000;
 	font-family: Verdana, Arial, Courier New Cyr;
 	width: 700px;
-	height: 150;
+	height: 150px;
 	border: 1px solid #000000;
 }
 select {
 	background-color: #b0c0d0;
 	border: 1px solid #7f7f9f;
 }
-select.Menu {
+select.Filter {
 	width: 190px;
 }
 select.Codepage {
