@@ -90,7 +90,7 @@
   function hoForm($strName, $strAction, $strClass = '', $strExtraAttr = '')
   {
     $aClass = ($strClass == '') ? '' : attr('class', $strClass);
-    return "<form name=\"$strName\" action=\"$strAction\" $aClass $strExtraAttr method=\"post\">";
+    return "<form id=\"$strName\" action=\"$strAction\" $aClass $strExtraAttr method=\"post\">";
   }
 
   // </form>
@@ -112,7 +112,7 @@
     $aClass = ($strClass == '') ? '' : attr('class', $strClass);
     $strValue = str_replace('"', '&quot;', $strValue);
     $aValue = ($strValue == '') ? '' : attr('value', $strValue);
-    return "<input name=\"$strName\" type=\"$strType\" $aClass $aValue $strExtraAttr>";
+    return "<input name=\"$strName\" id=\"$strName\" type=\"$strType\" $aClass $aValue $strExtraAttr />";
   }
 
   // <select>
@@ -172,11 +172,10 @@
     return "<strong>$strText</strong>";
   }
 
-  // <script>
-  // --------------------------------------------------------------------
-  function hScript($strScript)
-  {
-    return "<script language=\"javascript\">$strScript</script>";
-  }
+	// <script>
+	// --------------------------------------------------------------------
+	function hScript($strScript) {
+		return "<script type=\"text/javascript\">$strScript</script>";
+	}
 
 ?>
