@@ -2,16 +2,14 @@ body {
 	font-family: Verdana, Arial, 'Sans Serif';
 	font-size: 9pt;
 	background-color: #000000;
-	color: #cccccc;
+	color: #a6b7c9;
 }
 .PlainText {
 	font-size: 9pt;
-	color: #a6b7c9;
 	text-align: justify;
 }
 .PlainTextFP {
 	font-size: 10pt;
-	color: #a6b7c9;
 	text-align: justify;
 }
 
@@ -70,7 +68,6 @@ div.News {
 }
 div.NewsBlock {
 	font-size: 8pt;
-	color: #a6b7c9;
 	text-align: left;
 	margin-bottom: 6px;
 }
@@ -154,6 +151,17 @@ table.Page {
 	color: #e3af7c;
 	font-family: Tahoma, Verdana;
 }
+
+.PTSearch {
+	font-weight: normal;
+	font-size: 10pt;
+	line-height: 12pt;
+}
+
+div.Search {
+	text-align: center;
+}
+
 span.TitleSection {
 	font-size: 8pt;
 	display: inline-block;
@@ -161,7 +169,12 @@ span.TitleSection {
 	width: 60px;
 	overflow: hidden;
 	line-height: 15pt;
+	font-weight: bold;
 }
+span.TSSearch {
+	line-height: 12pt;
+}
+
 span.Title {
 	line-height: 15pt;
 }
@@ -194,14 +207,11 @@ td.AdminComment {
 }
 td.MenuText {
 	font-size: 9pt;
-	color: #a6b7c9;
 }
-td.InForm {
+td.InForm { /* TODO: deprecate it */
 	font-size: 12px;
-	color: #a6b7c9;
 }
-.Bold
-{
+.Bold {
 	font-weight: bold;
 }
 .Red {
@@ -213,14 +223,12 @@ td.Labels {
 }
 td.ForumF {
 	font-size: 10pt;
-	color: #a6b7c9;
 	font-family: Verdana, Arial;
 	text-align: justify;
 	background-color: #063562;
 }
 td.ForumB {
 	font-size: 10pt;
-	color: #a6b7c9;
 	font-weight: bold;
 }
 img {
@@ -234,6 +242,27 @@ img.MessageIcon {
 	width: 16px;
 	height: 16px;
 }
+div.SiteMapItem {
+	margin-bottom: 4px;
+}
+span.SiteMapLeft {
+	width: 20%;
+	display: inline-block;
+	vertical-align: top;
+}
+span.SiteMapRight {
+	width: 80%;
+	display: inline-block;
+}
+div.Subscribe {
+	text-align: center;
+}
+span.Label {
+	font-weight: bold;
+	padding-left: 12px;
+	padding-right: 6px;
+}
+
 input {
 	font-size: 12px;
 	color: #000000;
@@ -241,18 +270,22 @@ input {
 	background-color: #b0c0d0;
 	border: 1px solid #000000;
 	width: 300px;
-	height: 20px;
+	height: 16px;
 }
 input.txtForum {
 	width: 550px;
 }
-input.subSubmit {
+
+input[type='submit'] {
 	font-size: 9pt;
 	background-color: #8b7796;
 	border: 1px solid #000000;
 	width: 210px;
-	height: 24px;
+	height: 22px;
+	margin-bottom: -1px;
+	vertical-align: bottom;
 }
+
 input.subMenu {
 	font-size: 9pt;
 	background-color: #8b7796;
