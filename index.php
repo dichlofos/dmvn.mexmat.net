@@ -11,7 +11,7 @@
 
   $strAction = ProcessStringPostVar('strAction');
   $strMailID = ProcessStringPostVar('strMailID');
-  $strCodepage = ProcessStringPostVar('strCodepage', '0');
+  $strCodepage = ProcessStringPostVar('strCodepage', $sDefCodepage);
 
   $section = ProcessStringPostVar('section', '0');
 
@@ -75,7 +75,7 @@
 
 				$fNCMailsData = fopen($strNCFileName, 'wb');
 				foreach ($arrNCMails as $sNCMail) {
-					if (!empty($sNCMail) WriteLine($fNCMailsData, $sNCMail);
+					if (!empty($sNCMail)) WriteLine($fNCMailsData, $sNCMail);
 				}
 				fclose($fNCMailsData);
 
@@ -84,9 +84,7 @@
 				break;
 			}
 		}
-	}
-	else
-	{?>
+	} else {?>
 		<p class="PlainTextFP">
 			Если Вы хотите получать по почте уведомления об обновлениях нашего сайта,
 			 укажите свой e-mail здесь. Вы получите письмо с просьбой подтвердить
@@ -101,7 +99,7 @@
 				<span class="Label">EMail:</span>
 				<input type="text" name="txtEAddress" />
 				<span class="Label">Кодировка:</span>
-				<select name="selMailCP" class="Codepage">
+				<select name="strCodepage" class="Codepage">
 					<?php echo GetCodepageOptions() ?>
 				</select>
 				<input type="submit" value="Подписаться!" />
