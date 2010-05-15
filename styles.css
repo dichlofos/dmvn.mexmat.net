@@ -262,6 +262,11 @@ span.Label {
 	padding-left: 12px;
 	padding-right: 6px;
 }
+span.TD {
+	display: inline-block;
+	text-align: left;
+	white-space: nowrap;
+}
 
 input {
 	font-size: 12px;
@@ -276,22 +281,25 @@ input.txtForum {
 	width: 550px;
 }
 
-input[type='submit'] {
+/* for IE6 we cannot use CSS selectors */
+input.submit {
 	font-size: 9pt;
 	background-color: #8b7796;
 	border: 1px solid #000000;
 	width: 210px;
 	height: 20px;
+	padding: 1px;
 	vertical-align: bottom;
 }
 
-input.subMenu {
+/*input.subMenu {
 	font-size: 9pt;
 	background-color: #8b7796;
 	border: 1px solid #000000;
 	width: 190px;
 	height: 24px;
-}	
+}*/
+
 textarea {
 	font-size: 12px;
 	background: #b0c0d0;
@@ -319,6 +327,10 @@ img.Icon {
 	height: 16px;
 	width: 16px;
 }
+form {
+	border: 0px;
+	margin: 0px;
+}
 img.Smile {
 	margin-bottom: -2px;
 	width: 15px;
@@ -328,4 +340,40 @@ img.SmileTop {
 	padding: 8px;
 	width: 15px;
 	height: 15px;
+}
+
+span.TLabel {
+	font-weight: bold;
+}
+span.CPLeftLabel {
+	width: 80px;
+}
+span.CPLeftCol {
+	width: 400px;
+}
+span.CPMidLabel {
+	width: 90px;
+}
+span.CPMidCol {
+	width: 230px;
+}
+
+div.Form {
+	padding-top: 2px;
+	padding-bottom: 2px;
+	text-align: center;
+}
+
+div.MailList {
+	display: inline-block;
+	text-align: center;
+	border: 2px solid #a6b7c9;
+	width: 60%;
+	padding: 5px;
+	margin-bottom: 10px;
+}
+
+div.LogLine {
+	line-height: 11pt;
+	font-size: 8pt;
 }

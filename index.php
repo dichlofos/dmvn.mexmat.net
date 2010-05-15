@@ -11,7 +11,7 @@
 
   $strAction = ProcessStringPostVar('strAction');
   $strMailID = ProcessStringPostVar('strMailID');
-  $strCodepage = ProcessStringPostVar('strCodepage', $sDefCodepage);
+  $txtCodepage = ProcessStringPostVar('txtCodepage', $sDefCodepage);
 
   $section = ProcessStringPostVar('section', '0');
 
@@ -26,7 +26,7 @@
 		<p class="Subtitle">Рассылка новостей сайта</p>
 <?php          
 	if ($strAction == 'addmail') {
-		if (bEMailValid($txtEAddress) && in_array($strCodepage, $aCodepages)) {
+		if (bEMailValid($txtEAddress) && in_array($txtCodepage, $aCodepages)) {
 			$strRandomKey = RandomString(32);
 			$nTimeStamp = time();
 			// for debugging ----- TODO: remove this shit!
@@ -46,7 +46,7 @@
 				if ($nTimeStamp < $arrNCMailData[2] + $nTimeShift) WriteLine($fNCMailsData, $strNCMail);
 			}
 			// Write new item needed in confirmation
-			WriteLine($fNCMailsData, "$strHashRandomKey|".str_rot13($txtEAddress)."|$nTimeStamp|$strCodepage");
+			WriteLine($fNCMailsData, "$strHashRandomKey|".str_rot13($txtEAddress)."|$nTimeStamp|$txtCodepage");
 			fclose($fNCMailsData);
 				
 			mail($txtEAddress,
@@ -99,10 +99,10 @@
 				<span class="Label">EMail:</span>
 				<input type="text" name="txtEAddress" />
 				<span class="Label">Кодировка:</span>
-				<select name="strCodepage" class="Codepage">
+				<select name="txtCodepage" class="Codepage">
 					<?php echo GetCodepageOptions() ?>
 				</select>
-				<input type="submit" value="Подписаться!" />
+				<input type="submit" class="submit" value="Подписаться!" />
 			</div>
 		</form>
 		<?php

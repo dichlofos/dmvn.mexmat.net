@@ -1,38 +1,32 @@
 <?php
-  extract($_SERVER);
-  extract($_ENV);
-  extract($_GET);
-  extract($_POST);
-  extract($_REQUEST);
-    
-  include "common.php";
-  if ($bDebugEnabled) error_reporting(E_ALL);
+	extract($_SERVER);
+	extract($_ENV);
+	extract($_GET);
+	extract($_POST);
+	extract($_REQUEST);
+		
+	include "common.php";
+	if ($bDebugEnabled) error_reporting(E_ALL);
+	$CurrentMenuItem=$mnuCPL;
 
-  $lblHeader = 'DMVN WebSite Control Panel';
-  $lblLoginAsAdmin = "Log In as Admin";
+	// To redir or not to redir, the question is...
+	$bRedir=false;
 
-  $lblPassword = 'Password:';
+	$section=ProcessStringPostVar('section', '0'); 
 
-  $CurrentMenuItem = $mnuCPL;
+	$strAction=ProcessStringPostVar('strAction');
 
-  // To redir or not to redir, the question is...
-  $bRedir = false;
-
-  $section = ProcessStringPostVar('section', '0'); 
-
-  $strAction = ProcessStringPostVar('strAction');
-  $strCodepage = ProcessStringPostVar('strCodepage', $cpWin);
-
-  $txtPass = ProcessStringPostVar('txtPass');
-  $txtAddMail = ProcessStringPostVar('txtAddMail');
-  $txtRemovedMail = ProcessStringPostVar('txtRemovedMail');
-  $txtGrepFilter = ProcessStringPostVar('txtGrepFilter');
-  $txtNCGrepFilter = ProcessStringPostVar('txtNCGrepFilter');
-  $txtLogGrepFilter = ProcessStringPostVar('txtLogGrepFilter');
-  $txtSearchLogGrepFilter = ProcessStringPostVar('txtSearchLogGrepFilter');
+	$txtCodepage=ProcessStringPostVar('txtCodepage', $sDefCodepage);
+	$txtPass=ProcessStringPostVar('txtPass');
+	$txtAddMail=ProcessStringPostVar('txtAddMail');
+	$txtRemovedMail=ProcessStringPostVar('txtRemovedMail');
+	$txtGrepFilter=ProcessStringPostVar('txtGrepFilter');
+	$txtNCGrepFilter=ProcessStringPostVar('txtNCGrepFilter');
+	$txtLogGrepFilter=ProcessStringPostVar('txtLogGrepFilter');
+	$txtSearchLogGrepFilter=ProcessStringPostVar('txtSearchLogGrepFilter');
 
 	// Registration
-	if ($strAction == 'login') {
+	if ($strAction=='login') {
 		if ($strAdminPassword==md5($txtPass)) {
 			Unregister($strSNUserRights);
 			Register($strSNAdminRights);
@@ -42,7 +36,7 @@
 			header("Location: $PHP_SELF");
 			exit();
 		}
-	} elseif ($strAction == 'logout') {
+	} elseif ($strAction=='logout') {
 		Unregister($strSNAdminRights);
 		Unregister($strSNUserRights);
 		header("Location: $PHP_SELF");
@@ -50,273 +44,338 @@
 	}
 	PutPageHeader($arrMenuFiles, $arrMenuTitles, $arrMenuColors, $CurrentMenuItem, $arrCat, $strSLU, $section);
 ?>
-<table class="Page">
-  <tr>
-    <td>
+<div class="Page" style="margin-top: 15px;">
 <?php
-	echol('<center>');
-	if (!$bAdmin) { // show login form
-    echol(hoForm('frmLogin', "$PHP_SELF?strAction=login"));
-    echol(hTable(hRow(
-     hCell($lblPassword, 'InForm Bold').
-     hCell(hInput('txtPass', 'password')).
-     hCell(hInput('subAdminLogin', 'submit', 'subSubmit', $lblLoginAsAdmin))
-    )));
-    echol(hcForm());
-    echol(hScript("document.frmLogin.txtPass.focus();"));
-  } else { // show control panel
-    echol('<table>');
-    // Add subscribe
-    echol(hoForm('frmAdd', "$PHP_SELF?strAction=addsubscribe"));
-    echol(hRow(
-      hCell('E-Mail:', 'InForm Bold').
-      hCell(hInput('txtAddMail', 'text')).
-      hCell(hSelect('selAddMailCP',
-        "document.frmAdd.action='$PHP_SELF?strAction=addsubscribe&strCodepage='+this.options[this.selectedIndex].value",
-        'Codepage',
-        strGetCodepageOptions($arrCodepageNames))).
-        hCell(hInput('subAddSubscribe', 'submit', 'subSubmit', 'Add Subscription'))
-     ));
-    echol(hcForm());
-    // Remove subscribe
-    echol(hoForm('frmRemove', "$PHP_SELF?strAction=removesubscribe"));
-    echol(hRow(
-      hCell('E-Mail:', 'InForm Bold').
-      hCell(hInput('txtRemovedMail', 'text')).
-      hCell(hSelect('selRemoveMailCP',
-        "document.frmRemove.action='$PHP_SELF?strAction=removesubscribe&strCodepage='+this.options[this.selectedIndex].value",
-        'Codepage',
-        strGetCodepageOptions($arrCodepageNames))).
-      hCell(hInput('subRemoveSubscribe', 'submit', 'subSubmit', 'Remove Subscription'))
-     ));
-    echol(hcForm());
-    // View subscribe
-    echol(hoForm('frmViewSubscribe', "$PHP_SELF?strAction=viewsubscribe"));
-    echol(hRow(
-      hCell('Filter:', 'InForm Bold').
-      hCell(hInput('txtGrepFilter', 'text'), '', '', '', attr('colspan', '2')).
-      hCell(hInput('subViewSubscribe', 'submit', 'subSubmit', 'View Subscriptions'))
-     ));
-    echol(hcForm());
-    // View nc-subscribe
-    echol(hoForm('frmViewNCSubscribe', "$PHP_SELF?strAction=viewncsubscribe"));
-    echol(hRow(
-      hCell('Filter:', 'InForm Bold').
-      hCell(hInput('txtNCGrepFilter', 'text'), '', '', '', attr('colspan', '2')).
-      hCell(hInput('subViewNCSubscribe', 'submit', 'subSubmit', 'View NC-Subscriptions'))
-     ));
-    echol(hcForm());
-    // View duplicates
-    echol(hoForm('frmCheckDupSubscribe', "$PHP_SELF?strAction=checkdupsubscribe"));
-    echol(hRow(
-      hCell('', '', '', '', attr('colspan', '3')).
-      hCell(hInput('subCheckDupSubscribe', 'submit', 'subSubmit', 'Check Duplicate Subscriptions'))
-     ));
-    echol(hcForm());
-    // View log
-    echol(hoForm('frmViewLog', "$PHP_SELF?strAction=viewlog"));
-    echol(hRow(
-      hCell('Filter:', 'InForm Bold').
-      hCell(hInput('txtLogGrepFilter', 'text'), '', '', '', attr('colspan', '2')).
-      hCell(hInput('subViewLog', 'submit', 'subSubmit', 'View Server Log'))
-     ));
-    echol(hcForm());
-    // View search log
-    echol(hoForm('frmViewSearchLog', "$PHP_SELF?strAction=viewsearchlog"));
-    echol(hRow(
-      hCell('Filter:', 'InForm Bold').
-      hCell(hInput('txtSearchLogGrepFilter', 'text'), '', '', '', attr('colspan', '2')).
-      hCell(hInput('subViewSearchLog', 'submit', 'subSubmit', 'View Search Log'))
-     ));
-    echol(hcForm());
-    // Logoff
-    echol(hoForm('frmLogout', "$PHP_SELF?strAction=logout"));
-    echol(hRow(
-      hCell('', '', '', '', attr('colspan', '3')).
-      hCell(hInput('subLogout', 'submit', 'subSubmit', 'Logout'))
-     ));
-    echol(hcForm());
-    echol('</table>');
-  }
-  echol('</center>');
-  // ----------------------------------------------
-  // Handle different actions
-  // ----------------------------------------------
-	if ($strAction=='removesubscribe' && $bAdmin && $txtRemovedMail != '') {
-    $arrCMails = fileCutEOL($strCFileName);
-    $fCMails = fopen($strCFileName, "wb");
-    // TODO: open failure check
-    $strRemMail = str_rot13($txtRemovedMail);
-    $nRemovedCount = 0;
-    foreach ($arrCMails as $strCMail)
-    {
-      $arrCMailData = explode('|', $strCMail);
-      if (strcasecmp($strRemMail, $arrCMailData[0]) || $strCodepage != $arrCMailData[1])
-        WriteLine($fCMails, $strCMail);
-      else $nRemovedCount++;
-    }
-    fclose($fCMails);
+	if (!$bAdmin) {?> <!-- show login form -->
+		<form action="cpl.php">
+			<div class="Form">
+				<input type="hidden" name="strAction" value="login" />
+				<span class="Label">Пароль:</span>
+				<input type="password" name="txtPass" id="txtPass" />
+				<input type="submit" class="submit" value="Log In as Admin!" />
+			</div>
+		</form>
+		<script type="text/javascript">{ ById('txtPass').focus(); }</script>
+		<?php
+	} else {?> <!-- show control panel -->
+		<form action="cpl.php">
+			<div class="Form" style="width: 100%">
+				<input type="hidden" name="strAction" value="addsubscribe" />
+				<span class="TD CPLeftCol">
+					<span class="TLabel TD CPLeftLabel">E-Mail:</span>
+					<input type="text" name="txtAddMail"/>
+				</span>
+				<span class="TD CPMidCol">
+					<span class="TLabel TD CPMidLabel">Кодировка:</span>
+					<select name="txtCodepage" class="Codepage">
+						<?php echo GetCodepageOptions() ?>
+					</select>
+				</span>
+				<input type="submit" class="submit" value="Add Subscription" />
+			</div>
+		</form>
+		<form action="cpl.php">
+			<div class="Form">
+				<input type="hidden" name="strAction" value="removesubscribe" />
+				<span class="TD CPLeftCol">
+					<span class="TLabel TD CPLeftLabel">E-Mail:</span>
+					<input type="text" name="txtRemovedMail"/>
+				</span>
+				<span class="TD CPMidCol">
+					<span class="TLabel TD CPMidLabel">Кодировка:</span>
+					<select name="txtCodepage" class="Codepage">
+						<?php echo GetCodepageOptions() ?>
+					</select>
+				</span>
+				<input type="submit" class="submit" value="Remove Subscription" />
+			</div>
+		</form>
+		<form action="cpl.php">
+			<div class="Form">
+				<input type="hidden" name="strAction" value="viewsubscribe" />
+				<span class="TD CPLeftCol">
+					<span class="TLabel TD CPLeftLabel">E-Mail:</span>
+					<input type="text" name="txtGrepFilter"/>
+				</span>
+				<span class="TD CPMidCol">&nbsp;</span>
+				<input type="submit" class="submit" value="View Subscriptions" />
+			</div>
+		</form>
+		<form action="cpl.php">
+			<div class="Form">
+				<input type="hidden" name="strAction" value="viewncsubscribe" />
+				<span class="TD CPLeftCol">
+					<span class="TLabel TD CPLeftLabel">E-Mail:</span>
+					<input type="text" name="txtNCGrepFilter"/>
+				</span>
+				<span class="TD CPMidCol">&nbsp;</span>
+				<input type="submit" class="submit" value="View NC-Subscriptions" />
+			</div>
+		</form>
+		<form action="cpl.php">
+			<div class="Form">
+				<input type="hidden" name="strAction" value="checkdupsubscribe" />
+				<span class="TD CPLeftCol">&nbsp;</span>
+				<span class="TD CPMidCol">&nbsp;</span>
+				<input type="submit" class="submit" value="Check Duplicates" />
+			</div>
+		</form>
+		<form action="cpl.php">
+			<div class="Form">
+				<input type="hidden" name="strAction" value="viewlog" />
+				<span class="TD CPLeftCol">
+					<span class="TLabel TD CPLeftLabel">Filter:</span>
+					<input type="text" name="txtLogGrepFilter"/>
+				</span>
+				<span class="TD CPMidCol">&nbsp;</span>
+				<input type="submit" class="submit" value="View Access Log" />
+			</div>
+		</form>
+		<form action="cpl.php">
+			<div class="Form">
+				<input type="hidden" name="strAction" value="viewsearchlog" />
+				<span class="TD CPLeftCol">
+					<span class="TLabel TD CPLeftLabel">Filter:</span>
+					<input type="text" name="txtSearchLogGrepFilter"/>
+				</span>
+				<span class="TD CPMidCol">&nbsp;</span>
+				<input type="submit" class="submit" value="View Search Log" />
+			</div>
+		</form>
+		<?php
+	}
+	// ----------------------------------------------
+	// Handle different actions
+	// ----------------------------------------------
+	if ($strAction=='removesubscribe' && $bAdmin && !empty($txtRemovedMail)) {
+		$arrCMails = fileCutEOL($strCFileName);
+		$fCMails=@fopen($strCFileName, "wb");
+		if (!$fCMails) {
+			echol(hPar("File $strCFileName cannot be open for reading. ", 'PlainText Info'));
+		} else {
+			$strRemMail=str_rot13($txtRemovedMail);
+			$nRemovedCount=0;
+			foreach ($arrCMails as $strCMail) {
+				$arrCMailData = explode('|', $strCMail);
+				if (strcasecmp($strRemMail, $arrCMailData[0]) || $txtCodepage != $arrCMailData[1]) {
+					WriteLine($fCMails, $strCMail);
+				} else $nRemovedCount++;
+			}
+			fclose($fCMails);
+			echol(hPar("$nRemovedCount record(s) removed successfuly", 'PlainText Info'));
+		}
+	}
+	elseif ($strAction=='viewsubscribe' && $bAdmin) {?>
+		<p class="Subtitle">DMVN Website Subscription List</p>
+		<?php
+		if (!empty($txtGrepFilter)) {
+			echol(hPar('Using filter ['.out($txtGrepFilter).']', 'PlainText Info'));
+		}
 
-    echol(hTable(hRow(hCell("$nRemovedCount record(s) removed successfuly", 'PlainText Info'))));
-  }
-	elseif ($strAction=='viewsubscribe' && $bAdmin) {
-    echol(hPar('DMVN Website Subscription List', 'Subtitle'));
-    if ($txtGrepFilter != '')
-      echol(hPar('Using filter ['.out($txtGrepFilter).']', 'Subtitle'));
+		$bOpen=true;
+		$fCMails=@fopen($strCFileName, 'r');
+		if (!$fCMails) {
+			echol(hPar("File $strCFileName cannot be open for reading. ", 'PlainText Info'));
+		}
+		$nCount=0;
+		while ($fCMails && !feof($fCMails)) {
+			$strCMail=trim(fgets($fCMails));
+			if (empty($strCMail)) continue;
+			$arrCMailData=explode('|', $strCMail);
+			$sEMail=str_rot13($arrCMailData[0]);
 
-    $fCMails = fopen($strCFileName, 'r');
-    // TODO: open failure check
+			if (empty($txtGrepFilter) || stristr($sEMail, $txtGrepFilter)) {
+			if ($nCount==0) {?>
+				<div style="text-align: center">
+					<div class="MailList">
+					<?php
+			}
+			++$nCount;
+			?>
+			<div>
+				<span class="PlainText TD" style="width: 50px"><?php echo $nCount; ?></span>
+				<span class="PlainText TD" style="width: 120px"><?php echo $arrCMailData[1]; ?></span>
+				<span class="PlainText TD" style="width: 250px"><?php echo out($sEMail); ?></span>
+			</div>
+			<?php
+			}
+		}
+		if ($nCount) {?>
+			</div>
+		</div>
+		<?php
+		} else {?>
+			<p class="PlainText Info">No records!</p><?php
+		}
+		if ($fCMails) fclose($fCMails);
+	}
+	elseif ($strAction=='viewncsubscribe' && $bAdmin) {?>
+		<p class="Subtitle">DMVN Website NC-Subscription List</p>
+		<?php
+		if (!empty($txtNCGrepFilter)) {
+			echol(hPar('Using filter ['.out($txtNCGrepFilter).']', 'Subtitle'));
+		}
 
-    echol('<table width="100%">');
-    $nCount = 0;
-    while (!feof($fCMails))
-    {
-      $strCMail = trim(fgets($fCMails));
-      if ($strCMail == '') continue;
-      $nCount++;
+		$fNCMails=@fopen($strNCFileName, 'r');
+		if (!$fNCMails) {
+			echol(hPar("File $strNCFileName cannot be open for reading. ", 'PlainText Info'));
+		}
 
-      $arrCMailData = explode('|', $strCMail);
+		$nCount = 0;
+		while ($fNCMails && !feof($fNCMails)) {
+			$strNCMail=trim(fgets($fNCMails));
+			if (empty($strNCMail)) continue;
+			$arrNCMailData = explode('|', $strNCMail);
+			$sEMail=str_rot13($arrNCMailData[1]);
+			if (empty($txtNCGrepFilter) || stristr($sEMail, $txtNCGrepFilter)) {
+				if ($nCount==0) {?>
+					<div style="text-align: center">
+						<div class="MailList">
+						<?php
+				}
+				$nCount++;
+				?>
+				<div>
+					<span class="PlainText TD" style="width: 50px"><?php echo $nCount; ?></span>
+					<span class="PlainText TD" style="width: 120px"><?php echo $arrNCMailData[3]; ?></span>
+					<span class="PlainText TD" style="width: 80px"><?php echo out(round((time()-$arrNCMailData[2])/3600)); ?> hrs idle</span>
+					<span class="PlainText TD" style="width: 250px"><?php echo out($sEMail); ?></span>
+				</div>
+				<?php
+			}
+		}
+		if ($nCount) {?>
+			</div>
+		</div>
+		<?php
+		} else {?>
+			<p class="PlainText Info">No records!</p><?php
+		}
+		if ($fNCMails) fclose($fNCMails);
+	}
+	elseif ($strAction=='viewlog' && $bAdmin) {?>
+		<p class="Subtitle">DMVN Website Access Log</p>
+		<?php
+		if (!empty($txtLogGrepFilter)) {
+			echol(hPar('Using filter ['.out($txtLogGrepFilter).']', 'Subtitle'));
+		}
 
-      $bDisp = false;
-      if ($txtGrepFilter == '') $bDisp = true;
-      else if (stristr(str_rot13($arrCMailData[0]), $txtGrepFilter)) $bDisp = true;
-      if ($bDisp)
-        echol(hRow(hCell($nCount, 'PlainText', '50px').
-             hCell(strDecodeCodepage($arrCodepageNames, $arrCMailData[1]), 'PlainText', '120px').
-             hCell(out(str_rot13($arrCMailData[0])), 'PlainText')));
-    }
-    echo '</table>';
-    fclose($fCMails);
-  }
-	elseif ($strAction=='viewncsubscribe' && $bAdmin) {
-    echol(hPar('DMVN Website NC-Subscription List', 'Subtitle'));
-    if ($txtNCGrepFilter != '')
-      echol(hPar('Using filter ['.out($txtNCGrepFilter).']', 'Subtitle'));
+		$fLog=@fopen($strLogFileName, 'r');
+		if (!$fLog) {
+			echol(hPar("File $strLogFileName cannot be open for reading. ", 'PlainText Info'));
+		}
+		$arrGrep=explode("|", $txtLogGrepFilter);
+		while ($fLog && !feof($fLog)) {
+			$strLine=fgets($fLog);
+			if (!stristr($strLine, "content/") & !stristr($strLine, "tmp/")) continue;
+			$bDisp=true;
+			foreach ($arrGrep as $strGrep) {
+				$strGrep=trim($strGrep);
+				if (empty($strGrep)) continue;
+				if (!stristr($strLine, $strGrep)) $bDisp=false;
+			}
+			if ($bDisp) {?>
+				<div class="LogLine"><?php echo out($strLine); ?></div>
+				<?php
+			}
+		}
+		if ($fLog) fclose($fLog);
+	}
+	elseif ($strAction=='viewsearchlog' && $bAdmin) {?>
+		<p class="Subtitle">DMVN Website Search Log</p>
+		<?php
+		if (!empty($txtSearchLogGrepFilter)) {
+			echol(hPar('Using filter ['.out($txtSearchLogGrepFilter).']', 'Subtitle'));
+		}
 
-    $fNCMails = fopen($strNCFileName, 'r');
-    // TODO: open failure check
+		$fLog=@fopen($strSearchLogFileName, 'r');
+		if (!$fLog) {
+			echol(hPar("File $strSeaLogFileName cannot be open for reading. ", 'PlainText Info'));
+		}
+		$arrGrep = explode('|', $txtSearchLogGrepFilter);
+		while ($fLog && !feof($fLog)) {
+			$strLine=trim(fgets($fLog));
+			if (empty($strLine)) continue;
+			$arrLine=explode('|', $strLine);
+			if (count($arrLine) != 2) {
+				echol(hPar('Bad Line in Search Log: '.hBold(out($strLine)), 'PlainText Info'));
+			}
+			$strSLine = $arrLine[1];
+			$bDisp=true;
+			foreach ($arrGrep as $strGrep) {
+				if (empty($strGrep)) continue;
+				if (!stristr($strSLine, $strGrep)) $bDisp=false;
+			}
+			if (!$bDisp) continue;
+			?><div class="LogLine"><?php echo $arrLine[0].': '.hBold(out($strSLine)); ?></div>
+			<?php
+		}
+		if ($fLog) fclose($fLog);
+	}
+	elseif ($strAction=='addsubscribe' && $bAdmin && !empty($txtAddMail)) {?>
+		<p class="Subtitle">DMVN Website Adding Subscription</p>
+		<?php
+		$fCMails=@fopen($strCFileName, "ab");
+		if (!$fCMails) {
+			echol(hPar("File $strCFileName cannot be open for appending. ", 'PlainText Info'));
+		} else {
+			fwrite($fCMails, str_rot13($txtAddMail)."|$txtCodepage\r\n");
+			fclose($fCMails);
+			echol(hPar('Mail address '.hBold(out($txtAddMail)). ' was successfuly added to list', 'PlainText Info'));
+		}
+	}
+	elseif ($strAction=='checkdupsubscribe' && $bAdmin) {?>
+		<p class="Subtitle">DMVN Website Duplicate Subscriptions</p>
+		<?php
+		$arrCMailsCount = array();
+		$fCMails=@fopen($strCFileName, 'r');
+		if (!$fCMails) {
+			echol(hPar("File $strCFileName cannot be open for reading. ", 'PlainText Info'));
+		}
+		while ($fCMails && !feof($fCMails)) {
+			$strCMail=trim(fgets($fCMails));
+			if (empty($strCMail)) continue;
+			if (!isset($arrCMailsCount[$strCMail])) $arrCMailsCount[$strCMail]=1;
+			else $arrCMailsCount[$strCMail]++;
+		}
+		fclose($fCMails);
+		$nCount=0;
 
-    echol('<table width="100%">');
-    $nCount = 0;
-
-    while (!feof($fNCMails))
-    {
-      $strNCMail = trim(fgets($fNCMails));
-      if ($strNCMail == '') continue;
-      $nCount++;
-
-      $arrNCMailData = explode('|', $strNCMail);
-
-      $bDisp = false;
-      if ($txtNCGrepFilter == '') $bDisp = true;
-      else if (stristr(str_rot13($arrNCMailData[1]), $txtNCGrepFilter)) $bDisp = true;
-      if ($bDisp)
-        echol(hRow(hCell($nCount, 'PlainText', '50px').
-                   hCell(strDecodeCodepage($arrCodepageNames, $arrNCMailData[3]), 'PlainText', '120px').
-                   hCell(out(round((time()-$arrNCMailData[2])/3600)).' hrs idle', 'PlainText', '150px').
-                   hCell(out(str_rot13($arrNCMailData[1])), 'PlainText')));
-    }
-    if (!$nCount) echol(hRow(hCell('No records!', 'PlainText Info')));
-    echol('</table>');
-    fclose($fNCMails);
-  }
-	elseif ($strAction=='viewlog' && $bAdmin) {
-    echol(hPar('DMVN Website Access Log', 'Subtitle'));
-    if ($txtLogGrepFilter != '')
-      echol(hPar('Using filter ['.out($txtLogGrepFilter).']', 'Subtitle'));
-
-    $fLog = fopen($strLogFileName, 'r');
-    // TODO: open failure check
-    echol('<table width="100%">');
-    $arrGrep = explode("|", $txtLogGrepFilter);
-    while (!feof($fLog))
-    {
-      $strLine = fgets($fLog);
-      if (!stristr($strLine, "content/") & !stristr($strLine, "tmp/")) continue;
-      $bDisp = true;
-      foreach ($arrGrep as $strGrep)
-      {
-        if ($strGrep == '') continue;
-        if (!stristr($strLine, $strGrep)) $bDisp = false;
-      }
-      if ($bDisp) echol(hRow(hCell(out($strLine), 'PlainText')));
-    }
-    echol('</table>');
-    fclose($fLog);
-  }
-	elseif ($strAction=='viewsearchlog' && $bAdmin) {
-    echol(hPar('DMVN Website Search Log', 'Subtitle'));
-    if ($txtSearchLogGrepFilter != '')
-      echol(hPar('Using filter ['.out($txtSearchLogGrepFilter).']', 'Subtitle'));
-
-    $fLog = fopen($strSearchLogFileName, 'r');
-    // TODO: open failure check
-    echol('<table width="100%">');
-    $arrGrep = explode('|', $txtSearchLogGrepFilter);
-    while (!feof($fLog))
-    {
-      $strLine = trim(fgets($fLog));
-      if ($strLine == '') continue;
-      $arrLine = explode('|', $strLine);
-      if (count($arrLine) != 2)
-        echol(hRow(hCell('Bad Line in Search Log: '.out($strLine), 'PlainText Info')));
-
-      $strSLine = $arrLine[1];
-      $bDisp = true;
-      foreach ($arrGrep as $strGrep)
-      {
-        if ($strGrep == '') continue;
-        if (!stristr($strSLine, $strGrep)) $bDisp = false;
-      }
-      if ($bDisp) echol(hRow(hCell($arrLine[0].': '.hBold(out($strSLine)), 'PlainText')));
-    }
-    echol('</table>');
-    fclose($fLog);
-  }
-	elseif ($strAction=='addsubscribe' && $bAdmin && !empty($txtAddMail))
-  {
-    $fCMails = fopen($strCFileName, "ab");
-    // TODO: open failure check
-    fwrite($fCMails, str_rot13($txtAddMail)."|$strCodepage\r\n");
-    fclose($fCMails);
-    echol(hTable(hRow(hCell('Mail address was successfuly added to list', 'PlainText Info'))));
-  }
-	elseif ($strAction=='checkdupsubscribe' && $bAdmin) {
-    echol(hPar('DMVN Website Duplicate Subscriptions', 'Subtitle'));
-    $arrCMailsCount = array();
-    $fCMails = fopen($strCFileName, 'r');
-    while (!feof($fCMails))
-    {
-      $strCMail = trim(fgets($fCMails));
-      if ($strCMail == '') continue;
-      if (!isset($arrCMailsCount[$strCMail])) $arrCMailsCount[$strCMail] = 1;
-      else $arrCMailsCount[$strCMail]++;
-    }
-    fclose($fCMails);
-
-    echol('<table>');
-    foreach ($arrCMailsCount as $strCMCKey => $strCMCValue)
-    {
-      if ($strCMCValue > 1)
-      {
-        $arrMail = explode('|', $strCMCKey);
-        echol(hRow(hCell('Mail '.hBold(out(str_rot13($arrMail[0]))).' at codepage '.
-         hBold(strDecodeCodepage($arrCodepageNames, $arrMail[1])).' is duplicated '.
-         hBold($strCMCValue).' times!', 'PlainText Info')));
-      }
-    }
-    echol('</table>');
-  }
+		foreach ($arrCMailsCount as $strCMCKey => $strCMCValue) {
+			if ($strCMCValue < 2) continue;
+			if ($nCount==0) {?>
+				<div style="text-align: center">
+					<div class="MailList">
+					<?php
+			}
+			$nCount++;
+			$arrMail=explode('|', $strCMCKey);
+			$sEMail=str_rot13($arrMail[0]);
+			?>
+			<div>
+				<span class="PlainText TD" style="width: 50px"><?php echo $nCount; ?></span>
+				<span class="PlainText TD" style="width: 120px"><?php echo $arrMail[1]; ?></span>
+				<span class="PlainText TD" style="width: 70px"><?php echo $strCMCValue; ?> times</span>
+				<span class="PlainText TD" style="width: 250px"><?php echo out($sEMail); ?></span>
+			</div>
+			<?php
+		}
+		if ($nCount) {?>
+			</div>
+		</div>
+		<?php
+		} else {?>
+			<p class="PlainText Info">No duplicates!</p><?php
+		}
+	}
 
 	if ($bAdmin) {
 		echol('<div style="text-align: center; font-weight: bold;">'.llink("$PHP_SELF?strAction=logout", '[Logout]').'</div>');
 	}
 ?>
-    </td>
-  </tr>
-</table>
+</div>
 <?php
-  PutPageFooter($strDMVNMail);
-  // Auto redir via jscript
-  if ($bRedir) echol('<html>'.hScript("open('$PHP_SELF', '_self');").'</html>');
+	PutPageFooter($strDMVNMail);
+	// Auto redir via jscript
+	if ($bRedir) echol('<html>'.hScript("open('$PHP_SELF', '_self');").'</html>');
 ?>

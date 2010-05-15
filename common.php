@@ -46,18 +46,16 @@
   $lblSubmitMail = "Добавить в список рассылки";
   $strMailConfirmSubject = "DMVN WebSite News&Information Confirmation";
   $strMailSubscriptionSubject = "DMVN WebSite News&Information";
-  $strMailConfirmText = "This informs you that Your e-mail address was specified in order\n".
-                        "to add You to DMVN WebSite News&Information mailing list\n".
-                        "DMVN WebSite http://dmvn.mexmat.net. If you didn't do that,\n".
-                        "please delete this letter and forget about it. Otherwise,\n".
-                        "please confirm that you want to receive news from DMVN WebSite\n".
-                        "via accessing the following link:\n".
+  $strMailConfirmText = "This informs you that Your e-mail address was specified in order\r\n".
+                        "to add You to DMVN WebSite News&Information mailing list\r\n".
+                        "DMVN WebSite http://dmvn.mexmat.net. If you didn't do that,\r\n".
+                        "please delete this letter and forget about it. Otherwise,\r\n".
+                        "please confirm that you want to receive news from DMVN WebSite\r\n".
+                        "via accessing the following link:\r\n".
                         "http://dmvn.mexmat.net/index.php";
   
-  $cpWin = 0;
-  $cpKoi = 1;
-  $arrCodepageNames[$cpWin] = "windows-1251";
-  $arrCodepageNames[$cpKoi] = "koi8-r";
+	$sDefCodepage='windows-1251';
+	$aCodepages=array($sDefCodepage, 'koi8-r', 'utf-8');
 
 	// read format file
 	$fFormat=fopen('format.dat', 'r');
@@ -140,31 +138,24 @@
 		</div>
 		<?php
 	}
-  // -------------------------------------------------------------
-  function bCodepageValid($arrCodepageNames, $nCodepage)
-  {
-    return ($nCodepage >= 0 && $nCodepage < count($arrCodepageNames));
-  }
-  // -------------------------------------------------------------
-  function strDecodeCodepage($arrCodepageNames, $nCodepage)
-  {
-    if (bCodepageValid($arrCodepageNames, $nCodepage)) return $arrCodepageNames[(integer)$nCodepage]; else return "";
-  }
-  // -------------------------------------------------------------
-  function strGetCodepageOptions($arrCodepageNames)
-  {
-    $strOutput = "";
-    for ($i = 0; $i < count($arrCodepageNames); $i++)
-      $strOutput .= '<OPTION '.attr('value', $i).'>'.strDecodeCodepage($arrCodepageNames, $i).'</OPTION>'; 
-    return $strOutput;
-  }
-  // -------------------------------------------------------------
-  function strRecodeToCodepage($strText, $arrCodepageNames, $nCodepage)
-  {
-    if (function_exists('iconv')) return iconv($arrCodepageNames[0], strDecodeCodepage($arrCodepageNames, $nCodepage), $strText);
-    else return $strText;
-  }
-  // -------------------------------------------------------------
+	// -------------------------------------------------------------
+	function GetCodepageOptions() {
+		$sOutput = "";
+		global $aCodepages;
+		foreach ($aCodepages as $sCodepage) {
+			$sOutput .= "<option value=\"$sCodepage\">$sCodepage</option>\r\n";
+		}
+		return $sOutput;
+	}
+	// -------------------------------------------------------------
+	function RecodeToCodepage($strText, $sTargetCodepage) {
+		global $aCodepages;
+		global $sDefCodepage;
+		if (function_exists('iconv')) {
+			return iconv($sDefCodepage, $sTargetCodepage, $strText);
+		} else return $strText;
+	}
+	// -------------------------------------------------------------
 	function PutMetaInfo($CurrentMenuItem) {
 		$fMeta=fopen('meta.dat', 'r');
 		if (!$fMeta) {
@@ -196,8 +187,6 @@
   // -------------------------------------------------------------
 	// TODO: remove strSiteLastUpdate (make global)
 	function PutPageHeader($arrMFiles, $arrMTitles, $arrMColors, $CurrentMenuItem, $arrCat, $strSiteLastUpdate, $section) {
-		// TODO: fix DOCTYPE! (this DOCTYPE spec heavily breaks forum styles)
-		//echo '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">'."\r\n";
 ?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 	<head>
@@ -300,6 +289,7 @@
 		if ($strItemSectionID) echo '['.MakeRange($strItemSectionID).']';
 		echo '</span><span class="Title">'.$strTitle."</span>\r\n";
 		echo "</div>\r\n";
+		$strDesc=str_replace("<br />", "<br />\r\n", $strDesc);
 		if ($strDesc) echo '<div class="ItemDesc">'.$strDesc."</div>\r\n";
 		if (!ArrEmpty($arrResData)) {
 			echo '<div class="Files">'."\r\n";
@@ -325,6 +315,7 @@
 	function PutTextBlock($strCaption, $strText, $strCaptionColor, $strTextColor) {
 		$sCaptionStyle=($strCaptionColor) ? attr('style', "color: #$strCaptionColor") : '';
 		$sTextStyle=($strTextColor) ? attr('style', "color: #$strTextColor") : '';
+		$strText=str_replace("<br />", "<br />\r\n", $strText);
 		echo "<p class=\"Subtitle\" $sCaptionStyle>$strCaption</p>\r\n";
 		echo "<p class=\"PlainTextFP\" $sTextStyle>$strText</p>\r\n";
 	}
