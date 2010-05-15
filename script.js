@@ -20,8 +20,9 @@ function StoreCaret(e) {
 	}
 }
 // ---------------------------------------------------------------------
-function InsertText(e, text) {
-	var txtarea=e;
+function InsertText(id, text) {
+	var txtarea=ById(id);
+	if (!texarea) return;
 	text=' '+text+' ';
 	if (txtarea.createTextRange && txtarea.caretPos) {
 		var caretPos=txtarea.caretPos;
