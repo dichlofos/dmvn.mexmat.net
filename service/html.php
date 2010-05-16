@@ -73,13 +73,12 @@
   // Returns image
   // Link, Alt, ClassName, W, H, extra attributes
   // --------------------------------------------------------------------
-  function hImg($strLink, $strAlt='', $strClass='', $strW ='', $strH='', $strExtraAttr='')
-  {
-    $aAlt = ($strAlt == '') ? '' : attr('alt', $strAlt);
-    $aClass = ($strClass == '') ? '' : attr('class', $strClass);
+  function hImg($strLink, $strAlt='', $strClass='', $strW ='', $strH='', $strExtraAttr='') {
+    $aAlt=empty($strAlt) ? '' : attr('alt', $strAlt);
+    $aClass=empty($strClass) ? '' : attr('class', $strClass);
     $aW = ($strW == '') ? '' : attr('width', $strW);
     $aH = ($strH == '') ? '' : attr('height', $strH);
-    return "<img src=\"$strLink\" $aClass $aW $aH $strExtraAttr>";
+    return "<img src=\"$strLink\" $aAlt $aClass $aW $aH $strExtraAttr />";
   }
 
   // <form>

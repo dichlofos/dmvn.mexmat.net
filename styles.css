@@ -276,9 +276,17 @@ input {
 	border: 1px solid #000000;
 	width: 300px;
 	height: 16px;
+	padding-left: 2px;
+	padding-right: 2px;
 }
-input.txtForum {
-	width: 550px;
+
+.ForumPost {
+	width: 150px;
+	font-weight: bold;
+}
+
+input.Forum {
+	width: 546px;
 }
 
 /* for IE6 we cannot use CSS selectors */
@@ -292,14 +300,6 @@ input.submit {
 	vertical-align: bottom;
 }
 
-/*input.subMenu {
-	font-size: 9pt;
-	background-color: #8b7796;
-	border: 1px solid #000000;
-	width: 190px;
-	height: 24px;
-}*/
-
 textarea {
 	font-size: 12px;
 	background: #b0c0d0;
@@ -308,6 +308,7 @@ textarea {
 	width: 700px;
 	height: 150px;
 	border: 1px solid #000000;
+	padding: 2px;
 }
 select {
 	background-color: #b0c0d0;

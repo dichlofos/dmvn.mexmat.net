@@ -106,10 +106,8 @@
 <div class="Page">
 <?php
 	if ($strAction == 'post') {
-		echol('<center>');
 		// If user is not registered, show authorization form
-		if (!$bAuth)
-		{
+		if (!$bAuth) {
 			echol(
 				hoForm('frmLogin', "$PHP_SELF?strAction=login").
 				hTable(hRow(
@@ -226,88 +224,111 @@
 				} // $bAdmin
 			} // $strPostID check
 
-			if ($bProcess)
-			{
+			if ($bProcess) {
 				// -----------------------------------
 				// Here follows check if we should post 
 				$strError = '';
-				if ($txtName == '') $bPostInvalid = true;
-				if ($txtName == $strReservedName && !$bAdmin)
-				{ $strError .= "$lblReservedName. "; $bPostInvalid = true; }
-				if (strlen($txtComment) < 5) { $bPostInvalid = true; }
+				if (empty($txtName)) $bPostInvalid = true;
+				if ($txtName==$strReservedName && !$bAdmin) {
+					$strError .= "$lblReservedName. ";
+					$bPostInvalid=true;
+				}
+				if (strlen($txtComment) < 5) {
+					$strError .= "Вы ввели слишком короткое сообщение. ";
+					$bPostInvalid = true;
+				}
 				// !!! Here we can add some checking if $txtFlag is empty
 				// -----------------------------------
 				// Display form and data (if necessary)
-				if ($bPostInvalid)
-				{
-					$strFormSubmitAction = "$PHP_SELF?strAction=post&strPostID=$strPostID&strUpdate=$strUpdate&strDPostID=$strDPostID";
-					echol('<div>');
+				if ($bPostInvalid) {?>
+					<div style="text-align: center;">
+					<?php
 					foreach ($arrSmiles as $strSmile) {
 						$sExt='png';
 						if ($strSmile=='rolleyes' || $strSmile=='shocked') $sExt='gif';
-						echol(hImg("images/smiles/$strSmile.$sExt", "\$$strSmile\$", 'SmileTop', '', '',
-							attr('onclick', "InsertText(document.frmPost.txtComment, '\$$strSmile\$')")));
+						echol(hImg("images/smiles/$strSmile.$sExt", $strSmile, 'SmileTop', '', '',
+							attr('onclick', "InsertText('txtComment', '\$$strSmile\$')")));
+					}?>
+					</div>
+					<form action="forum.php" method="post">
+						<div class="Form">
+							<input type="hidden" name="strAction" value="post" />
+							<input type="hidden" name="strPostID" value="<?php echo $strPostID; ?>" />
+							<input type="hidden" name="strUpdate" value="<?php echo $strUpdate; ?>" />
+							<input type="hidden" name="strDPostID" value="<?php echo $strDPostID; ?>" />
+					<?php
+					if ($bAdmin && !empty($strPostID)) {?>
+								<div><!-- Date -->
+									<span class="TD ForumPost"><?php echo $lblDate; ?></span>
+									<input type="text" name="txtDate" class="Forum" value="<?php echo $valDate; ?>"/>
+								</div>
+								<div><!-- Time -->
+									<span class="TD ForumPost"><?php echo $lblTime; ?></span>
+									<input type="text" name="txtTime" class="Forum" value="<?php echo $valTime; ?>"/>
+								</div>
+							<?php
+					}?>
+								<div><!-- Name -->
+									<span class="TD ForumPost"><?php echo $lblName; ?></span>
+									<input type="text" name="txtName" class="Forum" id="txtName" value="<?php echo $valName; ?>"/>
+								</div>
+								<div><!-- Theme -->
+									<span class="TD ForumPost"><?php echo $lblTheme; ?></span>
+									<input type="text" name="txtTheme" class="Forum" value="<?php echo $valTheme; ?>"/>
+								</div>
+								<div><!-- HomePage -->
+									<span class="TD ForumPost"><?php echo $lblHomePage; ?></span>
+									<input type="text" name="txtHomePage" class="Forum" value="<?php echo $valHomePage; ?>"/>
+								</div>
+								<div><!-- EMail -->
+									<span class="TD ForumPost"><?php echo $lblEMail; ?></span>
+									<input type="text" name="txtEMail" class="Forum" value="<?php echo $valEMail; ?>"/>
+								</div>
+					<?php
+					if ($bAdmin && !empty($strPostID)) {?>
+								<div><!-- IP -->
+									<span class="TD ForumPost"><?php echo $lblIP; ?></span>
+									<input type="text" name="txtIP" class="Forum" value="<?php echo $valIP; ?>"/>
+								</div>
+								<div><!-- UserAgent -->
+									<span class="TD ForumPost"><?php echo $lblUserAgent; ?></span>
+									<input type="text" name="txtUserAgent" class="Forum" value="<?php echo $valUserAgent; ?>"/>
+								</div>
+								<div><!-- Flag -->
+									<span class="Label TD ForumPost"><?php echo $lblFlag; ?></span>
+									<input type="text" name="txtFlag" class="Forum" value="<?php echo $valFlag; ?>"/>
+								</div><?php
 					}
-					echol('</div>');
-					echol(hoForm('frmPost', $strFormSubmitAction));
-					echol('<table border=0 cellspacing=0>');
-					if ($bAdmin && $strPostID != '')
-					{
-						// Date
-						echol(hRow(hCell($lblDate, 'InForm Labels').
-									hCell(hInput('txtDate', 'text', 'txtForum', $valDate))));
-						// Time
-						echol(hRow(hCell($lblTime, 'InForm Labels').
-									hCell(hInput('txtTime', 'text', 'txtForum', $valTime))));
+					?>
+								<div><!-- Comment -->
+										<span class="TD ForumPost" style="width: 706px;"><?php echo $lblComment; ?></span><br />
+										<textarea name="txtComment" id="txtComment" onselect="StoreCaret(this);" onclick="StoreCaret(this);"
+											onkeyup="StoreCaret(this);" rows="7" cols="80"><?php echo out($valComment); ?></textarea>
+								</div>
+					<?php
+					if ($bAdmin && !empty($strPostID)) {?>
+								<div><!-- AdminComment -->
+										<span class="TD ForumPost" style="width: 706px;"><?php echo $lblAdminComment; ?></span><br />
+										<textarea name="txtAdminComment"><?php echo out($valAdminComment); ?></textarea>
+								</div>
+						<?php
 					}
-					// Name
-					echol(hRow(hCell($lblName, 'InForm Labels').
-								hCell(hInput('txtName', 'text', 'txtForum', $valName))));
-					// Theme
-					echol(hRow(hCell($lblTheme, 'InForm Labels').
-								hCell(hInput('txtTheme', 'text', 'txtForum', $valTheme))));
-					// HomePage
-					echol(hRow(hCell($lblHomePage, 'InForm Labels').
-								hCell(hInput('txtHomePage', 'text', 'txtForum', $valHomePage))));
-					// EMail
-					echol(hRow(hCell($lblEMail, 'InForm Labels').
-								hCell(hInput('txtEMail', 'text', 'txtForum', $valEMail))));
-					if ($bAdmin && $strPostID != '')
-					{
-						// IP
-						echol(hRow(hCell($lblIP, 'InForm Labels').
-									hCell(hInput('txtIP', 'text', 'txtForum', $valIP))));
-						// UserAgent
-						echol(hRow(hCell($lblUserAgent, 'InForm Labels').
-									hCell(hInput('txtUserAgent', 'text', 'txtForum', $valUserAgent))));
-						// Flag
-						echol(hRow(hCell($lblFlag, 'InForm Labels').
-									hCell(hInput('txtFlag', 'text', 'txtForum', $valFlag))));
-					}
-					// Comment
-					echol(hRow(hCell($lblComment, 'InForm Labels').hCell('')));
-					echol(hRow(hCell(hTextarea('txtComment', '', out($valComment),
-														attr('onselect', "StoreCaret(this);").
-														attr('onclick', "StoreCaret(this);").
-														attr('onkeyup', "StoreCaret(this);")), '', '', '', attr('colspan', '3'))));
-					if ($bAdmin && $strPostID != '')
-					{
-						// AdminComment
-						echol(hRow(hCell($lblAdminComment, 'InForm Labels').hCell('')));
-						echol(hRow(hCell(hTextarea('txtAdminComment', '', out($valAdminComment)), '', '', '', attr('colspan', '3'))));
-					}
-					if ($strError != '')
-						echol(hRow(hCell($strError, 'InForm Bold Red', '', '', attr('colspan', '3'))));
-					// --- SUBMIT
-					echol(hRow(hCell(hInput('subUserPost', 'submit', 'subSubmit', $lblAddComment), '', '', '', attr('colspan', '3'))));
-					echol('</table>');
-					echol(hcForm());
-					echol(hScript('document.frmPost.txtName.focus();'));
-				}
-				else // $bPostInvalid = false
-				{
-					if ($strPostID == '')
-					{
+					if (!empty($strError)) {?>
+								<div class="Label Red">
+									<?php echo $strError ?>
+								</div><?php
+					}?>
+								<div style="display: inline-block; text-align: right; width: 706px;"><!-- Submit -->
+									<input type="submit" class="submit" value="<?php echo $lblAddComment; ?>" />
+								</div>
+							</div>
+						</form>
+					<script type="text/javascript">
+						ById('txtName').focus();
+					</script>
+					<?php
+				} else {//$bPostInvalid = false
+					if (empty($strPostID)) {
 						$strPostID = RandomString(32); // we believe, they won't repeat!
 						$txtDate = date("d.m.y", time()+0);
 						$txtTime = date("H:i:s", time()+0);
@@ -317,8 +338,8 @@
 						if ($bAdmin) $txtFlag = 'admin';
 						//------------------------------------------------
 						// First, send mail if necessary
-						if ($txtEMail == '') $txtEMail = "forumuser@dmvn.mexmat.net";
-						if ($txtHomePage == '') $txtHomePage = "http://localhost";
+						if (empty($txtEMail)) $txtEMail = "forumuser@dmvn.mexmat.net";
+						if (empty($txtHomePage)) $txtHomePage = "http://localhost";
 						$strHeaders = "Content-Type: text/plain; charset=windows-1251\n";
 						mail($strMailTo, $strMailSubject.$txtName,
 							"Name:     $txtName\n".
@@ -330,16 +351,15 @@
 							"Reply-To: $txtName <$txtEMail>\n".
 							$strHeaders);
 						// Then we should send subscriptions
-						if ($bAdmin && $txtName == $strReservedName)
-						{
-							echol('<table>');
-							echol(hRow(hCell('Sending News&Information to:', 'PlainText Info')));
-							$arrEMails = fileCutEOL($strCFileName);
+						if ($bAdmin && $txtName == $strReservedName) {?>
+							<p class="PlainText Info">Sending News&amp;Information</p>
+							<?php
+							$arrEMails=fileCutEOL($strCFileName);
 							foreach ($arrEMails as $strEMail) {
 								$arrCMailData = explode('|', $strEMail);
 								$strSubscrEMail = str_rot13($arrCMailData[0]);
 								if (!empty($strSubscrEMail)) {
-								$sTargetCP=$arrCMailData[1];// FIXED!!! Encoding itself!
+									$sTargetCP=$arrCMailData[1];
 									$strHeaders="Content-Type: text/plain; charset=$sTargetCP\n";
 									mail($strSubscrEMail,
 										$strMailSubscriptionSubject,
@@ -403,10 +423,8 @@
 				} // $bPostInvalid
 			} // $bProcess
 		} // $bAuth
-		echo '</center>';
 	}
-	elseif ($strAction == 'delete' && $bAdmin)
-	{
+	elseif ($strAction == 'delete' && $bAdmin) {
 		$arrNewFData = array();
 		$fForum = fopen($strForumFileName, 'r');
 		if (!$fForum) FDeath('DEBUG: forum.delete(): cannot open file for reading!');

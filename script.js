@@ -22,7 +22,7 @@ function StoreCaret(e) {
 // ---------------------------------------------------------------------
 function InsertText(id, text) {
 	var txtarea=ById(id);
-	if (!texarea) return;
+	if (!txtarea) return;
 	text=' '+text+' ';
 	if (txtarea.createTextRange && txtarea.caretPos) {
 		var caretPos=txtarea.caretPos;
