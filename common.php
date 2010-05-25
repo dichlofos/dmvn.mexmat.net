@@ -195,7 +195,7 @@
 	</head>
 	<body>
 		<script type="text/javascript" src="script.js"></script>
-		<table class="Top">
+		<table class="Top" summary="Header">
 			<tr>
 				<td style="width: 200px; text-align: center;">
 					<?php echo flink('http://www.mexmat.net', '<img alt="MexMat.Net" src="images/mexmatnet.png" class="MexMat" />');?>
@@ -203,7 +203,7 @@
 				<td style="text-align: center;"><?php echo llink('/', '<img alt="DMVN Logo" src="images/dmvnlogo.png" />');?></td>
 			</tr>
 		</table>
-		<table class="Main">
+		<table class="Main" summary="Main">
 			<tr>
 				<td class="MainLeft">
 					<div class="TopTbl">Μενώ</div>
