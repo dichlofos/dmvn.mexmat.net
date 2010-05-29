@@ -511,17 +511,20 @@
 
 			// Display post
 			?><div class="PostHeader"><?php
-			echo hHref('mailto:'.FilterDQuotes($dispEMail), hImg('/images/icons/em.gif', '', 'MessageIcon', '', '', attr('title', out($dispEMail)))).
-				hHref(FilterDQuotes($valHomePage), hImg('/images/icons/hm.gif', '', 'MessageIcon')).
-				hImg('/images/icons/ip.png', '', 'MessageIcon', '', '', attr('title', out($dispIP))).
-				hImg('/images/icons/br.gif', '', 'MessageIcon', '', '', attr('title', out($dispUserAgent))).
+			echo hHref('mailto:'.FilterDQuotes($dispEMail), hImg('/images/icons/em.gif', 'EMail', 'MessageIcon', '', '', attr('title', out($dispEMail)))).
+				hHref(FilterDQuotes($valHomePage), hImg('/images/icons/hm.gif', 'HomePage', 'MessageIcon')).
+				hImg('/images/icons/ip.png', 'IP', 'MessageIcon', '', '', attr('title', out($dispIP))).
+				hImg('/images/icons/br.gif', 'UserAgent', 'MessageIcon', '', '', attr('title', out($dispUserAgent))).
 				"$sUserFunctions $sAdminFunctions ".out($valDate).' '.out($valTime).'  <b>'.out($valName).'</b>: '.out($valTheme);
-			?></div><?php
+			?></div>
+			<?php
 				$sPostClass=($valFlag=='admin') ? 'PlainText PostText AdminText' : 'PlainText PostText';
-			?><div class="<?php echo $sPostClass;?>"><?php echo FormatPost(out($valComment)); ?></div><?php
+			?><div class="<?php echo $sPostClass;?>"><?php echo FormatPost(out($valComment)); ?></div>
+			<?php
 			if (!empty($valAdminComment)) {?>
 				<div class="PlainText PostText AdminText AdminHeader">Комментарий:</div>
-				<div class="PlainText PostText AdminText"><?php echo FormatPost(out($valAdminComment)); ?></div><?php
+				<div class="PlainText PostText AdminText"><?php echo FormatPost(out($valAdminComment)); ?></div>
+				<?php
 			}
 		}
 		?>
@@ -554,7 +557,7 @@
 			if ($strSmile=='rolleyes' || $strSmile=='shocked') $sExt='gif';
 			$strPost=str_replace("\$$strSmile\$", hImg("/images/smiles/$strSmile.$sExt", $strSmile, 'Smile'), $strPost);
 		}
-		$strPost=str_replace("\r\n", "<br>", $strPost);
+		$strPost=str_replace("\r\n", "<br/>", $strPost);
 		$strPost=TraceURL($strPost);
 		return $strPost;
 	}
