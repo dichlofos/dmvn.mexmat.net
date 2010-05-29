@@ -202,9 +202,7 @@ div.Filter {
 td.Admin {
 	color: #dddddd;
 }
-td.AdminComment {
-	color: #dddd77;
-}
+
 td.MenuText {
 	font-size: 9pt;
 }
@@ -221,6 +219,40 @@ td.Labels {
 	font-weight: bold;
 	width: 150px;
 }
+
+span.CurrentPage {
+	color: #dddd77;
+	font-weight: bold;
+}
+div.Forum {
+	background-color: #063562;
+	padding: 2px;
+}
+div.ForumInner {
+	background-color: #00254a;
+	padding: 3px;
+}
+div.ForumPages {
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+div.PostHeader {
+	background-color: #063562;
+	padding: 2px;
+}
+div.PostText {
+	padding-top: 2px;
+	padding-bottom: 10px;
+	padding-right: 2px;
+	padding-left: 2px;
+}
+div.AdminText {
+	color: #dddd77;
+}
+div.AdminHeader {
+	font-weight: bold;
+}
+
 td.ForumF {
 	font-size: 10pt;
 	font-family: Verdana, Arial;

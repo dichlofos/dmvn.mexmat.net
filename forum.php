@@ -8,74 +8,74 @@
 	include "common.php";
 	if ($bDebugEnabled) error_reporting(E_ALL);
 
-	$lblPage = 'Страница';
-	$lblAddComment = 'Отправить';
-	$lblName = 'Имя<span style="color:#dddd77;">*</span>:';
-	$lblHomePage = 'Сайт:';
-	$lblEMail = 'Почта:';
-	$lblComment = 'Сообщение<span style="color:#dddd77;">*</span>:';
-	$lblTheme = 'Тема:';
-	$lblDate = 'Дата:';
-	$lblTime = 'Время:';
-	$lblLogin = 'Войти';
-	$lblAdminComment = "Комментарий:";
-	$lblDate = "Дата:";
-	$lblIP = "IP:";
-	$lblUserAgent = "User Agent:";
-	$lblFlag = 'Flag:';
+	$lblPage='Страница';
+	$lblAddComment='Отправить';
+	$lblName='Имя<span style="color:#dddd77;">*</span>:';
+	$lblHomePage='Сайт:';
+	$lblEMail='Почта:';
+	$lblComment='Сообщение<span style="color:#dddd77;">*</span>:';
+	$lblTheme='Тема:';
+	$lblDate='Дата:';
+	$lblTime='Время:';
+	$lblLogin='Войти';
+	$lblAdminComment="Комментарий:";
+	$lblDate="Дата:";
+	$lblIP="IP:";
+	$lblUserAgent="User Agent:";
+	$lblFlag='Flag:';
 
-	$lblReservedName = 'Имя <i>Admin</i> может использовать только администратор';
+	$lblReservedName='Имя <i>Admin</i> может использовать только администратор';
 
 	// Comments per page
-	$nCommentsPerPage = 10;
+	$nCommentsPerPage=10;
 
 	// Administrative functions
-	$lblPassword = 'Пароль:';
+	$lblPassword='Пароль:';
 
-	$strMailTo = "DMVN <$strDMVNMailReal>";
-	$strMailSubject = 'Forum message from ';
+	$strMailTo="DMVN <$strDMVNMailReal>";
+	$strMailSubject='Forum message from ';
 
-	$arrSmiles = array('grin', 'rolleyes', 'sad', 'shocked', 'smile', 'tongue', 'undecided', 'wink');
+	$arrSmiles=array('grin', 'rolleyes', 'sad', 'shocked', 'smile', 'tongue', 'undecided', 'wink');
 		
-	$strDefaultAdminName = "Admin";
-	$strDefaultAdminHomePage = "http://dmvn.mexmat.net";
-	$strDefaultAdminEMail = $strDMVNMailReal;
-	$strReservedName = $strDefaultAdminName;
+	$strDefaultAdminName="Admin";
+	$strDefaultAdminHomePage="http://dmvn.mexmat.net";
+	$strDefaultAdminEMail=$strDMVNMailReal;
+	$strReservedName=$strDefaultAdminName;
 	 
-	$CurrentMenuItem = $mnuForum;
+	$CurrentMenuItem=$mnuForum;
 
-	$bRedir = false;
+	$bRedir=false;
 
 	// Processing all HTTP POST variables
-	$section = ProcessStringPostVar('section', '0');
-	$strAction = ProcessStringPostVar('strAction', 'post');
-	$strPostID = ProcessStringPostVar('strPostID');
-	$strUpdate = ProcessStringPostVar('strUpdate', 'no');
-	$strDPostID = ProcessStringPostVar('strDPostID');
+	$section=ProcessStringPostVar('section', '0');
+	$strAction=ProcessStringPostVar('strAction', 'post');
+	$strPostID=ProcessStringPostVar('strPostID');
+	$strUpdate=ProcessStringPostVar('strUpdate', 'no');
+	$strDPostID=ProcessStringPostVar('strDPostID');
 
-	$txtDate = ProcessStringPostVar('txtDate');
-	$txtTime = ProcessStringPostVar('txtTime');
-	$txtName = ProcessStringPostVar('txtName');
-	$txtTheme = ProcessStringPostVar('txtTheme');
-	$txtHomePage = ProcessStringPostVar('txtHomePage');
-	$txtEMail = ProcessStringPostVar('txtEMail');
-	$txtComment = ProcessStringPostVar('txtComment');
-	$txtAdminComment = ProcessStringPostVar('txtAdminComment');
-	$txtIP = ProcessStringPostVar('txtIP');
-	$txtUserAgent = ProcessStringPostVar('txtUserAgent');
-	$txtFlag = ProcessStringPostVar('txtFlag');
+	$txtDate=ProcessStringPostVar('txtDate');
+	$txtTime=ProcessStringPostVar('txtTime');
+	$txtName=ProcessStringPostVar('txtName');
+	$txtTheme=ProcessStringPostVar('txtTheme');
+	$txtHomePage=ProcessStringPostVar('txtHomePage');
+	$txtEMail=ProcessStringPostVar('txtEMail');
+	$txtComment=ProcessStringPostVar('txtComment');
+	$txtAdminComment=ProcessStringPostVar('txtAdminComment');
+	$txtIP=ProcessStringPostVar('txtIP');
+	$txtUserAgent=ProcessStringPostVar('txtUserAgent');
+	$txtFlag=ProcessStringPostVar('txtFlag');
 
-	$txtDate = FilterLowASCII($txtDate);
-	$txtTime = FilterLowASCII($txtTime);
-	$txtName = FilterLowASCII($txtName);
-	$txtTheme = FilterLowASCII($txtTheme);
-	$txtHomePage = FilterLowASCII($txtHomePage);
-	$txtEMail = FilterLowASCII($txtEMail);
-	$txtIP = FilterLowASCII($txtIP);
-	$txtUserAgent = FilterLowASCII($txtUserAgent);
-	$txtFlag = FilterLowASCII($txtFlag);
+	$txtDate=FilterLowASCII($txtDate);
+	$txtTime=FilterLowASCII($txtTime);
+	$txtName=FilterLowASCII($txtName);
+	$txtTheme=FilterLowASCII($txtTheme);
+	$txtHomePage=FilterLowASCII($txtHomePage);
+	$txtEMail=FilterLowASCII($txtEMail);
+	$txtIP=FilterLowASCII($txtIP);
+	$txtUserAgent=FilterLowASCII($txtUserAgent);
+	$txtFlag=FilterLowASCII($txtFlag);
 
-	$bPostInvalid = false;
+	$bPostInvalid=false;
 
 	srand();
 	if ($strAction == 'login') {
@@ -116,110 +116,99 @@
 					hCell(hInput('subLogin', 'submit', 'subSubmit', $lblLogin))
 				)).
 				hcForm());
-		}
-		else
-		{
-			$valDate = '';
-			$valTime = '';
-			$valName = '';
-			$valTheme = '';
-			$valHomePage = '';
-			$valEMail = '';
-			$valComment = '';
-			$valAdminComment = '';
-			$valIP = '';
-			$valUserAgent = '';
-			$valFlag = '';
+		} else {
+			$valDate='';
+			$valTime='';
+			$valName='';
+			$valTheme='';
+			$valHomePage='';
+			$valEMail='';
+			$valComment='';
+			$valAdminComment='';
+			$valIP='';
+			$valUserAgent='';
+			$valFlag='';
 
-			$bProcess = false;
+			$bProcess=false;
 			// Analyze parameters
-			if ($strPostID == "")
-			{
+			if (empty($strPostID)) {
 				// This is a new post
-				if ($bAdmin)
-				{
+				if ($bAdmin) {
 					// Admin can omit some values, he's mighty :)
-					if ($txtName == '') $txtName = $strDefaultAdminName;
-					if ($txtHomePage == '') $txtHomePage = $strDefaultAdminHomePage;
-					if ($txtEMail == '') $txtEMail = $strDefaultAdminEMail;
+					if (empty($txtName)) $txtName=$strDefaultAdminName;
+					if (empty($txtHomePage)) $txtHomePage=$strDefaultAdminHomePage;
+					if (empty($txtEMail)) $txtEMail=$strDefaultAdminEMail;
 				}
-				$valName = $txtName;
-				$valTheme = $txtTheme;
-				$valHomePage = $txtHomePage;
-				$valEMail = $txtEMail;
-				$valComment = $txtComment;
-				$valAdminComment = $txtAdminComment;
-				$bProcess = true;
-			}
-			else
-			{
+				$valName=$txtName;
+				$valTheme=$txtTheme;
+				$valHomePage=$txtHomePage;
+				$valEMail=$txtEMail;
+				$valComment=$txtComment;
+				$valAdminComment=$txtAdminComment;
+				$bProcess=true;
+			} else {
 				// We should edit the post (godmode only)
 				// Get post $strPostID from file
-				if ($bAdmin)
-				{
-					if ($strUpdate != 'yes')
-					{
-						$strUpdate = 'yes';
-						$fForum = fopen($strForumFileName, 'r');
+				if ($bAdmin) {
+					if ($strUpdate != 'yes') {
+						$strUpdate='yes';
+						$fForum=fopen($strForumFileName, 'r');
 						if (!$fForum) FDeath('Cannot open forum file!');
 						while (!feof($fForum))
 						{
-							$strFL = trim(fgets($fForum));
+							$strFL=trim(fgets($fForum));
 							if ($strFL == '') continue;
-							$arrFL = explode('|', $strFL);
-							if ($arrFL[0] == $strPostID)
-							{
-								$valDate = $arrFL[1];
-								$valTime = $arrFL[2];
-								$valName = StoreToInput($arrFL[3]);
-								$valTheme = StoreToInput($arrFL[4]);
-								$valHomePage = StoreToInput($arrFL[5]);
-								$valEMail = StoreToInput($arrFL[6]);
-								$valComment = StoreToInput($arrFL[7]);
-								$valAdminComment = StoreToInput($arrFL[8]);
-								$valIP = $arrFL[9];
-								$valUserAgent = $arrFL[10];
-								$valFlag = $arrFL[11];
+							$arrFL=explode('|', $strFL);
+							if ($arrFL[0] == $strPostID) {
+								$valDate=$arrFL[1];
+								$valTime=$arrFL[2];
+								$valName=StoreToInput($arrFL[3]);
+								$valTheme=StoreToInput($arrFL[4]);
+								$valHomePage=StoreToInput($arrFL[5]);
+								$valEMail=StoreToInput($arrFL[6]);
+								$valComment=StoreToInput($arrFL[7]);
+								$valAdminComment=StoreToInput($arrFL[8]);
+								$valIP=$arrFL[9];
+								$valUserAgent=$arrFL[10];
+								$valFlag=$arrFL[11];
 
-								$txtDate = $valDate;
-								$txtTime = $valTime;
-								$txtName = $valName;
-								$txtTheme = $valTheme;
-								$txtHomePage = $valHomePage;
-								$txtEmail = $valEMail;
-								$txtComment = $valComment;
-								$txtAdminComment = $valAdminComment;
-								$txtIP = $valIP;
-								$txtUserAgent = $valUserAgent;
-								$txtFlag = $valFlag;
+								$txtDate=$valDate;
+								$txtTime=$valTime;
+								$txtName=$valName;
+								$txtTheme=$valTheme;
+								$txtHomePage=$valHomePage;
+								$txtEmail=$valEMail;
+								$txtComment=$valComment;
+								$txtAdminComment=$valAdminComment;
+								$txtIP=$valIP;
+								$txtUserAgent=$valUserAgent;
+								$txtFlag=$valFlag;
 
-								$bProcess = true;
+								$bProcess=true;
 								break;
 							}
 						}
 						fclose($fForum);
 						// Invalidate post
-						$bPostInvalid = true;
+						$bPostInvalid=true;
 
-						if (!$bProcess) $bRedir = true;
-					}
-					else // $strUpdate: 'yes'
-					{
+						if (!$bProcess) $bRedir=true;
+					} else { // $strUpdate: 'yes'
 						// we should update post info from $txt-Variables
 						// $strPostID is set
-						$valDate = $txtDate;
-						$valTime = $txtTime;
-						$valName = $txtName;
-						$valTheme = $txtTheme;
-						$valHomePage = $txtHomePage;
-						$valEMail = $txtEMail;
-						$valComment = $txtComment;
-						$valAdminComment = $txtAdminComment;
-						$valIP = $txtIP;
-						$valUserAgent = $txtUserAgent;
-						$valFlag = $txtFlag;
+						$valDate=$txtDate;
+						$valTime=$txtTime;
+						$valName=$txtName;
+						$valTheme=$txtTheme;
+						$valHomePage=$txtHomePage;
+						$valEMail=$txtEMail;
+						$valComment=$txtComment;
+						$valAdminComment=$txtAdminComment;
+						$valIP=$txtIP;
+						$valUserAgent=$txtUserAgent;
+						$valFlag=$txtFlag;
 
-						$bProcess = true;
+						$bProcess=true;
 					} // $strUpdate check
 				} // $bAdmin
 			} // $strPostID check
@@ -227,15 +216,18 @@
 			if ($bProcess) {
 				// -----------------------------------
 				// Here follows check if we should post 
-				$strError = '';
-				if (empty($txtName)) $bPostInvalid = true;
+				$strError='';
+				if (empty($txtName)) {
+					$strError.="Вы не указали имя. ";
+					$bPostInvalid=true;
+				}
 				if ($txtName==$strReservedName && !$bAdmin) {
-					$strError .= "$lblReservedName. ";
+					$strError.="$lblReservedName. ";
 					$bPostInvalid=true;
 				}
 				if (strlen($txtComment) < 5) {
-					$strError .= "Вы ввели слишком короткое сообщение. ";
-					$bPostInvalid = true;
+					$strError.="Вы ввели слишком короткое сообщение. ";
+					$bPostInvalid=true;
 				}
 				// !!! Here we can add some checking if $txtFlag is empty
 				// -----------------------------------
@@ -327,21 +319,21 @@
 						ById('txtName').focus();
 					</script>
 					<?php
-				} else {//$bPostInvalid = false
+				} else {//$bPostInvalid=false
 					if (empty($strPostID)) {
-						$strPostID = RandomString(32); // we believe, they won't repeat!
-						$txtDate = date("d.m.y", time()+0);
-						$txtTime = date("H:i:s", time()+0);
-						$txtIP = $REMOTE_ADDR;
-						$txtUserAgent = $HTTP_USER_AGENT;
-						$txtFlag = 'user';
-						if ($bAdmin) $txtFlag = 'admin';
+						$strPostID=RandomString(32); // we believe, they won't repeat!
+						$txtDate=date("d.m.y", time()+0);
+						$txtTime=date("H:i:s", time()+0);
+						$txtIP=$REMOTE_ADDR;
+						$txtUserAgent=$HTTP_USER_AGENT;
+						$txtFlag='user';
+						if ($bAdmin) $txtFlag='admin';
 						//------------------------------------------------
 						// First, send mail if necessary
-						if (empty($txtEMail)) $txtEMail = "forumuser@dmvn.mexmat.net";
-						if (empty($txtHomePage)) $txtHomePage = "http://localhost";
-						$strHeaders = "Content-Type: text/plain; charset=windows-1251\n";
-						mail($strMailTo, $strMailSubject.$txtName,
+						if (empty($txtEMail)) $txtEMail="forumuser@dmvn.mexmat.net";
+						if (empty($txtHomePage)) $txtHomePage="http://localhost";
+						$strHeaders="Content-Type: text/plain; charset=windows-1251\n";
+						@mail($strMailTo, $strMailSubject.$txtName,
 							"Name:     $txtName\n".
 							"Theme:    $txtTheme\n".
 							"HomePage: $txtHomePage\n".
@@ -351,194 +343,201 @@
 							"Reply-To: $txtName <$txtEMail>\n".
 							$strHeaders);
 						// Then we should send subscriptions
-						if ($bAdmin && $txtName == $strReservedName) {?>
+						if ($bAdmin && $txtName==$strReservedName) {?>
 							<p class="PlainText Info">Sending News&amp;Information</p>
 							<?php
 							$arrEMails=fileCutEOL($strCFileName);
 							foreach ($arrEMails as $strEMail) {
-								$arrCMailData = explode('|', $strEMail);
-								$strSubscrEMail = str_rot13($arrCMailData[0]);
+								$arrCMailData=explode('|', $strEMail);
+								$strSubscrEMail=str_rot13($arrCMailData[0]);
 								if (!empty($strSubscrEMail)) {
 									$sTargetCP=$arrCMailData[1];
 									$strHeaders="Content-Type: text/plain; charset=$sTargetCP\n";
-									mail($strSubscrEMail,
+									$bResult=@mail($strSubscrEMail,
 										$strMailSubscriptionSubject,
 										RecodeToCodepage($txtComment, $sTargetCP),
 										"From: DMVN <$strDMVNMailReal>\n".
 										"Reply-To: DMVN <$strDMVNMailReal>\n".
 										$strHeaders);
-									echol(hRow(hCell("Mail sent to $strSubscrEMail", 'PlainText')));
+									if (!$bResult) {
+										echol(hPar("Mail sending to <b>$strSubscrEMail</b> failed, interrupting.", 'PlainText Info'));
+										break;
+									}
+									echol(hPar("Mail sent to <b>$strSubscrEMail<b>.", 'PlainText'));
 								}
 							}
-							echo '</table>';
 						}
 						// Writing to forum file
 						// common
-						$txtName = InputToStore($txtName);
-						$txtTheme = InputToStore($txtTheme);
-						$txtHomePage = InputToStore($txtHomePage);
-						$txtEMail = InputToStore($txtEMail);
-						$txtComment = InputToStore($txtComment);
-						$txtAdminComment = InputToStore($txtAdminComment);        
-						$strFullPost = "$strPostID|$txtDate|$txtTime|$txtName|$txtTheme|$txtHomePage|$txtEMail|$txtComment|$txtAdminComment|$txtIP|$txtUserAgent|$txtFlag";
+						$txtName=InputToStore($txtName);
+						$txtTheme=InputToStore($txtTheme);
+						$txtHomePage=InputToStore($txtHomePage);
+						$txtEMail=InputToStore($txtEMail);
+						$txtComment=InputToStore($txtComment);
+						$txtAdminComment=InputToStore($txtAdminComment);        
+						$strFullPost="$strPostID|$txtDate|$txtTime|$txtName|$txtTheme|$txtHomePage|$txtEMail|$txtComment|$txtAdminComment|$txtIP|$txtUserAgent|$txtFlag";
 						// end of common
-						$fForum = fopen($strForumFileName, 'r');
-						$strFContents = fread($fForum, filesize($strForumFileName));
+						$fForum=fopen($strForumFileName, 'r');
+						$strFContents=fread($fForum, filesize($strForumFileName));
 						fclose($fForum);
-						$fForum = fopen($strForumFileName, 'w');
+						$fForum=fopen($strForumFileName, 'w');
 						if (!$fForum) FDeath('DEBUG: Cannot open file for writing!');
 						WriteLine($fForum, $strFullPost);
 						fwrite($fForum, $strFContents);
 						fclose($fForum);
-					}
-					else
-					{
+					} else {
 						// common
-						$txtName = InputToStore($txtName);
-						$txtTheme = InputToStore($txtTheme);
-						$txtHomePage = InputToStore($txtHomePage);
-						$txtEMail = InputToStore($txtEMail);
-						$txtComment = InputToStore($txtComment);
-						$txtAdminComment = InputToStore($txtAdminComment);        
-						$strFullPost = "$strPostID|$txtDate|$txtTime|$txtName|$txtTheme|$txtHomePage|$txtEMail|$txtComment|$txtAdminComment|$txtIP|$txtUserAgent|$txtFlag";
+						$txtName=InputToStore($txtName);
+						$txtTheme=InputToStore($txtTheme);
+						$txtHomePage=InputToStore($txtHomePage);
+						$txtEMail=InputToStore($txtEMail);
+						$txtComment=InputToStore($txtComment);
+						$txtAdminComment=InputToStore($txtAdminComment);        
+						$strFullPost="$strPostID|$txtDate|$txtTime|$txtName|$txtTheme|$txtHomePage|$txtEMail|$txtComment|$txtAdminComment|$txtIP|$txtUserAgent|$txtFlag";
 						// end of common
-						$arrNewFData = array();
-						$fForum = fopen($strForumFileName, 'r');
+						$arrNewFData=array();
+						$fForum=fopen($strForumFileName, 'r');
 						if (!$fForum) FDeath('DEBUG: forum.update(): cannot open file for reading!');
-						while (!feof($fForum))
-						{
-							$strFL = trim(fgets($fForum));
-							if ($strFL == '') continue;
-							$arrFL = explode('|', $strFL);
-							if ($arrFL[0] != $strPostID) $arrNewFData[] = $strFL;
-							else $arrNewFData[] = $strFullPost;
+						while (!feof($fForum)) {
+							$strFL=trim(fgets($fForum));
+							if (empty($strFL)) continue;
+							$arrFL=explode('|', $strFL);
+							if ($arrFL[0] != $strPostID) $arrNewFData[]=$strFL;
+							else $arrNewFData[]=$strFullPost;
 						}
 						fclose($fForum);
-						$fForum = fopen($strForumFileName, 'w');
-						foreach ($arrNewFData as $strFL)
-							WriteLine($fForum, $strFL);
+						$fForum=fopen($strForumFileName, 'w');
+						foreach ($arrNewFData as $strFL) WriteLine($fForum, $strFL);
 						fclose($fForum);
 					}
-					$bRedir = true;
+					$bRedir=true;
 				} // $bPostInvalid
 			} // $bProcess
 		} // $bAuth
-	}
-	elseif ($strAction == 'delete' && $bAdmin) {
-		$arrNewFData = array();
-		$fForum = fopen($strForumFileName, 'r');
+	} elseif ($strAction=='delete' && $bAdmin) {
+		$arrNewFData=array();
+		$fForum=fopen($strForumFileName, 'r');
 		if (!$fForum) FDeath('DEBUG: forum.delete(): cannot open file for reading!');
-		while (!feof($fForum))
-		{
-			$strFL = trim(fgets($fForum));
-			if ($strFL == '') continue;
-			$arrFL = explode('|', $strFL);
-			if ($arrFL[0] != $strPostID) $arrNewFData[] = $strFL;
+		while (!feof($fForum)) {
+			$strFL=trim(fgets($fForum));
+			if (empty($strFL)) continue;
+			$arrFL=explode('|', $strFL);
+			if ($arrFL[0] != $strPostID) $arrNewFData[]=$strFL;
 		}
 		fclose($fForum);
-		$fForum = fopen($strForumFileName, 'w');
-		foreach ($arrNewFData as $strFL)
-			WriteLine($fForum, $strFL);
+		$fForum=fopen($strForumFileName, 'w');
+		foreach ($arrNewFData as $strFL) WriteLine($fForum, $strFL);
 		fclose($fForum);
-		$bRedir = true;
+		$bRedir=true;
 	}
 	// ---------------------- display
-	if (!$bRedir)
-	{
+	if (!$bRedir) {
 		if ($bAuth) {
 			echol('<div style="text-align: center; font-weight: bold;">'.llink("$PHP_SELF?strAction=logout", '[Выйти]').'</div>');
 		}
 		
-		$fForum = fopen($strForumFileName, 'r');
+		$fForum=fopen($strForumFileName, 'r');
 		if (!$fForum) FDeath('DEBUG: forum.display(): Cannot open forum file!');
-
-		$strForumOut = '';
-		$strForumOut .= '<table valign="top" bgcolor="#063562" width="100%"><tr><td bgcolor="00254a"><table width="100%">';
-		$bStartDisplay = false;
-		if ($strDPostID == '') $bStartDisplay = true;
-		$nDisplayedCount = 0;
-		$nPN = 0;
-		$strPageLinks = '';
-		$strPostIDs = array();
-		$strPage = '';
-		while (!feof($fForum))
-		{
-			$strFL = trim(fgets($fForum));
-			if ($strFL == '') continue;
-			$arrFL = explode('|', $strFL);
-			if ($arrFL[0] == $strDPostID)
-			{
-				$bStartDisplay = true;
-				$strPage = floor($nPN / $nCommentsPerPage);
+		
+		// first, read whole file and fetch posts that we should draw
+		$nTotalPosts=0;
+		$bStartDisplay=false;
+		if (empty($strDPostID)) $bStartDisplay=true; // open immediately
+		$nPN=0;
+		$nDisplayedCount=0;
+		$nCurrentPage=0;
+		$aPosts=array();
+		$aPagePostIDs=array();
+		while (!feof($fForum)) {
+			$sFL=trim(fgets($fForum));
+			if (empty($sFL)) continue;
+			// explode and check ID
+			$aFL=explode('|', $sFL);
+			if ($aFL[0]==$strDPostID) {
+				$bStartDisplay=true;
+				$nCurrentPage=floor($nPN/$nCommentsPerPage);
 			}
-			if ($nPN % $nCommentsPerPage == 0) $strPostIDs[$nPN / $nCommentsPerPage] = $arrFL[0];
-			if ($bStartDisplay && $nDisplayedCount < $nCommentsPerPage)
-			{
-				$valPostID = $arrFL[0];
-				$valDate = $arrFL[1];
-				$valTime = $arrFL[2];
-				$valName = StoreToInput($arrFL[3]);
-				$valTheme = StoreToInput($arrFL[4]);
-				$valHomePage = StoreToInput($arrFL[5]);
-				$valEMail = StoreToInput($arrFL[6]);
-				$valComment = StoreToInput($arrFL[7]);
-				$valAdminComment = StoreToInput($arrFL[8]);
-				$valIP = $arrFL[9];
-				$valUserAgent = $arrFL[10];
-				$valFlag = $arrFL[11];
-
-				$dispEMail = $bAuth ? $valEMail : 'please@uthorize.yourself';
-				$dispIP = $bAuth ? $valIP : 'IP Saved';
-				$dispUserAgent = $bAuth ? $valUserAgent : 'User Agent Saved';
-
-				$strUserFunctions = ' '.hHref("$PHP_SELF?strDPostID=$valPostID", '[Link]');
-
-				$strAdminFunctions = '';
-				if ($bAdmin) $strAdminFunctions .= ' '.hHref("$PHP_SELF?strAction=post&strPostID=$valPostID", '[Edit]');
-				if ($bAdmin) $strAdminFunctions .= ' '.hHref("$PHP_SELF?strAction=delete&strPostID=$valPostID", '[Erase]');
-
-				// Display post
-				$strForumOut .= hRow(hCell(
-					hHref('mailto:'.FilterDQuotes($dispEMail), hImg('/images/icons/em.gif', '', 'MessageIcon', '', '', attr('title', out($dispEMail)))).
-					hHref(FilterDQuotes($valHomePage), hImg('/images/icons/hm.gif', '', 'MessageIcon')).
-					hImg('/images/icons/ip.png', '', 'MessageIcon', '', '', attr('title', out($dispIP))).
-					hImg('/images/icons/br.gif', '', 'MessageIcon', '', '', attr('title', out($dispUserAgent))).
-					"$strUserFunctions $strAdminFunctions ".out($valDate).' '.out($valTime).'  <b>'.out($valName).'</b>: '.out($valTheme), 'ForumF'));
-				
-				$strCommentStyle = ($valFlag == 'admin') ? 'PlainText Admin' : 'PlainText';
-				$strForumOut .= hRow(hCell(FormatPost(out($valComment)), $strCommentStyle));
-				if ($valAdminComment != '')
-				{
-					$strForumOut .= hRow(hCell("<b>$lblAdminComment</b>", 'PlainText AdminComment'));
-					$strForumOut .= hRow(hCell(FormatPost(out($valAdminComment)), 'PlainText AdminComment'));
-				}
-				$strForumOut .= '<tr height="12px"></tr>';
+			if ($nPN % $nCommentsPerPage==0) {
+				$nPage=$nPN / $nCommentsPerPage;
+				$aPagePostIDs[$nPage]=$aFL[0];
+			}
+			if ($bStartDisplay && $nDisplayedCount<$nCommentsPerPage) {
+				$aPosts[]=$aFL; // store exploded values
 				$nDisplayedCount++;
 			}
 			$nPN++;
+			$nTotalPosts++;
 		}
 		fclose($fForum);
+		// Next it's time to display fetched information
+		$nTotalPages=ceil($nTotalPosts/$nCommentsPerPage);
+		$sPageLinks='';
+		// draw page links
+		// TODO: 
+		foreach ($aPagePostIDs as $nPage => $sPostID) {
+			if ($nCurrentPage==$nPage) {
+				$sPageLinks.="<span class=\"CurrentPage\">$nPage</span> ";
+			} else {
+				$sPageLinks.=hHref("$PHP_SELF?strDPostID=$sPostID", "[$nPage]").' ';
+			}
+		}
+		?>
+		<div class="ForumPages"><?php echo $sPageLinks; ?></div>
+		<div class="Forum">
+			<div class="ForumInner">
+		<?php
+		foreach ($aPosts as $aFL) {
+			$valPostID=$aFL[0];
+			$valDate=$aFL[1];
+			$valTime=$aFL[2];
+			$valName=StoreToInput($aFL[3]);
+			$valTheme=StoreToInput($aFL[4]);
+			$valHomePage=StoreToInput($aFL[5]);
+			$valEMail=StoreToInput($aFL[6]);
+			$valComment=StoreToInput($aFL[7]);
+			$valAdminComment=StoreToInput($aFL[8]);
+			$valIP=$aFL[9];
+			$valUserAgent=$aFL[10];
+			$valFlag=$aFL[11];
 
-		for ($nPageN = 0; $nPageN < ceil($nPN/$nCommentsPerPage); $nPageN++)
-			if ($strPage == $nPageN)
-				$strPageLinks .= hHref("$PHP_SELF?strDPostID={$strPostIDs[$nPageN]}", "<b>[$nPageN]</b>").' ';
-			else $strPageLinks .= hHref("$PHP_SELF?strDPostID={$strPostIDs[$nPageN]}", "[$nPageN]").' ';
+			$dispEMail=$bAuth ? $valEMail : 'please@uthorize.yourself';
+			$dispIP=$bAuth ? $valIP : 'IP Saved';
+			$dispUserAgent=$bAuth ? $valUserAgent : 'User Agent Saved';
 
-		// ----------------------
-		$strForumOut .= '</table></td></tr></table>';
+			$sUserFunctions=' '.hHref("$PHP_SELF?strDPostID=$valPostID", '[Link]');
+			$sAdminFunctions='';
+			if ($bAdmin) $sAdminFunctions .= ' '.hHref("$PHP_SELF?strAction=post&amp;strPostID=$valPostID", '[Edit]');
+			if ($bAdmin) $sAdminFunctions .= ' '.hHref("$PHP_SELF?strAction=delete&amp;strPostID=$valPostID", '[Erase]');
 
-		echol(hTable(hRow(hCell($strPageLinks, 'PlainText'))));
-		echol($strForumOut);
-		echol(hTable(hRow(hCell($strPageLinks, 'PlainText'))));
+			// Display post
+			?><div class="PostHeader"><?php
+			echo hHref('mailto:'.FilterDQuotes($dispEMail), hImg('/images/icons/em.gif', '', 'MessageIcon', '', '', attr('title', out($dispEMail)))).
+				hHref(FilterDQuotes($valHomePage), hImg('/images/icons/hm.gif', '', 'MessageIcon')).
+				hImg('/images/icons/ip.png', '', 'MessageIcon', '', '', attr('title', out($dispIP))).
+				hImg('/images/icons/br.gif', '', 'MessageIcon', '', '', attr('title', out($dispUserAgent))).
+				"$sUserFunctions $sAdminFunctions ".out($valDate).' '.out($valTime).'  <b>'.out($valName).'</b>: '.out($valTheme);
+			?></div><?php
+				$sPostClass=($valFlag=='admin') ? 'PlainText PostText AdminText' : 'PlainText PostText';
+			?><div class="<?php echo $sPostClass;?>"><?php echo FormatPost(out($valComment)); ?></div><?php
+			if (!empty($valAdminComment)) {?>
+				<div class="PlainText PostText AdminText AdminHeader">Комментарий:</div>
+				<div class="PlainText PostText AdminText"><?php echo FormatPost(out($valAdminComment)); ?></div><?php
+			}
+		}
+		?>
+			</div><!-- ForumInner -->
+		</div><!-- Forum -->
+		<div class="ForumPages"><?php echo $sPageLinks; ?></div>
+		<?php
 	}
 ?>
 </div><!-- Page -->
 <?php
 	PutPageFooter($strDMVNMail);
 	// Auto redir via jscript
-	if ($bRedir) echo('<html>'.hScript("open('$PHP_SELF', '_self');").'</html>');
+	//if ($bRedir) echo('<html>'.hScript("open('$PHP_SELF', '_self');").'</html>');
 	// Manual redir via jscript
-	// if ($bRedir) echo('<html>'.llink("$PHP_SELF?strDPostID=$strDPostID", 'Do Redirect Now!').'</html>');
+	if ($bRedir) echo('<html>'.llink("$PHP_SELF?strDPostID=$strDPostID", 'Do Redirect Now!').'</html>');
 
 	// --------------------------------------------------------------------------------
 	// Converts string from user input to our internal format for storing data
@@ -567,30 +566,32 @@
 
 	function TraceURL($strS) {
 		// We got htmlspecialchar-ed string, so we must decode it slightly
-		$cstrHTTP = 'http://';
-		$nPos = 0;
-		$strNewS = '';
-		$strS = str_replace('&amp;', '&MyAmp.', $strS);
-		while (true)
-		{
-			$nPos = strpos($strS, $cstrHTTP);
-			if ($nPos === false) break;
-			$nCPos = $nPos + strlen($cstrHTTP);
-			while ($nCPos < strlen($strS))
+		$cstrHTTP='http://';
+		$nPos=0;
+		$strNewS='';
+		$strS=str_replace('&amp;', '&MyAmp.', $strS);
+		while (true) {
+			$nPos=strpos($strS, $cstrHTTP);
+			if ($nPos===false) break;
+			$nCPos=$nPos+strlen($cstrHTTP);
+			while ($nCPos < strlen($strS)) {
 				if (bURLSymbol($strS[$nCPos])) $nCPos++; else break;
-			$strNewS .= str_replace('&MyAmp.', '&amp;', substr($strS, 0, $nPos));
-			$strHLink = substr($strS, $nPos, $nCPos-$nPos);
+			}
+			$strNewS.=str_replace('&MyAmp.', '&amp;', substr($strS, 0, $nPos));
+			$strHLink=substr($strS, $nPos, $nCPos-$nPos);
 			// there are no spaces in real HLink, so we use ' ' to avoid
 			// prefix replacement
-			$strRHLink = str_replace('&MyAmp.', '& ', $strHLink);
-			$strRHLink = str_replace(' ', '', $strRHLink);
-			if ($strRHLink[strlen($strRHLink)-1] == '.') $strRHLink = substr($strRHLink, 0, strlen($strRHLink)-1);
+			$strRHLink=str_replace('&MyAmp.', '& ', $strHLink);
+			$strRHLink=str_replace(' ', '', $strRHLink);
+			if ($strRHLink[strlen($strRHLink)-1] == '.') {
+				$strRHLink=substr($strRHLink, 0, strlen($strRHLink)-1);
+			}
 			// Visible link
-			$strVHLink = str_replace('&MyAmp.', '&amp;', $strHLink);
+			$strVHLink=str_replace('&MyAmp.', '&amp;', $strHLink);
 			// Form hyperlink
-			$strHLink = flink($strRHLink, $strVHLink);
-			$strNewS .= $strHLink;
-			$strS = substr($strS, $nCPos);
+			$strHLink=flink($strRHLink, $strVHLink);
+			$strNewS.=$strHLink;
+			$strS=substr($strS, $nCPos);
 		}
 		return $strNewS.str_replace('&MyAmp.', '&amp;', $strS);
 	}
