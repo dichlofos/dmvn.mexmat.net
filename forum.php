@@ -107,15 +107,16 @@
 <?php
 	if ($strAction == 'post') {
 		// If user is not registered, show authorization form
-		if (!$bAuth) {
-			echol(
-				hoForm('frmLogin', "$PHP_SELF?strAction=login").
-				hTable(hRow(
-					hCell($lblPassword, 'InForm Bold').
-					hCell(hInput('txtPass', 'password')).
-					hCell(hInput('subLogin', 'submit', 'subSubmit', $lblLogin))
-				)).
-				hcForm());
+		if (!$bAuth) {?>
+			<form action="forum.php" method="post">
+				<div class="Form">
+					<span class="Label">Пароль:</span>
+					<input type="hidden" name="strAction" value="login" />
+					<input type="password" name="txtPass" id="txtPass" />
+					<input type="submit" class="submit" value="Войти" />
+				</div>
+			</form>
+			<?php
 		} else {
 			$valDate='';
 			$valTime='';
@@ -538,9 +539,9 @@
 <?php
 	PutPageFooter($strDMVNMail);
 	// Auto redir via jscript
-	//if ($bRedir) echo('<html>'.hScript("open('$PHP_SELF', '_self');").'</html>');
+	if ($bRedir) echo('<html>'.hScript("open('$PHP_SELF', '_self');").'</html>');
 	// Manual redir via jscript
-	if ($bRedir) echo('<html>'.llink("$PHP_SELF?strDPostID=$strDPostID", 'Do Redirect Now!').'</html>');
+	//if ($bRedir) echo('<html>'.llink("$PHP_SELF?strDPostID=$strDPostID", 'Do Redirect Now!').'</html>');
 
 	// --------------------------------------------------------------------------------
 	// Converts string from user input to our internal format for storing data
