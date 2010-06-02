@@ -8,7 +8,8 @@ function ById(id) {
 	} else if (document.layers) {
 		e=document.layers[id];
 	} else {
-		alert('Please mail a bugreport to dmvn@mccme.ru about an error in script::ById(). Please supply some information about your Internet browser in your bugreport');
+		alert('ById function failed for id='+id+
+		'. Please write a bugreport to dmvn@mccme.ru. Please supply information about your browser version. ');
 		return null;
 	}
 	return e;

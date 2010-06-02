@@ -103,11 +103,10 @@ p.Subtitle {
 a {
 	text-decoration: none;
 }
-a:link	 {color: #e3af7c}   
+a:link	 {color: #e3af7c}
 a:visited{color: #e3af7c}
-a:hover	{color: #ff5050}  
+a:hover	{color: #ff5050}
 a:active {color: #ff5050} 
-
 a.left {
 	font-size: 9pt;
 	height: 12pt;
@@ -119,12 +118,10 @@ a.left {
 	margin: 2px 2px 0px 2px;
 	white-space: nowrap;
 }
-
 a.left:link{color: #000000}
 a.left:visited{color: #000000}
 a.left:hover{color: #000000}
 a.left:active{color: #000000}
-
 a.mcolors1 {background-color: #7b97b6}
 a.mcolors1:hover {background-color: #c6d7e9}
 a.mcolors2 {background-color: #5b7796}
@@ -171,7 +168,6 @@ span.TitleSection {
 span.TSSearch {
 	line-height: 12pt;
 }
-
 span.Title {
 	line-height: 15pt;
 }
