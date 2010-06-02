@@ -12,7 +12,6 @@ body {
 	font-size: 10pt;
 	text-align: justify;
 }
-
 table.Top {
 	background-color: #00274f;
 	border-collapse: collapse;
@@ -76,6 +75,8 @@ div.Counters {
 }
 img {
 	border: 0px;
+	margin: 0px;
+	padding: 0px;
 }
 img.MexMat {
 	width: 130px;
@@ -206,9 +207,6 @@ td.Admin {
 td.MenuText {
 	font-size: 9pt;
 }
-td.InForm { /* TODO: deprecate it */
-	font-size: 12px;
-}
 .Bold {
 	font-weight: bold;
 }
@@ -251,22 +249,6 @@ div.AdminText {
 }
 div.AdminHeader {
 	font-weight: bold;
-}
-
-td.ForumF {
-	font-size: 10pt;
-	font-family: Verdana, Arial;
-	text-align: justify;
-	background-color: #063562;
-}
-td.ForumB {
-	font-size: 10pt;
-	font-weight: bold;
-}
-img {
-	border: 0px;
-	margin: 0px;
-	padding: 0px;
 }
 img.MessageIcon {
 	padding-top: 1px;
@@ -390,13 +372,11 @@ span.CPMidLabel {
 span.CPMidCol {
 	width: 230px;
 }
-
 div.Form {
 	padding-top: 2px;
 	padding-bottom: 2px;
 	text-align: center;
 }
-
 div.MailList {
 	display: inline-block;
 	text-align: center;

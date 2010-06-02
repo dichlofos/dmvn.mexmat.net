@@ -137,9 +137,9 @@
 	<form action="search.php">
 		<div class="Search">
 			<input type="hidden" name="strAction" value="search" />
-			<span class="Bold">Слова для поиска:</span>
+			<span class="Label">Слова для поиска:</span>
 			<input type="text" name="txtSearchString" id="txtSearchString" />
-			<input type="submit" value="Поиск" class="subSubmit"/>
+			<input type="submit" value="Поиск" class="submit" />
 		</div>
 	</form>
 	<script type="text/javascript">

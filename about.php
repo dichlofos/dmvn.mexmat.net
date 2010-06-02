@@ -13,7 +13,7 @@
   $CurrentMenuItem = $mnuAbout;
   PutPageHeader($arrMenuFiles, $arrMenuTitles, $arrMenuColors, $CurrentMenuItem, $arrCat, $strSLU, $section);
 ?>
-	<table class="Page">
+	<table class="Page" summary="Эпиграф">
 		<tr>
 			<td>&nbsp;</td>
 			<td colspan="2" class="PlainText" style="width: 300px">
