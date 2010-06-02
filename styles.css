@@ -144,7 +144,6 @@ table.Page {
 	padding: 0px;
 	margin: 0px;
 }
-
 .PlainTitle {
 	font-weight: bold;
 	font-size: 11pt;
@@ -152,17 +151,14 @@ table.Page {
 	color: #e3af7c;
 	font-family: Tahoma, Verdana;
 }
-
 .PTSearch {
 	font-weight: normal;
 	font-size: 10pt;
 	line-height: 12pt;
 }
-
 div.Search {
 	text-align: center;
 }
-
 span.TitleSection {
 	font-size: 8pt;
 	display: inline-block;
@@ -200,13 +196,6 @@ div.Filter {
 	margin-bottom: 6px;
 	text-align: center;
 }
-td.Admin {
-	color: #dddddd;
-}
-
-td.MenuText {
-	font-size: 9pt;
-}
 .Bold {
 	font-weight: bold;
 }
@@ -217,7 +206,6 @@ td.Labels {
 	font-weight: bold;
 	width: 150px;
 }
-
 span.CurrentPage {
 	color: #dddd77;
 	font-weight: bold;
@@ -268,9 +256,6 @@ span.SiteMapRight {
 	width: 80%;
 	display: inline-block;
 }
-div.Subscribe {
-	text-align: center;
-}
 span.Label {
 	font-weight: bold;
 	padding-left: 12px;
@@ -281,7 +266,6 @@ span.TD {
 	text-align: left;
 	white-space: nowrap;
 }
-
 input {
 	font-size: 12px;
 	color: #000000;
@@ -293,16 +277,13 @@ input {
 	padding-left: 2px;
 	padding-right: 2px;
 }
-
 .ForumPost {
 	width: 150px;
 	font-weight: bold;
 }
-
 input.Forum {
 	width: 546px;
 }
-
 /* for IE6 we cannot use CSS selectors */
 input.submit {
 	font-size: 9pt;
@@ -313,7 +294,6 @@ input.submit {
 	padding: 1px;
 	vertical-align: bottom;
 }
-
 textarea {
 	font-size: 12px;
 	background: #b0c0d0;

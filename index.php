@@ -94,7 +94,7 @@
 			 на нашем сайте.</p>
 		<p class="PlainTextFP">≈сли ¬ы хотите убрать свой адрес из списка рассылки, напишите об этом нам.</p>
 		<form action="index.php">
-			<div class="Subscribe">
+			<div class="Form">
 				<input type="hidden" name="strAction" value="addmail" />
 				<span class="Label">EMail:</span>
 				<input type="text" name="txtEAddress" />

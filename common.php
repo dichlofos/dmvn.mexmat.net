@@ -200,7 +200,7 @@
 				<td style="width: 200px; text-align: center;">
 					<?php echo flink('http://www.mexmat.net', '<img alt="MexMat.Net" src="images/mexmatnet.png" class="MexMat" />');?>
 				</td>
-				<td style="text-align: center;"><?php echo llink('/', '<img alt="DMVN Logo" src="images/dmvnlogo.png" />');?></td>
+				<td style="text-align: center;"><?php echo llink('/', '<img alt="DMVN Logo" src="images/dmvnlogo.png" class="DMVN"/>');?></td>
 			</tr>
 		</table>
 		<table class="Main" summary="Main">
