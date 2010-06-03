@@ -19,6 +19,9 @@ service/spam/.*
 service/wavcmp/.*
 service/wavfix/.*
 service/webreg/.*
+service/css-extr.php$
+service/frobenius.php$
+service/sortbogachev.php$
 
 # site-dependent
 books/.*\.pdf
@@ -29,3 +32,4 @@ content/.*\.rar
 content/.*\.djvu
 soft/.*\.rar
 tmp/.*
+dmvn-website.rar$
