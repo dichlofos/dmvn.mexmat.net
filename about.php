@@ -13,22 +13,19 @@
   $CurrentMenuItem = $mnuAbout;
   PutPageHeader($arrMenuFiles, $arrMenuTitles, $arrMenuColors, $CurrentMenuItem, $arrCat, $strSLU, $section);
 ?>
-	<table class="Page" summary="Эпиграф">
-		<tr>
-			<td>&nbsp;</td>
-			<td colspan="2" class="PlainText" style="width: 300px">
+	<div class="Page" style="text-align: right">
+		<div style="padding-bottom: 5px; padding-top: 5px;">
+			<span class="PlainText" style="width: 300px; display: inline-block;">
 				А на часах уже без пятнадцати три,<br />
 				Время как река &#8212; не воротишь назад,<br />
 				А ты хоть раз попробуй, оглянись, посмотри,<br />
-				Что сумел, что сделал, и кто этому рад...<br />
-			</td>
-		</tr>
-		<tr>
-			<td>&nbsp;</td>
-			<td style="width: 200px">&nbsp;</td>
-			<td class="PlainText" style="width: 100px; font-style: italic">К.&nbsp;Кинчев</td>
-		</tr>
-	</table><!-- page top -->
+				Что сумел, что сделал, и кто этому рад...
+			</span>
+		</div>
+		<span class="PlainText" style="width: 120px; display: inline-block; font-style: italic;">
+			К.&nbsp;Кинчев
+		</span>
+	</div><!-- page top -->
 <?php
   DisplayPage($CurrentMenuItem, $arrCat, $section);
 ?>

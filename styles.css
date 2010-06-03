@@ -130,16 +130,10 @@ a.mcolors3 {background-color: #6b87b6}
 a.mcolors3:hover {background-color: #c6d7e9}
 a.mselected {background-color: #8b7796}
 a.mselected:hover {background-color: #c6d7e9}
-
 div.Page {
 	padding: 0px;
 	padding-left: 15px;
 	padding-right: 15px;
-}
-table.Page {
-	width: 100%;
-	padding: 0px;
-	margin: 0px;
 }
 .PlainTitle {
 	font-weight: bold;
@@ -192,12 +186,8 @@ div.Filter {
 	margin-bottom: 6px;
 	text-align: center;
 }
-.Bold {
-	font-weight: bold;
-}
-.Red {
-	color: #ff0000;
-}
+.Bold { font-weight: bold; }
+.Red { color: #ff0000; }
 td.Labels {
 	font-weight: bold;
 	width: 150px;
