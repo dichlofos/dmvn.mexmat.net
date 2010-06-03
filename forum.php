@@ -288,7 +288,7 @@
 									<input type="text" name="txtUserAgent" class="Forum" value="<?php echo $valUserAgent; ?>"/>
 								</div>
 								<div><!-- Flag -->
-									<span class="Label TD ForumPost"><?php echo $lblFlag; ?></span>
+									<span class="TD ForumPost"><?php echo $lblFlag; ?></span>
 									<input type="text" name="txtFlag" class="Forum" value="<?php echo $valFlag; ?>"/>
 								</div><?php
 					}
@@ -302,7 +302,7 @@
 					if ($bAdmin && !empty($strPostID)) {?>
 								<div><!-- AdminComment -->
 										<span class="TD ForumPost" style="width: 706px;"><?php echo $lblAdminComment; ?></span><br />
-										<textarea name="txtAdminComment"><?php echo out($valAdminComment); ?></textarea>
+										<textarea name="txtAdminComment" rows="7" cols="80"><?php echo out($valAdminComment); ?></textarea>
 								</div>
 						<?php
 					}

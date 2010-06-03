@@ -29,10 +29,12 @@
 		if (bEMailValid($txtEAddress) && in_array($txtCodepage, $aCodepages)) {
 			$strRandomKey = RandomString(32);
 			$nTimeStamp = time();
-			// for debugging ----- TODO: remove this shit!
+			// for debugging -----
+			/*
 			echol(hPar(hBold("Key=$strRandomKey ".
 				flink("http://localhost/index.php?strAction=confirmmail&amp;strMailID=$strRandomKey",
 				"Confirm Last Link. TimeStamp: $nTimeStamp")), 'PlainText Info'));
+			*/
 			// -------------------
 			$strHashRandomKey = md5($strRandomKey);
 
