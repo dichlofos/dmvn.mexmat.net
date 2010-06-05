@@ -2,8 +2,9 @@
   // ------------------------------------------------------------------------------------
   // sdg.php
   // This is part of Site Data Generator (PHP Version)
-  // (C) Copyright by ]DichlofoS[ Systems, Inc, 2005-2009
+  // (c) Copyright by ]DichlofoS[ Systems, Inc, 2005-2010
   // 2009.07: Now it is PHP5-compatible
+	// 2010.05: Generating XHTML-compliant code
   // ------------------------------------------------------------------------------------
   
   extract($_SERVER);
@@ -294,11 +295,12 @@
       $strCategoryUpdateTime = $resOut->strGetDispTime();
     }
   }
+	// TODO: rewrite this stuff (see also removing this file above)
   $fCUTime = fopen("cutime.dat", "a");
   WriteLine($fCUTime, "$strCategory|$strCategoryUpdateTime");
   fclose($fCUTime);
   fclose($fOut);
-  
+  // TODO: fix cumulative update display
   $fGlobal = fopen("global.inc", "w");
   WriteLine($fGlobal, '<?php $strSLU = "'.strGetDispTimeEx().'"; ?>');
   fclose($fGlobal);

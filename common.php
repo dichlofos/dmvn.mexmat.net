@@ -122,13 +122,15 @@
   }
   // -------------------------------------------------------------
 	function GenerateMenu($arrMFiles, $arrMTitles, $arrMColors, $arrCat, $CurrentMenuItem) {
-		$arrCUTime = fileCutEOL("data/cutime.dat");
+		// TODO: fix this stuff: arrCUTime
+		/*$arrCUTime = fileCutEOL("data/cutime.dat");
 
 		foreach ($arrCUTime as $strCUTime) {
 			$arrL = explode("|", $strCUTime);
 			$arrCUTCat[] = $arrL[0];
 			$arrCUTTime[] = $arrL[1];
-		}?>
+		}*/
+		?>
 		<div class="Menu"><?php
 		for ($i = 0; $i < count($arrMTitles); $i++)
 		{
@@ -212,7 +214,12 @@
 		DisplayNews($CurrentMenuItem, $arrCat, $arrMFiles);
 		DisplaySectionsMenu($CurrentMenuItem, $arrCat, $arrMFiles, $section);
 		?>
-					<div class="Counters"><?php echo file_get_contents("li.dat"); ?></div>
+					<div class="Counters">
+						<?php echo file_get_contents("li.dat"); ?>
+						<a href="http://validator.w3.org/check/referer"><img
+							src="http://www.w3.org/Icons/valid-xhtml10-blue"
+							alt="Valid XHTML 1.0!" height="31" width="88" /></a>
+					</div>
 		<?php
 		global $bAdmin;
 		if ($bAdmin) {
