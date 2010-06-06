@@ -56,6 +56,7 @@
   
 	$sDefCodepage='windows-1251';
 	$aCodepages=array($sDefCodepage, 'koi8-r', 'utf-8');
+	$aSections=array();
 
 	// read format file
 	$fFormat=fopen('format.dat', 'r');
@@ -158,7 +159,7 @@
 		} else return $strText;
 	}
 	// -------------------------------------------------------------
-	function PutMetaInfo($CurrentMenuItem) {
+	function PutMetaInfo($CurrentMenuItem, $sSectionTitle) {
 		$fMeta=fopen('meta.dat', 'r');
 		if (!$fMeta) {
 			echo "Cannot open metadata description file. ";
@@ -176,6 +177,10 @@
 			$sTitle=htmlspecialchars($aMeta[1]);
 			$sKeywords=$aMeta[2];
 			$sDesc=$aMeta[3];
+			if (!empty($sSectionTitle)) {
+				$sTitle.=" :: ".htmlspecialchars($sSectionTitle);
+				$sDesc.=",$sSectionTitle";
+			}
 			echo "\r\n";
 			echo "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=windows-1251\" />\r\n";
 			echo "<meta name=\"author\" content=\"DMVN\" />\r\n";
@@ -189,10 +194,20 @@
   // -------------------------------------------------------------
 	// TODO: remove strSiteLastUpdate (make global)
 	function PutPageHeader($arrMFiles, $arrMTitles, $arrMColors, $CurrentMenuItem, $arrCat, $strSiteLastUpdate, $section) {
+		global $aSections;
+		$sSectionTitle='';
+		ReadSectionsMenu($CurrentMenuItem, $arrCat);
+		foreach ($aSections as $aItem) {
+			if ($aItem[1]==$section) {
+				$sSectionTitle=$aItem[2];
+				break;
+			}
+		}
+		
 ?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 	<head>
-		<?php PutMetaInfo($CurrentMenuItem);?>
+		<?php PutMetaInfo($CurrentMenuItem, $sSectionTitle);?>
 		<link rel="stylesheet" type="text/css" href="styles.css" />
 	</head>
 	<body>
@@ -353,8 +368,7 @@
 			$strItemData = trim(fgets($fData));
 			$arrItem = explode("|", $strItemData);
 			if (count($arrItem) < 4) continue;
-			if ($arrItem[3] != '.section.' && $arrItem[3] != '.textblock.' && $arrItem[3] != '.newsblock.')
-			{
+			if ($arrItem[3] != '.section.' && $arrItem[3] != '.textblock.' && $arrItem[3] != '.newsblock.') {
 				$arrResData = NULL;
 				for ($i = 5; $i < count($arrItem); $i++) $arrResData[] = $arrItem[$i];
 				PutItem($arrItem[0], $strSection, $arrItem[1], $arrItem[2], $arrItem[3], $arrItem[4], $arrResData);
@@ -364,39 +378,42 @@
 		echo "</div>\r\n";
 	}
 	// -------------------------------------------------------------
-	function DisplaySectionsMenu($CurrentMenuItem, $arrCat, $arrMFiles, $section) {
-		$strCatName = $arrCat[$CurrentMenuItem];
-		if (!file_exists("data/$strCatName.dat")) {
-			// TODO: warning?
+	function ReadSectionsMenu($CurrentMenuItem, $arrCat) {
+		global $aSections;
+		$sCatName=$arrCat[$CurrentMenuItem];
+		$sCatFN="data/$sCatName.dat";
+		if (!file_exists($sCatFN)) {
+			die("File $sCatFN does not exists, cannot process menu. ");
 			return;
 		}
-		$fData = fopen("data/$strCatName.dat", "r");
-
-		$bHasMoreThanOneSection = false;
-		$strHTMLOptions='';
-
+		$fData=fopen($sCatFN, "r");
 		while (!feof($fData)) {
-			$strItemData = trim(fgets($fData));
-			$arrItem = explode("|", $strItemData);
-			if (count($arrItem) < 4) continue;
-			// Here we analyze only sections
-			if ($arrItem[3] == '.section.') {
-				$bHasMoreThanOneSection=true;
-				$sSel=($arrItem[1]==$section) ? ' selected' : '';
-				$strHTMLOptions .= "<option$sSel value=\"{$arrItem[1]}\">{$arrItem[2]}</option>\r\n";
-			}
-		}
-		if ($bHasMoreThanOneSection) {?>
-			<div class="TopTbl">Фильтр</div>
-			<div class="Filter">
-				<select class="Filter" id="SectionFilter" onchange="SectionFilterOnChange();">
-					<option value="0">Всё</option>
-					<?php echo $strHTMLOptions; ?>
-				</select>
-			</div>
-			<?php
+			$sItemData=trim(fgets($fData));
+			$aItem=explode("|", $sItemData);
+			if (count($aItem) < 4) continue;
+			// Store only sections
+			if ($aItem[3]=='.section.') $aSections[]=$aItem;
 		}
 		fclose($fData);
+	}
+	// -------------------------------------------------------------
+	function DisplaySectionsMenu($CurrentMenuItem, $arrCat, $section) {
+		global $aSections;
+		$sHTMLOptions='';
+		if (count($aSections) < 2) return; // the only one section is not necessary to display
+		foreach ($aSections as $aItem) {
+			$sSel=($aItem[1]==$section) ? ' selected="selected"' : '';
+			$sHTMLOptions .= "<option$sSel value=\"{$aItem[1]}\">{$aItem[2]}</option>\r\n";
+		}
+		?>
+		<div class="TopTbl">Фильтр</div>
+		<div class="Filter">
+			<select class="Filter" id="SectionFilter" onchange="SectionFilterOnChange();">
+				<option value="0">Всё</option>
+				<?php echo $sHTMLOptions; ?>
+			</select>
+		</div>
+		<?php
 	}
 	// -------------------------------------------------------------
   function DisplayNews($CurrentMenuItem, $arrCat, $arrMFiles) {
