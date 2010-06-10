@@ -41,7 +41,7 @@ function SectionFilterOnChange() {
 	if (typeof(e.value)=='undefined') return;
 	if (e.value===null) return;
 	var sRef=String(document.location);
-	var n=sRef.indexOf(sRef, '?');
+	var n=sRef.indexOf('?');
 	if (n>0) sRef=sRef.substr(0,n);
 	document.location=sRef+'?section='+e.value; // redirect
 }
