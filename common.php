@@ -227,7 +227,7 @@
 					<?php
 		GenerateMenu($arrMFiles, $arrMTitles, $arrMColors, $arrCat, $CurrentMenuItem);
 		DisplayNews($CurrentMenuItem, $arrCat, $arrMFiles);
-		DisplaySectionsMenu($CurrentMenuItem, $arrCat, $arrMFiles, $section);
+		DisplaySectionsMenu($CurrentMenuItem, $arrCat, $section);
 		?>
 					<div class="Counters">
 						<?php echo file_get_contents("li.dat"); ?>
