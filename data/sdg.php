@@ -2,9 +2,10 @@
   // ------------------------------------------------------------------------------------
   // sdg.php
   // This is part of Site Data Generator (PHP Version)
-  // (c) Copyright by ]DichlofoS[ Systems, Inc, 2005-2010
+  // (c) Copyright by ]DichlofoS[ Systems, Inc, 2005-2011
   // 2009.07: Now it is PHP5-compatible
 	// 2010.05: Generating XHTML-compliant code
+	// 2011.01: Not it is PHP 5.3 compatible
   // ------------------------------------------------------------------------------------
   
   extract($_SERVER);
@@ -122,11 +123,10 @@
 
   session_start();
 
-  if (!session_is_registered($strSNAdminRights))
-  {
-    header("Location: /cpl.php");
-    exit();
-  }
+	if (!array_key_exists($strSNAdminRights, $_SESSION) || $_SESSION[$strSNAdminRights]!='yes') {
+		header("Location: /cpl.php");
+		exit();
+	}
 ?>
 <html>
   <head>
@@ -310,5 +310,5 @@
   </body>
 </html>
 <?php
-  echo("<HTML><SCRIPT language=\"javascript\">open('../$ref', '_self');</SCRIPT></HTML>");
+	echo("<html><script type=\"text/javascript\">open('../$ref', '_self');</script></html>");
 ?>
