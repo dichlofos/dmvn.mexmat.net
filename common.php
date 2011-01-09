@@ -104,19 +104,12 @@
 		$bAdmin=GetKeyOr($strSNAdminRights, $_SESSION, NULL)=='yes';
 		$bAuth=(GetKeyOr($strSNUserRights, $_SESSION, NULL)=='yes') || $bAdmin;
 	}
-  // -------------------------------------------------------------
-  function bSymbolValid($strSym)
-  {
-    return ereg("[a-zA-Z0-9\.\@\_\-]", $strSym);
-  }
-  // -------------------------------------------------------------
-  function bEMailValid($strEMail)
-  {
-    if (!strlen($strEMail)) return false;
-    for ($i = 0; $i < strlen($strEMail); $i++)
-      if (!bSymbolValid($strEMail{$i})) return false;
-    return true;
-  }
+	// -------------------------------------------------------------
+	function bEMailValid($strEMail) {
+		if (!strlen($strEMail)) return false;
+		if (!preg_match('/^[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+$/', $strEMail)) return false;
+		return true;
+	}
   // -------------------------------------------------------------
   // Returns a local link to site menu item
   function sHRef($nIndex)
