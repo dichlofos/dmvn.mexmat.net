@@ -75,17 +75,22 @@
 	session_start();
 	$bSessionStarted=true; // set flag to indicate session mechanism is already initialized
 	SetPermissions();
+	
+	function GetKeyOr($sKey, $aArray, $vDefault) {
+		if (!array_key_exists($sKey, $aArray)) return $vDefault;
+		return $aArray[$sKey];
+	}
 	// -------------------------------------------------------------
 	function Register($sKey) {
 		global $bSessionStarted;
 		if (!$bSessionStarted) die('Register: Session is not started yet. ');
-		if (!session_is_registered($sKey)) session_register($sKey);
+		if (!array_key_exists($sKey, $_SESSION)) $_SESSION[$sKey]='yes';
 	}
 	// -------------------------------------------------------------
 	function Unregister($sKey) {
 		global $bSessionStarted;
 		if (!$bSessionStarted) die('Unregister: Session is not started yet. ');
-		if (session_is_registered($sKey)) session_unregister($sKey);
+		if (array_key_exists($sKey, $_SESSION)) unset($_SESSION[$sKey]);
 	}
 	// -------------------------------------------------------------
 	function SetPermissions() {
@@ -96,9 +101,8 @@
 		global $bAdmin;
 		global $strSNUserRights;
 		global $strSNAdminRights;
-		$bAuth=$bAuth || session_is_registered($strSNUserRights);
-		$bAuth=$bAuth || session_is_registered($strSNAdminRights);
-		$bAdmin=session_is_registered($strSNAdminRights);
+		$bAdmin=GetKeyOr($strSNAdminRights, $_SESSION, NULL)=='yes';
+		$bAuth=(GetKeyOr($strSNUserRights, $_SESSION, NULL)=='yes') || $bAdmin;
 	}
   // -------------------------------------------------------------
   function bSymbolValid($strSym)
