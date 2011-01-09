@@ -16,6 +16,7 @@
 ^service/photoviewer/.*
 ^service/ses-rating/.*
 ^service/spam/.*
+^service/ss/.*
 ^service/wavcmp/.*
 ^service/wavfix/.*
 ^service/webreg/.*
