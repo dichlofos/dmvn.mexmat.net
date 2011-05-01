@@ -205,6 +205,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 	<head>
 		<?php PutMetaInfo($CurrentMenuItem, $sSectionTitle);?>
+		<link rel="shortcut icon" href="/favicon.ico" />
 		<link rel="stylesheet" type="text/css" href="styles.css" />
 	</head>
 	<body>
