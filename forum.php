@@ -32,7 +32,7 @@
 	// Administrative functions
 	$lblPassword='Пароль:';
 
-	$strMailTo="DMVN <$strDMVNMailReal>";
+	$strMailTo="DMVN <$strDMVNMailReal>, Editor <dichlofos-mv@yandex.ru>";
 	$strMailSubject='Forum message from ';
 
 	$arrSmiles=array('grin', 'rolleyes', 'sad', 'shocked', 'smile', 'tongue', 'undecided', 'wink');
