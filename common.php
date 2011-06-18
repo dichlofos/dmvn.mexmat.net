@@ -318,15 +318,14 @@
 				$sSize = $arrResData[$i+1];
 				$sDate = $arrResData[$i+2];
 				$sFmt = $arrResData[$i+3];
+				$sDesc=$sFmt;
+				$sPFmt=$sFmt;
 				if (array_key_exists($sFmt, $aFormatFiles)) {
 					$sIcon=$aFormatFiles[$sFmt];
 					$sDesc=$aFormatDesc[$sFmt];
-					// TODO: title tag for image
-					$sPFmt="<img class=\"Icon\" src=\"/images/icons/$sIcon\" alt=\"$sDesc\" />";
-				} else {
-					$sPFmt=$sFmt; // leave 'as is'
+					$sPFmt="<img class=\"Icon\" src=\"/images/icons/$sIcon\" alt=\"$sDesc\" title=\"$sDesc\"/>";
 				}
-				echo llink("/content/$strCategory/$sFN", "$sPFmt $sSize")."&nbsp;&#8212;&nbsp;$sDate<span class=\"FileSep\">&nbsp;</span>";
+				echo llink("/content/$strCategory/$sFN", "$sPFmt $sSize", "$strTitle - $sDesc")."&nbsp;&#8212;&nbsp;$sDate<span class=\"FileSep\">&nbsp;</span>";
 			}
 			echo "</div>\r\n";
 		}
