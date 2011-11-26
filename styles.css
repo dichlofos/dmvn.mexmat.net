@@ -1,5 +1,5 @@
 body {
-	font-family: Verdana, Arial, 'Sans Serif';
+	font-family: Verdana, Arial, Sans-Serif;
 	font-size: 9pt;
 	background-color: #000000;
 	color: #a6b7c9;
@@ -49,7 +49,7 @@ div.TopTbl {
 	font-weight: bold;
 	font-size: 12pt;
 	color: #ff9933;
-	font-family: Tahoma, Verdana;
+	font-family: Tahoma, Verdana, Arial, Sans-Serif;
 	text-align: center;
 	height: 25px;
 	line-height: 25px;
@@ -94,7 +94,7 @@ p.Subtitle {
 	font-weight: bold;
 	font-size: 12pt;
 	color: #ff9933;
-	font-family: Tahoma, Arial;
+	font-family: Tahoma, Arial, Sans-Serif;
 	text-align: center;
 }
 .Info {
@@ -140,7 +140,7 @@ div.Page {
 	font-size: 11pt;
 	line-height: 15pt;
 	color: #e3af7c;
-	font-family: Tahoma, Verdana;
+	font-family: Tahoma, Verdana, Arial, Sans-Serif;
 }
 .PTSearch {
 	font-weight: normal;
@@ -255,7 +255,7 @@ span.TD {
 input {
 	font-size: 12px;
 	color: #000000;
-	font-family: Verdana, Arial;
+	font-family: Verdana, Arial, Sans-Serif;
 	background-color: #b0c0d0;
 	border: 1px solid #000000;
 	width: 300px;
@@ -284,7 +284,7 @@ textarea {
 	font-size: 12px;
 	background: #b0c0d0;
 	color: #000000;
-	font-family: Verdana, Arial, Courier New Cyr;
+	font-family: Verdana, Arial, Courier New Cyr, Monospace;
 	width: 700px;
 	height: 150px;
 	border: 1px solid #000000;
