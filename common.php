@@ -249,8 +249,8 @@
 				</td><!-- MainRight-->
 			</tr>
 		</table>
-		<div class="Footer">Copyright &copy;&nbsp;2003&#8211;2011, <?php echo
-			llink('mailto:'.$strMail, 'DMVN'); ?>. All rights reserved
+		<div class="Footer">Copyright &copy;&nbsp;2003&nbsp;&#8211;&nbsp;<?php
+			echo date('Y').', '.llink('mailto:'.$strMail, 'DMVN'); ?>. All rights reserved
 		</div>
 	</body>
 </html>
