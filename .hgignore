@@ -4,6 +4,7 @@
 ^service/cue/.*
 ^service/cue-export/.*
 ^service/gen/.*
+^service/fizlesh.*
 ^service/hypertex/.*
 ^service/infang/.*
 ^service/internet/.*
