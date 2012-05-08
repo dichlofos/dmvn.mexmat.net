@@ -72,7 +72,7 @@
 		$aFormatDesc[$aL[0]]=$aL[2];		
 	}
 	
-	session_start();
+	@session_start();
 	$bSessionStarted=true; // set flag to indicate session mechanism is already initialized
 	SetPermissions();
 	
