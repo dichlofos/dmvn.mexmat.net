@@ -141,6 +141,7 @@ div.Page {
 	line-height: 15pt;
 	color: #e3af7c;
 	font-family: Tahoma, Verdana, Arial, Sans-Serif;
+	margin-top: 12px;
 }
 .PTSearch {
 	font-weight: normal;
@@ -156,7 +157,7 @@ span.TitleSection {
 	vertical-align: text-bottom;
 	width: 60px;
 	overflow: hidden;
-	line-height: 15pt;
+	line-height: 13pt;
 	font-weight: bold;
 }
 span.TSSearch {
