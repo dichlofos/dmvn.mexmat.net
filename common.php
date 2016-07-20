@@ -1,4 +1,6 @@
 <?php
+  include "engine/sys/logger.php"
+
   include "data/global.inc";
   include "service/service.php";
   include "service/html.php";
@@ -24,7 +26,7 @@
 
   for ($i = 0; $i < count($arrMenuVars); $i++)
     ${'mnu'.$arrMenuVars[$i]} = $i;
-  
+
   $strDMVNMail = 'dmvn[(at)]mccme([dot])ru';
   $strDMVNMailReal = 'dmvn@mccme.ru';
 
@@ -39,7 +41,7 @@
   $strSearchLogFileName = "userdata/searchlog.dat";
   $strSearchReplaceFileName = "data/srep.dat";
   $strLogFileName = "../logs/www-access_log";
-    
+
   $nTimeShift = 3*24*3600; // Three days timeshift
   $lblSubmitEMail = "EMail:";
   $lblEMailCP = "Кодировка:";
@@ -53,7 +55,7 @@
                         "please confirm that you want to receive news from DMVN WebSite\r\n".
                         "via accessing the following link:\r\n".
                         "http://dmvn.mexmat.net/index.php";
-  
+
 	$sDefCodepage='windows-1251';
 	$aCodepages=array($sDefCodepage, 'koi8-r', 'utf-8');
 	$aSections=array();
@@ -69,13 +71,13 @@
 		$aL=explode('|', $sL);
 		if (count($aL)!=3) die("Bad line in format file: '$sL'. ");
 		$aFormatFiles[$aL[0]]=$aL[1];
-		$aFormatDesc[$aL[0]]=$aL[2];		
+		$aFormatDesc[$aL[0]]=$aL[2];
 	}
-	
+
 	@session_start();
 	$bSessionStarted=true; // set flag to indicate session mechanism is already initialized
 	SetPermissions();
-	
+
 	function GetKeyOr($sKey, $aArray, $vDefault) {
 		if (!array_key_exists($sKey, $aArray)) return $vDefault;
 		return $aArray[$sKey];
@@ -96,7 +98,7 @@
 	function SetPermissions() {
 		global $bSessionStarted;
 		if (!$bSessionStarted) die('SetPermissions: Session is not started yet. ');
-		
+
 		global $bAuth;
 		global $bAdmin;
 		global $strSNUserRights;
@@ -200,7 +202,7 @@
 				break;
 			}
 		}
-		
+
 ?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 	<head>
@@ -291,10 +293,10 @@
 	function PutItem($strCategory, $strSection, $strItemSectionID, $strTitle, $strDesc, $strSearchID, $arrResData) {
 		global $aFormatFiles;
 		global $aFormatDesc;
-		
+
 		$bDisp = false;
 		if ($strSection == $strItemSectionID || $strSection == '0' || $strSection == '') $bDisp = true;
-		
+
 		$arrTargetSections = explode(",", $strItemSectionID);
 		$arrRequestedSections = explode(",", $strSection);
 		for ($i = 0; $i < count($arrTargetSections); $i++) {
@@ -302,7 +304,7 @@
 				if ($arrTargetSections[$i] == $arrRequestedSections[$j]) $bDisp = true;
 			}
 		}
-		
+
 		if (!$bDisp || $strDesc=='.section.' || $strDesc=='.newsblock.') return;
 		echo '<div class="PlainTitle"><span class="TitleSection">';
 		echo "<a name=\"$strSearchID\"></a>";
@@ -377,10 +379,10 @@
 	// -------------------------------------------------------------
 	function ReadSectionsMenu($CurrentMenuItem, $arrCat) {
 		global $aSections;
-		$sCatName=$arrCat[$CurrentMenuItem];
-		$sCatFN="data/$sCatName.dat";
+		$sCatName = $arrCat[$CurrentMenuItem];
+		$sCatFN = "data/$sCatName.dat";
 		if (!file_exists($sCatFN)) {
-			die("File $sCatFN does not exists, cannot process menu. ");
+			xcms_log(XLOG_ERROR, "File $sCatFN does not exists, cannot process menu. ");
 			return;
 		}
 		$fData=fopen($sCatFN, "r");

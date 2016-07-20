@@ -4,7 +4,7 @@
 	// This is common part of DMVN WebSite and Site Data Generator
 	// (C) Copyright by ]DichlofoS[ Systems, Inc, 2005-2011
 	// ------------------------------------------------------------------------------------
-	
+
 	// -------------------------------------------------------------
 	// Returns a far link (target attribute was removed to conform DOCTYPE)
 	function flink($sURL, $sText="", $sTitle="") {
