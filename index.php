@@ -5,7 +5,7 @@
   extract($_GET);
   extract($_POST);
   extract($_REQUEST);
-    
+
   include "common.php";
   if ($bDebugEnabled) error_reporting(E_ALL);
 
@@ -24,7 +24,7 @@
 ?>
 	<div class="Page">
 		<p class="Subtitle">–ассылка новостей сайта</p>
-<?php          
+<?php
 	if ($strAction == 'addmail') {
 		if (bEMailValid($txtEAddress) && in_array($txtCodepage, $aCodepages)) {
 			$strRandomKey = RandomString(32);
@@ -50,12 +50,12 @@
 			// Write new item needed in confirmation
 			WriteLine($fNCMailsData, "$strHashRandomKey|".str_rot13($txtEAddress)."|$nTimeStamp|$txtCodepage");
 			fclose($fNCMailsData);
-				
+
 			mail($txtEAddress,
 				$strMailConfirmSubject,
 				"$strMailConfirmText?strAction=confirmmail&strMailID=$strRandomKey",
 				"From: DMVN <$strDMVNMailReal>");
-				
+
 			echol(hPar(hBold('Ќа указанный адрес выслано письмо '.
 					 'с просьбой подтвердить регистрацию в течение '.($nTimeShift/3600).
 					 ' часов. '.llink($PHP_SELF, '¬ернутьс€ на главную страничку')), 'PlainText Info'));
@@ -72,7 +72,7 @@
 				$fCMailsData = fopen($strCFileName, "ab");
 				WriteLine($fCMailsData, $arrNCMailData[1].'|'.$arrNCMailData[3]);
 				fclose($fCMailsData);
-					
+
 				$arrNCMails[$i] = ""; // Eliminate this confirmation line
 
 				$fNCMailsData = fopen($strNCFileName, 'wb');

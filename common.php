@@ -1,5 +1,9 @@
 <?php
-  include "engine/sys/logger.php"
+  global $engine_dir;
+  $engine_dir = "engine/";
+
+  // xcms started its spread
+  include "${engine_dir}sys/logger.php";
 
   include "data/global.inc";
   include "service/service.php";
