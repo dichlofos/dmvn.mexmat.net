@@ -116,12 +116,12 @@ if false && ! [ -d "$CONT_DIR" ]; then
     exit 1
 fi
 
-if ! ping -c1 dmn.local ; then
+if ! ping -q -c1 dmn.local ; then
     message_error "Please add dmn.local aliast to /etc/hosts"
     exit 1
 fi
 
-message "Preparing database. "
+message "Preparing destination directory. "
 
 sudo mkdir -p  $VERBOSE "$DEST"
 
@@ -162,7 +162,7 @@ if false && ! [ -r $DEST/settings.php ]; then
 fi
 
 message "Installing logrotate script"
-sudo cp -f $VERBOSE ./site/xcms.logrotate /etc/logrotate.d/xcms
+sudo cp -f $VERBOSE ./xcms.logrotate /etc/logrotate.d/xcms
 
 message "Creating directory for logs"
 sudo mkdir -p /var/log/xcms/
