@@ -35,7 +35,7 @@
   $strDMVNMailReal = 'dmvn@mccme.ru';
 
   // Admin password: MD5 HashSum
-  $strAdminPassword = '06d7c3b56e8e4fd3836d52320ae98e37'; // [DMVN Password]
+  $strAdminPassword = '7cf3d4f382e8a5ef92ac28f6b7ab6f92'; // [DMVN Password]
   $strUserPassword = '24ec931be749f84b90fcecc7aef66736'; // forumuser
 
   // Data File Names
