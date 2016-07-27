@@ -4,7 +4,7 @@
 	extract($_GET);
 	extract($_POST);
 	extract($_REQUEST);
-		
+
 	include "common.php";
 	if ($bDebugEnabled) error_reporting(E_ALL);
 	$CurrentMenuItem=$mnuCPL;
@@ -12,7 +12,7 @@
 	// To redir or not to redir, the question is...
 	$bRedir=false;
 
-	$section=ProcessStringPostVar('section', '0'); 
+	$section=ProcessStringPostVar('section', '0');
 
 	$strAction=ProcessStringPostVar('strAction');
 
