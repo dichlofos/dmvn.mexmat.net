@@ -36,12 +36,12 @@
 	$strMailSubject='Forum message from ';
 
 	$arrSmiles=array('grin', 'rolleyes', 'sad', 'shocked', 'smile', 'tongue', 'undecided', 'wink');
-		
+
 	$strDefaultAdminName="Admin";
 	$strDefaultAdminHomePage="http://dmvn.mexmat.net";
 	$strDefaultAdminEMail=$strDMVNMailReal;
 	$strReservedName=$strDefaultAdminName;
-	 
+
 	$CurrentMenuItem=$mnuForum;
 
 	$bRedir=false;
@@ -216,7 +216,7 @@
 
 			if ($bProcess) {
 				// -----------------------------------
-				// Here follows check if we should post 
+				// Here follows check if we should post
 				$strError='';
 				if (empty($txtName)) {
 					$strError.="Вы не указали имя. ";
@@ -375,7 +375,7 @@
 						$txtHomePage=InputToStore($txtHomePage);
 						$txtEMail=InputToStore($txtEMail);
 						$txtComment=InputToStore($txtComment);
-						$txtAdminComment=InputToStore($txtAdminComment);        
+						$txtAdminComment=InputToStore($txtAdminComment);
 						$strFullPost="$strPostID|$txtDate|$txtTime|$txtName|$txtTheme|$txtHomePage|$txtEMail|$txtComment|$txtAdminComment|$txtIP|$txtUserAgent|$txtFlag";
 						// end of common
 						$fForum=fopen($strForumFileName, 'r');
@@ -393,7 +393,7 @@
 						$txtHomePage=InputToStore($txtHomePage);
 						$txtEMail=InputToStore($txtEMail);
 						$txtComment=InputToStore($txtComment);
-						$txtAdminComment=InputToStore($txtAdminComment);        
+						$txtAdminComment=InputToStore($txtAdminComment);
 						$strFullPost="$strPostID|$txtDate|$txtTime|$txtName|$txtTheme|$txtHomePage|$txtEMail|$txtComment|$txtAdminComment|$txtIP|$txtUserAgent|$txtFlag";
 						// end of common
 						$arrNewFData=array();
@@ -436,10 +436,10 @@
 		if ($bAuth) {
 			echol('<div style="text-align: center; font-weight: bold;">'.llink("$PHP_SELF?strAction=logout", '[Выйти]').'</div>');
 		}
-		
+
 		$fForum=fopen($strForumFileName, 'r');
 		if (!$fForum) FDeath('DEBUG: forum.display(): Cannot open forum file!');
-		
+
 		// first, read whole file and fetch posts that we should draw
 		$nTotalPosts=0;
 		$bStartDisplay=false;
@@ -474,7 +474,7 @@
 		$nTotalPages=ceil($nTotalPosts/$nCommentsPerPage);
 		$sPageLinks='';
 		// draw page links
-		// TODO: 
+		// TODO:
 		foreach ($aPagePostIDs as $nPage => $sPostID) {
 			if ($nCurrentPage==$nPage) {
 				$sPageLinks.="<span class=\"CurrentPage\">$nPage</span> ";

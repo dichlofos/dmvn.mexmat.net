@@ -36,7 +36,7 @@
 
   // Admin password: MD5 HashSum
   $strAdminPassword = '7cf3d4f382e8a5ef92ac28f6b7ab6f92'; // [DMVN Password]
-  $strUserPassword = '24ec931be749f84b90fcecc7aef66736'; // forumuser
+  $strUserPassword = '05e8714d8bb6eaa6ac8efb776fc974a1'; // forumuser
 
   // Data File Names
   $strForumFileName = "userdata/forumdata.dat";
