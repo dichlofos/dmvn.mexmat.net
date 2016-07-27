@@ -141,6 +141,7 @@ fi
 message "Copying all stuff to destination. "
 sudo cp -a $VERBOSE ./* "$DEST/"
 
+# once action
 #sudo cp -a $VERBOSE .production/dmvn.mexmat.net/* "$DEST/"
 
 #VERSION="`tools/publish/version.sh`-local"
