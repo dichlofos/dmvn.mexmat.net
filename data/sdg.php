@@ -2,12 +2,12 @@
   // ------------------------------------------------------------------------------------
   // sdg.php
   // This is part of Site Data Generator (PHP Version)
-  // (c) Copyright by ]DichlofoS[ Systems, Inc, 2005-2011
+  // (c) Copyright by ]DichlofoS[ Systems, Inc, 2005-2016
   // 2009.07: Now it is PHP5-compatible
 	// 2010.05: Generating XHTML-compliant code
-	// 2011.01: Not it is PHP 5.3 compatible
+	// 2011.01: Now it is PHP 5.3 compatible
   // ------------------------------------------------------------------------------------
-  
+
   extract($_SERVER);
   extract($_ENV);
   extract($_GET);
@@ -51,7 +51,7 @@
   function strParseContent($strContent)
   {
     $strOutput = "";
-    
+
     $nIndex = 0;
     $nBLevel = 0;
     while (($nSlashPos = nBLevelStrPos($strContent, $nBLevel, '\\', $nIndex)) >= 0)
@@ -159,13 +159,13 @@
   $arrNewsBlocks = NULL;
 
   $strCategory = "";
-  
+
   // </GLOBAL.INIT>
 
   // Erase 'cutime' file
   $fCUTime = fopen("cutime.dat", "w");
   fclose($fCUTime);
-  
+
   $arrSDGList = fileCutEOL("../sdg.list");
 
   $strCatName = substr($ref, 0, strlen($ref) - 4);
@@ -191,11 +191,11 @@
 
   $fOut = fopen("$strSDGFName.dat", "w");
   if (!$fOut) Death("Cannot open output file for writing!");
-    
+
   // </INIT>
 
   RepMsg("Processing <b>$strSDGFName</b>...");
-   
+
   $strContent = strReadTextFile("../content/$strSDGFName/!$strSDGFName.tex");
 
   // Reading external commands
@@ -208,7 +208,7 @@
     // Here we stand beyond the command
     if (($nArgCount = nExtCommandArgCount($strCommandName)) < 0)
       Death("Undefined external control sequence <b>$strCommandName</b> detected!");
-  
+
     $arrArgs = arrReadArgs($strContent, $nIndex, $nBLevel, $nArgCount, $bError);
     // note that $strContent[$index] may be undefined after this
     if (count($arrArgs) < $nArgCount)
@@ -269,7 +269,7 @@
   if (!ArrEmpty($arrItems)) {
     foreach ($arrItems as $itemOut)
     {
-      $itemOut->TrimFields();      
+      $itemOut->TrimFields();
       if (!$itemOut->strSection) Death("SECTION specification is missing ITEM!");
       if (!$itemOut->strTitle) Death("TITLE specification is missing in ITEM!");
       $strSearchID = RandomString(32);
@@ -291,7 +291,7 @@
     $itemOut = $arrItems[0];
     if (!ArrEmpty($itemOut->arrRes))
     {
-      $resOut = $itemOut->arrRes[0];        
+      $resOut = $itemOut->arrRes[0];
       $strCategoryUpdateTime = $resOut->strGetDispTime();
     }
   }
@@ -310,5 +310,5 @@
   </body>
 </html>
 <?php
-	echo("<html><script type=\"text/javascript\">open('../$ref', '_self');</script></html>");
+    echo("<html><script type=\"text/javascript\">open('../$ref', '_self');</script></html>");
 ?>
