@@ -4,7 +4,7 @@
   extract($_GET);
   extract($_POST);
   extract($_REQUEST);
-    
+
   include "common.php";
   if ($bDebugEnabled) error_reporting(E_ALL);
 
@@ -44,13 +44,12 @@
 			не всё, что присылается, будет выложено).<br />
 			Если у Вас есть потребность связаться с нами, вот наши сетевые кооординаты:<br />
 			<ul class="PlainTextFP">
-				<li><strong>Mail:</strong> <?php echo llink('mailto:'.$strDMVNMail, $strDMVNMail); ?><br /> 
+				<li><strong>Mail:</strong> <?php echo llink('mailto:'.$strDMVNMail, $strDMVNMail); ?><br />
 					Пишите нам по всем интересующим Вас вопросам, связанным с развитием сайта, добавлением
 					новых материалов и&nbsp;т.&nbsp;д. Стараемся отвечать на все содержательные письма сразу.
 				</li>
-				<li><strong>ICQ:</strong> 2-4-4:6-3-3:8-1-7<br />
-					Сюда тоже можно стучаться, только когда будете это делать, не удивляйтесь, что АнтиСпам-Бот попросит Вас
-					ответить на простой вопрос (до этого момента Вы не будете авторизованы, и Ваши сообщения не дойдут до нас).
+				<li><strong>Telegram:</strong> @dichlofos<br />
+					Для совсем уж оперативной коммуникации. Но помните: важное &#8212; в почту!
 				</li>
 			</ul>
 		</div>
