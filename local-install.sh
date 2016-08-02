@@ -154,13 +154,8 @@ rm -f $VFILE
 
 message "Cleaning temporary stuff and caches"
 
+sudo cp .htaccess $DEST/
 sudo touch "$DEST/"{.htaccess,engine.log}
-
-if false && ! [ -r $DEST/settings.php ]; then
-    message "Seems that installation is performed for a first time. "
-    message "So you should go through XCMS install process. "
-    do_prepare_installer $DEST
-fi
 
 message "Installing logrotate script"
 sudo cp -f $VERBOSE ./xcms.logrotate /etc/logrotate.d/xcms

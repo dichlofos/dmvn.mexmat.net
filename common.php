@@ -163,6 +163,7 @@
 	}
 	// -------------------------------------------------------------
 	function PutMetaInfo($CurrentMenuItem, $sSectionTitle) {
+		print_r($CurrentMenuItem);
 		$fMeta=fopen('meta.dat', 'r');
 		if (!$fMeta) {
 			echo "Cannot open metadata description file. ";
