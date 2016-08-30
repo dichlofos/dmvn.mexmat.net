@@ -13,4 +13,4 @@ RewriteRule ^content/(.*)$ /content/$1
 RewriteRule ^data/(.*)$ /data/$1
 RewriteRule ^userdata/(.*)$ /userdata/$1
 
-RewriteRule ^/([a-z]+)$ /section.php?section=$1
+RewriteRule ^([a-z]+)$ /category.php?category=$1

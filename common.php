@@ -26,10 +26,20 @@
     $arrMenuFiles[] = $arrMD[3];
     $arrCat[] = $arrMD[4];
     $arrMenuDesc[] = $arrMD[5];
+    global $MENU;
+    $MENU[$arrMD[4]] = array(
+    	"var_name"=>$arrMD[0],
+    	"color"=>$arrMD[1],
+    	"title"=>$arrMD[2],
+    	"file"=>$arrMD[3],
+    	"category"=>$arrMD[4],
+    	"description"=>$arrMD[5],
+    	"index"=>count($arrMenuVars) - 1,
+    );
   }
-
-  for ($i = 0; $i < count($arrMenuVars); $i++)
+  for ($i = 0; $i < count($arrMenuVars); $i++) {
     ${'mnu'.$arrMenuVars[$i]} = $i;
+  }
 
   $strDMVNMail = 'dmvn[(at)]mccme([dot])ru';
   $strDMVNMailReal = 'dmvn@mccme.ru';
@@ -163,7 +173,6 @@
 	}
 	// -------------------------------------------------------------
 	function PutMetaInfo($CurrentMenuItem, $sSectionTitle) {
-		print_r($CurrentMenuItem);
 		$fMeta=fopen('meta.dat', 'r');
 		if (!$fMeta) {
 			echo "Cannot open metadata description file. ";
@@ -477,4 +486,3 @@
     $strStore = str_replace("\\s", "\\", $strStore);
     return $strStore;
   }
-?>
