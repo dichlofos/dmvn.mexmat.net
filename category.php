@@ -8,8 +8,6 @@ extract($_REQUEST);
 
 include "common.php";
 
-print_r($_REQUEST);
-
 if ($bDebugEnabled) {
     error_reporting(E_ALL);
 }
