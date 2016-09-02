@@ -53,7 +53,6 @@
   $strNCFileName = "userdata/ncmails.dat";
   $strCFileName = "userdata/cmails.dat";
   $strSearchLogFileName = "userdata/searchlog.dat";
-  $strSearchReplaceFileName = "data/srep.dat";
   $strLogFileName = "../logs/www-access_log";
 
   $nTimeShift = 3*24*3600; // Three days timeshift
