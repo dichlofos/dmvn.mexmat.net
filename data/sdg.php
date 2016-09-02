@@ -166,7 +166,7 @@
   $fCUTime = fopen("cutime.dat", "w");
   fclose($fCUTime);
 
-  $arrSDGList = fileCutEOL("../sdg.list");
+  $arrSDGList = fileCutEOL("../metadata/sdg.list");
 
   $strCatName = substr($ref, 0, strlen($ref) - 4);
 

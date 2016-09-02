@@ -14,7 +14,7 @@
   $bDebugEnabled = true;
   // ---------
 
-  $arrMenuData = fileCutEOL('menu.dat');
+  $arrMenuData = fileCutEOL('metadata/menu.dat');
   foreach ($arrMenuData as $strMenuDataItem)
   {
     $arrMD = explode('|', $strMenuDataItem);
