@@ -74,7 +74,7 @@
 	$aSections=array();
 
 	// read format file
-	$fFormat=fopen('format.dat', 'r');
+	$fFormat=fopen('metadata/format.dat', 'r');
 	if (!$fFormat) die('Format file is missing. ');
 	$aFormatFiles=array();
 	$aFormatDesc=array();
