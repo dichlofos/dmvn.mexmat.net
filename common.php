@@ -222,10 +222,10 @@
 	<head>
 		<?php PutMetaInfo($CurrentMenuItem, $sSectionTitle);?>
 		<link rel="shortcut icon" href="/favicon.ico" />
-		<link rel="stylesheet" type="text/css" href="styles.css" />
+		<link rel="stylesheet" type="text/css" href="/static/css/styles.css" />
 	</head>
 	<body>
-		<script type="text/javascript" src="script.js"></script>
+		<script type="text/javascript" src="/static/js/script.js"></script>
 		<table class="Top" summary="Header">
 			<tr>
 				<td style="width: 200px; text-align: center;">

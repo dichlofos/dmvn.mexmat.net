@@ -1,0 +1,359 @@
+body {
+    font-family: Verdana, Arial, Sans-Serif;
+    font-size: 9pt;
+    background-color: #000000;
+    color: #a6b7c9;
+}
+.PlainText {
+    font-size: 9pt;
+    text-align: justify;
+}
+.PlainTextFP {
+    font-size: 10pt;
+    text-align: justify;
+}
+table.Top {
+    background-color: #00274f;
+    border-collapse: collapse;
+    border: 0px;
+    padding: 0px;
+    border-spacing: 0px;
+    width: 100%;
+    margin-bottom: 2px;
+}
+table.Main {
+    border: 0px;
+    border-collapse: collapse;
+    height: 400px;
+    width: 100%;
+}
+td.MainLeft {
+    background-color: #00356a;
+    height: 326px;
+    vertical-align: top;
+    width: 200px;
+    padding: 0px;
+}
+td.MainDiv {
+    width: 2px;
+    padding: 0px;
+}
+td.MainRight {
+    background-color: #00254a;
+    height: 326px;
+    vertical-align: top;
+    padding: 0px;
+}
+div.TopTbl {
+    background-color: #00458a;
+    font-weight: bold;
+    font-size: 12pt;
+    color: #ff9933;
+    font-family: Tahoma, Verdana, Arial, Sans-Serif;
+    text-align: center;
+    height: 25px;
+    line-height: 25px;
+}
+div.Footer {
+    text-align: center;
+    font-size: 9pt;
+    line-height: 25px;
+}
+div.Menu {
+    margin-bottom: 2px;
+}
+div.News {
+    padding: 3px;
+}
+div.NewsBlock {
+    font-size: 8pt;
+    text-align: left;
+    margin-bottom: 6px;
+}
+div.Counters {
+    text-align: center;
+}
+img {
+    border: 0px;
+    margin: 0px;
+    padding: 0px;
+}
+img.MexMat {
+    width: 130px;
+    height: 126px;
+}
+img.DMVN {
+    width: 309px;
+    height: 88px;
+}
+p {
+    font-size: 9pt;
+    text-align: justify;
+}
+p.Subtitle {
+    font-weight: bold;
+    font-size: 12pt;
+    color: #ff9933;
+    font-family: Tahoma, Arial, Sans-Serif;
+    text-align: center;
+}
+.Info {
+    color: #00ff00;
+}
+a {
+    text-decoration: none;
+}
+a:link     {color: #e3af7c}
+a:visited{color: #e3af7c}
+a:hover    {color: #ff5050}
+a:active {color: #ff5050}
+a.left {
+    font-size: 9pt;
+    height: 12pt;
+    line-height: 12pt;
+    text-decoration: none;
+    display: block;
+    color: #000000;
+    text-indent: 2px;
+    margin: 2px 2px 0px 2px;
+    white-space: nowrap;
+}
+a.left:link{color: #000000}
+a.left:visited{color: #000000}
+a.left:hover{color: #000000}
+a.left:active{color: #000000}
+a.mcolors1 {background-color: #7b97b6}
+a.mcolors1:hover {background-color: #c6d7e9}
+a.mcolors2 {background-color: #5b7796}
+a.mcolors2:hover {background-color: #c6d7e9}
+a.mcolors3 {background-color: #6b87b6}
+a.mcolors3:hover {background-color: #c6d7e9}
+a.mselected {background-color: #8b7796}
+a.mselected:hover {background-color: #c6d7e9}
+div.Page {
+    padding: 0px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+.PlainTitle {
+    font-weight: bold;
+    font-size: 11pt;
+    line-height: 15pt;
+    color: #e3af7c;
+    font-family: Tahoma, Verdana, Arial, Sans-Serif;
+    margin-top: 12px;
+}
+.PTSearch {
+    font-weight: normal;
+    font-size: 10pt;
+    line-height: 12pt;
+}
+div.Search {
+    text-align: center;
+}
+span.TitleSection {
+    font-size: 8pt;
+    display: inline-block;
+    vertical-align: text-bottom;
+    width: 60px;
+    overflow: hidden;
+    line-height: 13pt;
+    font-weight: bold;
+}
+span.TSSearch {
+    line-height: 12pt;
+}
+span.Title {
+    line-height: 15pt;
+}
+div.ItemDesc {
+    padding-left: 60px;
+    text-align: justify;
+}
+div.Files {
+    font-size: 9pt;
+    color: #008f8f;
+    height: 9pt;
+    padding-left: 60px;
+    padding-top: 5px;
+    margin-bottom: 10px;
+}
+span.FileSep {
+    display: inline-block;
+    width: 2em;
+}
+div.Filter {
+    margin-top: 3px;
+    margin-bottom: 6px;
+    text-align: center;
+}
+.Bold { font-weight: bold; }
+.Red { color: #ff0000; }
+td.Labels {
+    font-weight: bold;
+    width: 150px;
+}
+span.CurrentPage {
+    color: #dddd77;
+    font-weight: bold;
+}
+div.Forum {
+    background-color: #063562;
+    padding: 2px;
+}
+div.ForumInner {
+    background-color: #00254a;
+    padding: 3px;
+}
+div.ForumPages {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+div.PostHeader {
+    background-color: #063562;
+    padding: 2px;
+}
+div.PostText {
+    padding-top: 2px;
+    padding-bottom: 10px;
+    padding-right: 2px;
+    padding-left: 2px;
+}
+div.AdminText {
+    color: #dddd77;
+}
+div.AdminHeader {
+    font-weight: bold;
+}
+img.MessageIcon {
+    padding-top: 1px;
+    margin-bottom: -3px;
+    width: 16px;
+    height: 16px;
+}
+div.SiteMapItem {
+    margin-bottom: 4px;
+}
+span.SiteMapLeft {
+    width: 20%;
+    display: inline-block;
+    vertical-align: top;
+}
+span.SiteMapRight {
+    width: 80%;
+    display: inline-block;
+}
+span.Label {
+    font-weight: bold;
+    padding-left: 12px;
+    padding-right: 6px;
+}
+span.TD {
+    display: inline-block;
+    text-align: left;
+    white-space: nowrap;
+}
+input {
+    font-size: 12px;
+    color: #000000;
+    font-family: Verdana, Arial, Sans-Serif;
+    background-color: #b0c0d0;
+    border: 1px solid #000000;
+    width: 300px;
+    height: 16px;
+    padding-left: 2px;
+    padding-right: 2px;
+}
+.ForumPost {
+    width: 150px;
+    font-weight: bold;
+}
+input.Forum {
+    width: 546px;
+}
+/* for IE6 we cannot use CSS selectors */
+input.submit {
+    font-size: 9pt;
+    background-color: #8b7796;
+    border: 1px solid #000000;
+    width: 210px;
+    height: 20px;
+    padding: 1px;
+    vertical-align: bottom;
+}
+textarea {
+    font-size: 12px;
+    background: #b0c0d0;
+    color: #000000;
+    font-family: Verdana, Arial, Courier New Cyr, Monospace;
+    width: 700px;
+    height: 150px;
+    border: 1px solid #000000;
+    padding: 2px;
+}
+select {
+    background-color: #b0c0d0;
+    border: 1px solid #7f7f9f;
+}
+select.Filter {
+    width: 190px;
+}
+select.Codepage {
+    width: 120px;
+}
+img.Icon {
+    border: 0px;
+    padding: 0px;
+    margin: 0px;
+    margin-bottom: -3px;
+    height: 16px;
+    width: 16px;
+}
+form {
+    border: 0px;
+    margin: 0px;
+}
+img.Smile {
+    margin-bottom: -2px;
+    width: 15px;
+    height: 15px;
+}
+img.SmileTop {
+    padding: 8px;
+    width: 15px;
+    height: 15px;
+}
+
+span.TLabel {
+    font-weight: bold;
+}
+span.CPLeftLabel {
+    width: 80px;
+}
+span.CPLeftCol {
+    width: 400px;
+}
+span.CPMidLabel {
+    width: 90px;
+}
+span.CPMidCol {
+    width: 230px;
+}
+div.Form {
+    padding-top: 2px;
+    padding-bottom: 2px;
+    text-align: center;
+}
+div.MailList {
+    display: inline-block;
+    text-align: center;
+    border: 2px solid #a6b7c9;
+    width: 60%;
+    padding: 5px;
+    margin-bottom: 10px;
+}
+
+div.LogLine {
+    line-height: 11pt;
+    font-size: 8pt;
+}
