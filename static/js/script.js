@@ -7,8 +7,10 @@ function ById(id) {
     } else if (document.layers) {
         e = document.layers[id];
     } else {
-        alert('ById function failed for id=' + id +
-            '. Please write a bugreport to dev@dmvn.net. Please supply information about your browser version. ');
+        alert(
+            'ById function failed for id=' + id + '. ' +
+            'Please write a bugreport to dev@dmvn.net. Please supply information about your browser version. '
+        );
         return null;
     }
     return e;
@@ -22,8 +24,10 @@ function StoreCaret(e) {
 
 function InsertText(id, text) {
     var txtarea = ById(id);
+
     if (!txtarea)
         return;
+
     text = ' ' + text + ' ';
     if (txtarea.createTextRange && txtarea.caretPos) {
         var caretPos = txtarea.caretPos;
@@ -40,13 +44,18 @@ function SectionFilterOnChange() {
     var e = ById('SectionFilter');
     if (!e)
         return;
+
     if (typeof(e.value) == 'undefined')
         return;
+
     if (e.value === null)
         return;
+
     var sRef = String(document.location);
     var n = sRef.indexOf('?');
+
     if (n > 0)
         sRef = sRef.substr(0, n);
+
     document.location = sRef + '?section=' + e.value; // redirect
 }
