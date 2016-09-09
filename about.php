@@ -1,59 +1,60 @@
 <?php
-  extract($_SERVER);
-  extract($_ENV);
-  extract($_GET);
-  extract($_POST);
-  extract($_REQUEST);
+    extract($_SERVER);
+    extract($_ENV);
+    extract($_GET);
+    extract($_POST);
+    extract($_REQUEST);
 
-  include "common.php";
-  if ($bDebugEnabled) error_reporting(E_ALL);
+    include "common.php";
+    if ($bDebugEnabled)
+        error_reporting(E_ALL);
 
-  if (!isset($section)) $section = "0";
+    if (!isset($section))
+        $section = "0";
 
-  $CurrentMenuItem = $mnuAbout;
-  PutPageHeader($arrMenuFiles, $arrMenuTitles, $arrMenuColors, $CurrentMenuItem, $arrCat, $strSLU, $section);
+    $CurrentMenuItem = $mnuAbout;
+    PutPageHeader($arrMenuFiles, $arrMenuTitles, $arrMenuColors, $CurrentMenuItem, $arrCat, $strSLU, $section);
 ?>
-	<div class="Page" style="text-align: right">
-		<div style="padding-bottom: 5px; padding-top: 5px;">
-			<span class="PlainText" style="width: 300px; display: inline-block;">
-				А на часах уже без пятнадцати три,<br />
-				Время как река &#8212; не воротишь назад,<br />
-				А ты хоть раз попробуй, оглянись, посмотри,<br />
-				Что сумел, что сделал, и кто этому рад...
-			</span>
-		</div>
-		<span class="PlainText" style="width: 120px; display: inline-block; font-style: italic;">
-			К.&nbsp;Кинчев
-		</span>
-	</div><!-- page top -->
+    <div class="Page" style="text-align: right">
+        <div style="padding-bottom: 5px; padding-top: 5px;">
+            <span class="PlainText" style="width: 300px; display: inline-block;">
+                А на часах уже без пятнадцати три,<br />
+                Время как река &#8212; не воротишь назад,<br />
+                А ты хоть раз попробуй, оглянись, посмотри,<br />
+                Что сумел, что сделал, и кто этому рад...
+            </span>
+        </div>
+        <span class="PlainText" style="width: 120px; display: inline-block; font-style: italic;">
+            К.&nbsp;Кинчев
+        </span>
+    </div><!-- page top -->
 <?php
   DisplayPage($CurrentMenuItem, $arrCat, $section);
 ?>
-	<div class="Page">
-		<p class="Subtitle">Об авторах проекта</p>
-		<div class="PlainTextFP">
-			Проект был намечен летом 2003 года коллективом из двух мехматян (тогда ещё второкурсников)
-			Дмитрием и Михаилом Вельтищевыми (DMVN&nbsp;Corp). С тех пор много воды утекло, однако принципы
-			работы не поменялись. Пока есть время и силы на поддержку проекта, он будет пополняться
-			в ручном режиме (переводить его на полную автоматику значит погубить его или превратить
-			в помойку). Конечно, на текущем этапе развития основное пополнение материалами должно
-			происходить за счет активности нынешних студентов МехМата. Стоит отметить, что
-			качество предоставленных материалов воодушевило многих на собственные подвиги по
-			набору лекций. Новые лекции и задачи продолжают поступать (однако качество их
-			не всегда соответствует принятому на нашем портале, поэтому, к сожалению,
-			не всё, что присылается, будет выложено).<br />
-			Если у Вас есть потребность связаться с нами, вот наши сетевые кооординаты:<br />
-			<ul class="PlainTextFP">
-				<li><strong>Mail:</strong> <?php echo llink('mailto:'.$strDMVNMail, $strDMVNMail); ?><br />
-					Пишите нам по всем интересующим Вас вопросам, связанным с развитием сайта, добавлением
-					новых материалов и&nbsp;т.&nbsp;д. Стараемся отвечать на все содержательные письма сразу.
-				</li>
-				<li><strong>Telegram:</strong> @dichlofos<br />
-					Для совсем уж оперативной коммуникации. Но помните: важное &#8212; в почту!
-				</li>
-			</ul>
-		</div>
-	</div><!-- page bottom -->
+    <div class="Page">
+        <p class="Subtitle">Об авторах проекта</p>
+        <div class="PlainTextFP">
+            Проект был намечен летом 2003 года коллективом из двух мехматян (тогда ещё второкурсников)
+            Дмитрием и Михаилом Вельтищевыми (DMVN&nbsp;Corp). С тех пор много воды утекло, однако принципы
+            работы не поменялись. Пока есть время и силы на поддержку проекта, он будет пополняться
+            в ручном режиме (переводить его на полную автоматику значит погубить его или превратить
+            в помойку). Конечно, на текущем этапе развития основное пополнение материалами должно
+            происходить за счет активности нынешних студентов МехМата. Стоит отметить, что
+            качество предоставленных материалов воодушевило многих на собственные подвиги по
+            набору лекций. Новые лекции и задачи продолжают поступать (однако качество их
+            не всегда соответствует принятому на нашем портале, поэтому, к сожалению,
+            не всё, что присылается, будет выложено).<br />
+            Если у Вас есть потребность связаться с нами, вот наши сетевые кооординаты:<br />
+            <ul class="PlainTextFP">
+                <li><strong>Mail:</strong> <?php echo llink('mailto:'.$strDMVNMail, $strDMVNMail); ?><br />
+                    Пишите нам по всем интересующим Вас вопросам, связанным с развитием сайта, добавлением
+                    новых материалов и&nbsp;т.&nbsp;д. Стараемся отвечать на все содержательные письма сразу.
+                </li>
+                <li><strong>Telegram:</strong> @dichlofos<br />
+                    Для совсем уж оперативной коммуникации. Но помните: важное &#8212; в почту!
+                </li>
+            </ul>
+        </div>
+    </div><!-- page bottom -->
 <?php
   PutPageFooter($strDMVNMail);
-?>
