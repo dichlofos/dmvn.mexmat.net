@@ -29,7 +29,7 @@
         </span>
     </div><!-- page top -->
 <?php
-  DisplayPage($CurrentMenuItem, $arrCat, $section);
+    DisplayPage($CurrentMenuItem, $arrCat, $section);
 ?>
     <div class="Page">
         <p class="Subtitle">Об авторах проекта</p>
@@ -57,4 +57,4 @@
         </div>
     </div><!-- page bottom -->
 <?php
-  PutPageFooter($strDMVNMail);
+    PutPageFooter($strDMVNMail);
