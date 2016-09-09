@@ -8,7 +8,7 @@ function ById(id) {
         e = document.layers[id];
     } else {
         alert('ById function failed for id=' + id +
-        	'. Please write a bugreport to dev@dmvn.net. Please supply information about your browser version. ');
+            '. Please write a bugreport to dev@dmvn.net. Please supply information about your browser version. ');
         return null;
     }
     return e;
@@ -22,12 +22,13 @@ function StoreCaret(e) {
 
 function InsertText(id, text) {
     var txtarea = ById(id);
-    if (!txtarea) return;
+    if (!txtarea)
+        return;
     text = ' ' + text + ' ';
     if (txtarea.createTextRange && txtarea.caretPos) {
         var caretPos = txtarea.caretPos;
         var len = caretPos.text.length;
-        caretPos.text = caretPos.text.charAt(len - 1) = =' ' ? caretPos.text + text + ' ' : caretPos.text + text;
+        caretPos.text = (caretPos.text.charAt(len - 1) == ' ') ? caretPos.text + text + ' ' : caretPos.text + text;
         txtarea.focus();
     } else {
         txtarea.value += text;
@@ -38,14 +39,14 @@ function InsertText(id, text) {
 function SectionFilterOnChange() {
     var e = ById('SectionFilter');
     if (!e)
-    	return;
-    if (typeof(e.value)=='undefined')
-    	return;
+        return;
+    if (typeof(e.value) == 'undefined')
+        return;
     if (e.value === null)
-    	return;
+        return;
     var sRef = String(document.location);
     var n = sRef.indexOf('?');
     if (n > 0)
-    	sRef=sRef.substr(0,n);
-    document.location=sRef+'?section=' + e.value; // redirect
+        sRef = sRef.substr(0, n);
+    document.location = sRef + '?section=' + e.value; // redirect
 }
