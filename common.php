@@ -18,7 +18,8 @@ $arrMenuData = fileCutEOL('metadata/menu.dat');
 foreach ($arrMenuData as $strMenuDataItem)
 {
     $arrMD = explode('|', $strMenuDataItem);
-    if (count($arrMD) != 6) continue; // ignore
+    if (count($arrMD) != 6)
+        continue; // ignore
 
     $arrMenuVars[] = $arrMD[0];
     $arrMenuColors[] = $arrMD[1];
@@ -76,14 +77,17 @@ $aSections=array();
 // FIXME(mvel): trash reading here
 // read format file
 $fFormat=fopen('metadata/format.dat', 'r');
-if (!$fFormat) die('Format file is missing. ');
+if (!$fFormat)
+    die('Format file is missing. ');
 $aFormatFiles=array();
 $aFormatDesc=array();
 while (!feof($fFormat)) {
     $sL=trim(fgets($fFormat));
-    if (xu_empty($sL)) continue;
+    if (xu_empty($sL))
+        continue;
     $aL=explode('|', $sL);
-    if (count($aL)!=3) die("Bad line in format file: '$sL'. ");
+    if (count($aL)!=3)
+        die("Bad line in format file: '$sL'. ");
     $aFormatFiles[$aL[0]]=$aL[1];
     $aFormatDesc[$aL[0]]=$aL[2];
 }
@@ -102,12 +106,14 @@ function Register($sKey) {
     if (!$bSessionStarted) die('Register: Session is not started yet. ');
     if (!array_key_exists($sKey, $_SESSION)) $_SESSION[$sKey]='yes';
 }
+
 // -------------------------------------------------------------
 function Unregister($sKey) {
     global $bSessionStarted;
     if (!$bSessionStarted) die('Unregister: Session is not started yet. ');
     if (array_key_exists($sKey, $_SESSION)) unset($_SESSION[$sKey]);
 }
+
 // -------------------------------------------------------------
 function SetPermissions() {
     global $bSessionStarted;
@@ -120,19 +126,20 @@ function SetPermissions() {
     $bAdmin=GetKeyOr($strSNAdminRights, $_SESSION, NULL)=='yes';
     $bAuth=(GetKeyOr($strSNUserRights, $_SESSION, NULL)=='yes') || $bAdmin;
 }
+
 // -------------------------------------------------------------
 function bEMailValid($strEMail) {
     if (!strlen($strEMail)) return false;
     if (!preg_match('/^[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+$/', $strEMail)) return false;
     return true;
 }
+
 // -------------------------------------------------------------
 // Returns a local link to site menu item
-function sHRef($nIndex)
-{
-global $arrMenuFiles;
-global $arrMenuTitles;
-return llink($arrMenuFiles[$nIndex], $arrMenuTitles[$nIndex]);
+function sHRef($nIndex) {
+    global $arrMenuFiles;
+    global $arrMenuTitles;
+    return llink($arrMenuFiles[$nIndex], $arrMenuTitles[$nIndex]);
 }
 // -------------------------------------------------------------
 function GenerateMenu($arrMFiles, $arrMTitles, $arrMColors, $arrCat, $CurrentMenuItem) {
@@ -154,6 +161,7 @@ function GenerateMenu($arrMFiles, $arrMTitles, $arrMColors, $arrCat, $CurrentMen
     </div>
     <?php
 }
+
 // -------------------------------------------------------------
 function GetCodepageOptions() {
     $sOutput = "";
@@ -163,6 +171,7 @@ function GetCodepageOptions() {
     }
     return $sOutput;
 }
+
 // -------------------------------------------------------------
 function RecodeToCodepage($strText, $sTargetCodepage) {
     global $aCodepages;
