@@ -69,7 +69,7 @@ function hCell($strLine, $strClass = '', $strW = '', $strH = '', $strExtraAttr =
 // Returns image
 // Link, Alt, ClassName, W, H, extra attributes
 // --------------------------------------------------------------------
-function hImg($strLink, $strAlt='', $strClass='', $strW ='', $strH='', $strExtraAttr='') {
+function hImg($strLink, $strAlt = '', $strClass = '', $strW = '', $strH = '', $strExtraAttr = '') {
     $aAlt = xu_empty($strAlt) ? '' : attr('alt', $strAlt);
     $aClass = xu_empty($strClass) ? '' : attr('class', $strClass);
     $aW = ($strW == '') ? '' : attr('width', $strW);
