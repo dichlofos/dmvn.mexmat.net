@@ -7,5 +7,6 @@
 ^content/.*\.rar
 ^content/.*\.djvu
 ^soft/.*\.rar
+\..*pyc
 ^tmp/.*
 ^dmvn-website.rar$

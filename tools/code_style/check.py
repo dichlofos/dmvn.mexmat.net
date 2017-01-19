@@ -9,14 +9,44 @@ Please do not forget to sync changes in `lesh` and `dmvn` style checkers:
 * https://bitbucket.org/dmvn-corp/dmvn.mexmat.net/tools/code_style
 """
 
-import sys
 import re
+import sys
+import profile
+import textwrap
 
-PHP_FILES = [
-    'php',
-    'code',
-    'xcms',
-]
+import common
+
+_DOUBLE_QUOTES = re.compile(r'".*?[^\\]"')
+_SINGLE_QUOTES = re.compile(r"'.*?'")
+_RE_HTML_ATTRIBUTES = re.compile(
+    r' (class|href|width|height|rows|cols|colspan|style|id|name|placeholder|'
+    r'value|action|method|enctype|accept|alt|src|target|type|language|title|'
+    r'http-equiv|content|size|disabled|content|enum-type|row-id|color|'
+    r'field-name|role|media|rel|autocomplete|align|aria-controls|aria-expanded|'
+    r'data-toggle|data-target|data-ride|role|aria-hidden|data-slide|lang|charset)="'
+)
+_FILE_EXPANSIONS = re.compile(r'\{[$a-zA-Z0-9._,-]*?\}')
+_JS_REGEXPS = re.compile(r'/[^/]+/\.test\(')
+
+_LINE_ENDINGS = re.compile(r'^[^\x0A\x0D]+[\n]$')
+_LINE_ENDINGS_LAST = re.compile(r'^[^\x0A\x0D]+$')
+
+_SHORTTAG = re.compile(r'<[?][^px]')
+_SHORTTAG_SHORT = re.compile(r'<[?]$')
+
+_SPACES = re.compile(r'^[ ]+')
+_SPACES_COMMAS = re.compile(r',[^ ]')
+_TRAILING_SPACES = re.compile(r'[^ ]+[ ]+$')
+
+_HTML_COMMAS = re.compile(r',<')
+_COMMA_END = re.compile(r',$')
+
+_UGLY_CONTROL = re.compile(r' ?(if|elseif|foreach|for|while)\(')
+
+_FORBIDDEN_OPS = re.compile(r'[^a-zA-Z_]empty\(')
+_KEYVALUE_BAD_OP = re.compile(r'([^|+<>!.* ]=|=[^ >\n]|=>[^ ])')
+
+_FILE_EXT = re.compile(r'\.([a-z]+)$')
 
 
 def print_bad_context(lines, bad_lines):
@@ -46,23 +76,27 @@ def print_bad_context(lines, bad_lines):
 # removes quoted strings from code
 def remove_strings(line):
     # remove double quotes
-    line = re.sub(r'".*?"', '', line)
+    line = _DOUBLE_QUOTES.sub('', line)
     # remove single quotes
-    line = re.sub(r"'.*?'", '', line)
+    line = _SINGLE_QUOTES.sub('', line)
     return line
 
 
 # removes JS-style regexps from code
 def remove_js_regexps(line):
-    # remove double quotes
-    line = re.sub(r'/[^/]+/\.test\(', '', line)
+    line = _JS_REGEXPS.sub('', line)
     return line
 
 
 # removes commas with HTML tags after them
 def remove_commas_in_html(line):
     # remove cases like 'some words,<br/>'
-    line = re.sub(r',<', '', line)
+    line = _HTML_COMMAS.sub('', line)
+    return line
+
+
+def remove_html_attributes(line):
+    line = _RE_HTML_ATTRIBUTES.sub(' \\1"', line)
     return line
 
 
@@ -75,7 +109,7 @@ def convert_operators(line):
 
 # removes bash arrays file{a,bc}
 def remove_file_expansions(line):
-    line = re.sub(r'\{[$a-zA-Z0-9._,-]*?\}', '', line)
+    line = _FILE_EXPANSIONS.sub('', line)
     return line
 
 
@@ -102,16 +136,19 @@ def check_code_style(lines, file_type):
         if not len(line) or line == "\n":
             continue
 
+        if 'nostyle' in line:
+            continue
+
         # line endings check
-        lem = re.match('^[^\x0A\x0D]+[\n]$', line)
+        lem = _LINE_ENDINGS.match(line)
         if not lem:
-            lem = re.match('^[^\x0A\x0D]+$', line)
+            lem = _LINE_ENDINGS_LAST.match(line)
             # okay, last line may contain no CR-LF chars
             if not lem:
                 bad_lines.add("UNIX-style line endings only allowed", index)
 
         # spaces count check
-        sm = re.search('^[ ]+', line)
+        sm = _SPACES.search(line)
         if sm:
             spaces = sm.group()
             if len(spaces) % 4 != 0:
@@ -123,55 +160,49 @@ def check_code_style(lines, file_type):
                     bad_lines.add("Invalid spaces count: {}".format(len(spaces)), index)
 
         # tab check
-        tm = re.search('\t', line)
-        if tm:
+        if '\t' in line:
             bad_lines.add("No tabs allowed", index)
 
         # shorttag check
-        stm = re.search('<[?][^px]', line)
+        stm = _SHORTTAG.search(line)
         if not stm:
-            stm = re.search('<[?]$', line)
+            stm = _SHORTTAG_SHORT.search(line)
         if stm:
             bad_lines.add("No PHP shorttags allowed", index)
 
-        # if+( ugly style check
-        itm = re.search(' ?if\(', line)
-        if not itm:
-            itm = re.search(' ?elseif\(', line)
-        if not itm:
-            itm = re.search(' ?foreach\(', line)
-        if not itm:
-            itm = re.search(' ?for\(', line)
-        if not itm:
-            itm = re.search(' ?while\(', line)
-        if itm:
-            bad_lines.add("if/elseif/for/foreach/while clause should be separated from condition braces", index)
-
-        # missing spaces after commas
-        line_cleanup = remove_strings(line)
+        line_cleanup = line
+        line_cleanup = remove_html_attributes(line_cleanup)
+        line_cleanup = remove_strings(line_cleanup)
         line_cleanup = remove_js_regexps(line_cleanup)
         line_cleanup = remove_file_expansions(line_cleanup)
         line_cleanup = remove_commas_in_html(line_cleanup)
         line_cleanup = convert_operators(line_cleanup)
-        line_cleanup = re.sub(r',$', '', line_cleanup)
-        sac = re.search(r',[^ ]', line_cleanup)
+        line_cleanup = _COMMA_END.sub('', line_cleanup)
+
+        # flow control operators ugly style check
+        itm = _UGLY_CONTROL.search(line_cleanup)
+        if itm:
+            bad_lines.add("if/elseif/for/foreach/while clause should be separated from condition braces", index)
+
+        # missing spaces after commas
+        sac = _SPACES_COMMAS.search(line_cleanup)
         if sac:
             bad_lines.add("Commas should contain spaces after them", index)
 
-        nsbe = re.search(r'([^. ]=|=[^ ])', line_cleanup)
-        if nsbe:
-            bad_lines.add("Assignment/comparison operators should be surrounded with spaces", index)
-
         # trailing spaces check
-        ts = re.search('[^ ]+[ ]+$', line)
+        ts = _TRAILING_SPACES.search(line)
         if ts:
             bad_lines.add("No trailing spaces allowed", index)
 
         # forbidden PHP operators
-        if file_type in PHP_FILES:
-            empty_op = re.search('[^a-zA-Z_]empty\(', line)
+        if file_type in common.PHP_FILES:
+            empty_op = _FORBIDDEN_OPS.search(line)
             if empty_op:
-                bad_lines.add("Operator 'empty' is forbidden for " + str(PHP_FILES) + " files", index)
+                bad_lines.add("Operator 'empty' is forbidden for " + str(common.PHP_FILES) + " files", index)
+
+            nsbe = _KEYVALUE_BAD_OP.search(line_cleanup)
+            if nsbe:
+                bad_lines.add("Assignment/comparison/key-value (=>) operators should be surrounded with spaces", index)
 
     print_bad_context(lines, bad_lines.lines())
     # return 1 if there some errors
@@ -182,7 +213,7 @@ def check_code_style(lines, file_type):
 
 def check_file(name):
     lines = []
-    ft_match = re.search('\.([a-z]+)$', name)
+    ft_match = _FILE_EXT.search(name)
     file_type = 'unknown'
     if ft_match:
         file_type = ft_match.group(1)
@@ -202,4 +233,16 @@ if len(sys.argv) < 2:
     print_usage()
 
 result = check_file(sys.argv[1])
+
+if 0:
+    p = profile.Profile()
+    p.run(textwrap.dedent(
+        """
+        for i in xrange(0, 20):
+            check_file(sys.argv[1])
+        """
+    ))
+    p.create_stats()
+    p.print_stats(sort=1)
+
 sys.exit(result)
