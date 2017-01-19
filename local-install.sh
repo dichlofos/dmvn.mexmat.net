@@ -117,7 +117,7 @@ if false && ! [ -d "$CONT_DIR" ]; then
 fi
 
 if ! ping -q -c1 dmn.local >/dev/null ; then
-    message_error "Please add dmn.local aliast to /etc/hosts"
+    message_error "Please add dmn.local alias to /etc/hosts"
     exit 1
 fi
 
